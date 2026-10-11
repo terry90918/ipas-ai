@@ -1,0 +1,1033 @@
+{
+  "beginner-115-3-2-q1": {
+    "reasoning": "多雲要求不只是能連另一雲的資料庫，還包括應用在哪些雲與地區執行、資料複製與日誌流向，以及跨雲認證和法規要求。平台封裝可能限制部署位置，所以評選應先驗證目標雲及地區可行性，再考慮開發速度，不能直接斷定必須放棄低程式碼。",
+    "options": {
+      "A": "錯誤：平台的執行與資料儲存位置會受部署能力影響。",
+      "B": "過度：有些平台支援自託管或多雲，不需一律改 Pro-Code。",
+      "C": "不足：跨雲連線不證明應用本身與所有資料可部署在指定地點。",
+      "D": "正確：核對實際部署、安全與合規條件，而非只看開發效率。"
+    },
+    "concept": "部署可移植性、資料所在地與外部連線能力是不同檢查項。",
+    "pitfalls": "把主資料庫放歐洲不等於日誌、備份或模型請求都留歐洲。",
+    "sources": [
+      {
+        "title": "Microsoft Power Platform：部署區域與資料所在地",
+        "url": "https://learn.microsoft.com/en-us/power-platform/admin/regions-overview"
+      },
+      {
+        "title": "Dify：受控 Docker Compose 部署",
+        "url": "https://docs.dify.ai/en/self-host/quick-start/docker-compose"
+      }
+    ]
+  },
+  "beginner-115-3-2-q2": {
+    "reasoning": "巡檢記錄、異常通知與籤核屬於有明確結構的業務流程，Low-Code 可用圖形介面和共用元件減少重寫表單與流程的時間，也讓業務人員參與需求調整。它降低門檻，不自動識別所有紙本、不保證所有舊裝置相容，更不會讓安全稽核與維護消失。",
+    "options": {
+      "A": "過度：OCR 可輔助，但各種紙本與後續維護不能保證全自動免人工。",
+      "B": "過度：舊裝置介面、格式與權限仍需逐一整合。",
+      "C": "錯誤保證：內建權限不代表每個應用配置都符合全部安全要求。",
+      "D": "正確：可視設計與元件複用降低開發負擔，提升協作效率。"
+    },
+    "concept": "低程式碼優勢在減少重複實現，不是消除所有工程責任。",
+    "pitfalls": "流程上線仍須驗證籤核權責、錯誤路徑與資料儲存政策。",
+    "sources": [
+      {
+        "title": "Dify：If-Else 條件分支",
+        "url": "https://docs.dify.ai/en/guides/workflow/node/ifelse"
+      },
+      {
+        "title": "AWS：SageMaker Autopilot",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development.html"
+      }
+    ]
+  },
+  "beginner-115-3-2-q3": {
+    "reasoning": "已有三年稽核過的優質回應、且每日至少八千次使用，適合以 SFT 學固定語氣與格式，減少每次都附長示例的 token 負擔。RAG 更針對外部事實，CoT 增加推理步驟，few-shot 易啟動但持續占上下文。仍須計算訓練與推論的真實成本。",
+    "options": {
+      "A": "可行但不最匹配：少量示例每次重複送入，佔輸入與處理預算。",
+      "B": "不同重點：檢索適合知識更新與依據，不直接讓風格穩定寫入參數。",
+      "C": "最合理：有大量認可示例可微調行為，並攤提到高頻請求。",
+      "D": "不對焦：思維鏈提高推理步驟，不是統一客服語氣的核心。"
+    },
+    "concept": "微調可學習穩定行為；檢索主要提供本次證據；提示提供臨時規則。",
+    "pitfalls": "微調仍會偏離格式，關鍵欄位應加結構化輸出驗證。",
+    "sources": [
+      {
+        "title": "InstructGPT 與 RLHF 原始論文",
+        "url": "https://arxiv.org/abs/2203.02155"
+      },
+      {
+        "title": "OpenAI：Reinforcement fine-tuning",
+        "url": "https://platform.openai.com/docs/guides/reinforcement-fine-tuning"
+      },
+      {
+        "title": "OpenAI：Token 定義與計算",
+        "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+      }
+    ],
+    "caveat": "官方 C 是情境選擇；微調的成本與延遲優勢並非保證，需連訓練維護、模型大小一起比較。"
+  },
+  "beginner-115-3-2-q4": {
+    "reasoning": "實際障礙是平台不開放外部自訂模型，也不允許擴充套件資料模型或介面，說明功能上限由供應商定義。成長中的企業要新增推薦能力，卻無法自己補這層擴充套件，這是客制與新技術整合受限。題目沒有觀察到交易慢或備份問題，不能換成那些原因。",
+    "options": {
+      "A": "無法推出：使用者量壓力不是題目已經查出的障礙。",
+      "B": "無法推出：雲端不代表不能備份或符合安全要求。",
+      "C": "不對焦：核心不是維運人力多，而是平台不給擴充套件能力。",
+      "D": "正確：超出供應商支援範圍的需求難以實現與整合。"
+    },
+    "concept": "No-Code 的元件能力邊界可能限制後續產品演進。",
+    "pitfalls": "並非所有 No-Code 都封閉，選平台須驗證介面、擴充套件與遷移路徑。",
+    "sources": [
+      {
+        "title": "Google Cloud：Vibe coding",
+        "url": "https://cloud.google.com/discover/what-is-vibe-coding"
+      },
+      {
+        "title": "AWS：Calculating the ROI of AI",
+        "url": "https://aws.amazon.com/blogs/aws-cloud-financial-management/calculating-the-roi-of-ai/"
+      }
+    ]
+  },
+  "beginner-115-3-2-q5": {
+    "reasoning": "完整回覆同時需要配送狀態與到達時間，先取得兩條查詢結果，再同步合併為一份輸出，是聚合或 join 的功能。路由負責分支，卻不一定負責等待和彙總；迭代用於逐項處理；篩選用於丟棄不合條件專案。還須定義某來源失敗時如何處理。",
+    "options": {
+      "A": "正確：按題述定義等待多個來源併合並資訊給下一步。",
+      "B": "不夠：分出去查詢不等於把多條結果同步接回。",
+      "C": "不同：篩選按條件保留資料，不把狀態與時間合併。",
+      "D": "不同：逐項執行不自動形成等待兩來源的同步屏障。"
+    },
+    "concept": "Fork 可分並行任務；join/aggregation 收齊結果再繼續。",
+    "pitfalls": "不能把第一個到達的結果當成全部完成，錯誤與超時須顯式傳遞。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "Dify：If-Else 條件分支",
+        "url": "https://docs.dify.ai/en/guides/workflow/node/ifelse"
+      }
+    ],
+    "caveat": "不同平台的 Aggregator 命名與功能不同；應核對能否等待所有分支，本題按其給定定義作答。"
+  },
+  "beginner-115-3-2-q6": {
+    "reasoning": "原生低程式碼主要提供通用流程與元件，企業排程若有獨特約束與多年演算法，平台未必有對應元件。可把核心演算法寫成服務再串接，或用 Pro-Code 完成這部分。不能概括低程式碼全無 ERP、圖表或多人權限能力，真正限制是專屬演算法表達。",
+    "options": {
+      "A": "過度：許多平台可透過聯結器和 API 整合 ERP/MES。",
+      "B": "正確：複雜企業演算法常超出原生元件，仍需客制程式碼。",
+      "C": "過度：介面圖表和甘特圖可由部分平台或擴充套件實現。",
+      "D": "過度：多使用者及角色權限是許多平台常見功能。"
+    },
+    "concept": "低程式碼擅長通用流程，特殊計算可採用混合開發。",
+    "pitfalls": "題目限定「原生能力」，不能用可外接自訂服務來否認原生限制。",
+    "sources": [
+      {
+        "title": "Google Cloud：Vibe coding",
+        "url": "https://cloud.google.com/discover/what-is-vibe-coding"
+      },
+      {
+        "title": "Dify：If-Else 條件分支",
+        "url": "https://docs.dify.ai/en/guides/workflow/node/ifelse"
+      }
+    ]
+  },
+  "beginner-115-3-2-q7": {
+    "reasoning": "鏈式任務把上一步輸出變成下一步輸入，小偏差若未攔截就會級聯。例如訂單解析錯金額，分類與補償會繼承錯誤。每個邊界應檢查結構、欄位值與訂單一致性，失敗時重試或人工處理。降低溫度只能減隨機，不能驗證事實與語意。",
+    "options": {
+      "A": "正確：在誤差傳遞前驗證並阻斷，處理根本級聯風險。",
+      "B": "不對焦：向量索引重建不驗證訂單解析與補償之間的輸出。",
+      "C": "輔助但不足：低溫仍可穩定地產生同一個錯誤結果。",
+      "D": "輔助但不足：摘要可能降低長度，卻無法保證中間欄位正確。"
+    },
+    "concept": "Prompt chaining 每個階段都需要輸入輸出契約與品質門檻。",
+    "pitfalls": "護欄不能只看 JSON 可解析，業務金額與訂單身份也須交叉核對。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "OWASP：LLM 應用安全風險",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      }
+    ]
+  },
+  "beginner-115-3-2-q8": {
+    "reasoning": "一個提示同時夾入角色、語氣、格式、安全與多步流程，若層級不清或要求互相競爭，模型可能顧此失彼。應明確優先順序，拆開可獨立驗證的步驟，並對關鍵限制做輸出檢查。題目沒給檢索延遲或硬體逾時，C 最符合已知設計問題。",
+    "options": {
+      "A": "無證據：題幹沒說明檢索遲到，且模型已收到提示。",
+      "B": "無證據：資源不足通常表現在錯誤或逾時，不直接解釋忽略部分規則。",
+      "C": "正確：過多競爭要求及不清層級降低同時遵循的穩定性。",
+      "D": "可能輔助因素：高溫可能增加變異，但題目未說溫度設定。"
+    },
+    "concept": "提示要求應有明確層級、簡潔任務與可驗證輸出。",
+    "pitfalls": "長不一定壞，真正要檢查衝突、含糊與過多工耦合。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "OpenAI：Token 定義與計算",
+        "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+      }
+    ]
+  },
+  "beginner-115-3-2-q9": {
+    "reasoning": "代理不知道其他成員已完成什麼或讀到什麼，最直接是任務狀態與上下文沒有共享或同步。應記錄共享任務 ID、完成狀態、證據版本及變更通知，讓後續計劃使用同一可信狀態。即使模型相同、視窗一樣，若各自拿舊資訊仍會重複與矛盾。",
+    "options": {
+      "A": "正確：共享記憶與情境同步缺少，讓代理各自決策。",
+      "B": "無法推出：資料庫資源競爭可能慢，不直接說明互不知任務。",
+      "C": "不充分：不同模板未必造成狀態隔離，共享協議才是重點。",
+      "D": "不充分：視窗容量不同並不必然沒有同步機制。"
+    },
+    "concept": "多代理協調需訊息與持久狀態，並定義哪個版本為準。",
+    "pitfalls": "僅有共享資料庫還不夠，代理必須實際讀取並校驗最新狀態。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "OpenTelemetry：可觀測性、追蹤與日誌",
+        "url": "https://opentelemetry.io/docs/concepts/observability-primer/"
+      }
+    ]
+  },
+  "beginner-115-3-2-q10": {
+    "reasoning": "本次退款 Solution Graph 描述這次處理要查訂單、驗證政策、送稽核等子任務依賴；長期 Knowledge Graph 儲存訂單型別、政策概念或實體關係供多個任務重複查詢。兩者都能用圖表示，但壽命、語意與用途不同，不能只憑圖結構相同就互相取代。",
+    "options": {
+      "A": "錯誤：把臨時任務步驟與長期知識的角色顛倒。",
+      "B": "正確：任務圖組織本次行動依賴，知識圖儲存可共用事實關係。",
+      "C": "不符設定：題目明確 Solution Graph 僅供本次案件，不是長久知識庫。",
+      "D": "錯誤：相同資料結構不表示其中節點和邊的業務意義相同。"
+    },
+    "concept": "結構相同可以有不同語意；要分清任務依賴與知識關係。",
+    "pitfalls": "任務圖也可存歷史審計，但存下來不自動成為跨任務事實知識圖。",
+    "sources": [
+      {
+        "title": "NetworkX：有向無環圖",
+        "url": "https://networkx.org/documentation/stable/reference/algorithms/dag.html"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ],
+    "caveat": "依題目定義區分；Solution Graph 一詞在不同框架沒有唯一固定生命週期。"
+  },
+  "beginner-115-3-2-q11": {
+    "reasoning": "先建任務依賴圖，把合約與籤核步驟拆成可追蹤階段，再在每階段查證輸入和結果，可讓依據缺漏提早暴露，減少一次跳到結論的問題。圖提供組織與驗證點，不會自行糾正錯誤，也不會把自由文字和推理完全消除。",
+    "options": {
+      "A": "正確：分階段規劃與查證，有助降低遺漏和無依據結論。",
+      "B": "錯誤保證：圖不是自動糾錯器，仍需實際驗證節點結果。",
+      "C": "錯誤保證：結構化資料也能包含錯誤事實，不能完全防幻覺。",
+      "D": "錯誤：預設依賴順序不等於預先知道所有推理結果。"
+    },
+    "concept": "顯式步驟使決策依據和失敗位置可追溯，但圖本身不保證真值。",
+    "pitfalls": "若每階段都沒有獨立核對，只把同一錯誤拆成多步仍會失敗。",
+    "sources": [
+      {
+        "title": "NetworkX：有向無環圖",
+        "url": "https://networkx.org/documentation/stable/reference/algorithms/dag.html"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      }
+    ]
+  },
+  "beginner-115-3-2-q12": {
+    "reasoning": "甲的工作是設計提示結構，讓模型產出符合需求的程式碼，因此是 Prompt Engineering；乙以自然語言多輪引導 AI 生成原型，是 Vibe Coding；丙用平台模組加少量程式，則是 Low-Code。三者描述關注點不同，可能組合但不能交換名稱。",
+    "options": {
+      "A": "錯誤：甲不是以對話生成原型的設定，丙有程式碼不屬純 No-Code。",
+      "B": "正確：提示最佳化、自然語言迭代原型、平台少量程式碼依序匹配。",
+      "C": "錯誤：甲未描述代理自主執行，乙也不是平台模組組合。",
+      "D": "錯誤：把三類活動的工具與參與方式錯配。"
+    },
+    "concept": "Prompt engineering 是提示設計；Vibe 是對話式開發；Low-Code 是平台組合。",
+    "pitfalls": "這些名詞不是互斥身份，實際開發可能同時用提示設計與低程式碼。",
+    "sources": [
+      {
+        "title": "Google Cloud：Vibe coding",
+        "url": "https://cloud.google.com/discover/what-is-vibe-coding"
+      },
+      {
+        "title": "Claude Code 官方文件",
+        "url": "https://code.claude.com/docs/en/overview"
+      }
+    ]
+  },
+  "beginner-115-3-2-q13": {
+    "reasoning": "視覺模型負責把害蟲影像轉成物種候選，再按物種與情境檢索已維護知識庫，由語言模型據真實段落寫防治建議與引用。這樣分開識別與知識更新，也能核對建議依據。只依預訓練或微調記憶，難反映新防治資料並精確給來源。",
+    "options": {
+      "A": "可能可行但較不明確：一次輸入不能明確保證可擴充套件檢索與最新來源管理。",
+      "B": "最符合：識別、檢索、依據證據生成的職責清楚且可追溯。",
+      "C": "不足：不讀現有知識庫，無法保證最新建議或引用。",
+      "D": "較不合：頻繁新知識需重訓，且記憶內容難精確追溯出處。"
+    },
+    "concept": "多模態識別可作為檢索條件，RAG 再提供更新事實。",
+    "pitfalls": "物種認錯會讓檢索方向一起錯，應對低信心結果提供人工複核。",
+    "sources": [
+      {
+        "title": "TensorFlow：卷積神經網路",
+        "url": "https://www.tensorflow.org/tutorials/images/cnn"
+      },
+      {
+        "title": "RAG 原始論文",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      }
+    ],
+    "caveat": "A 在完整提供更新資料與引用的條件下也可能可行，B 更明確滿足題設可追溯與知識更新目標。"
+  },
+  "beginner-115-3-2-q14": {
+    "reasoning": "已有品管流程要點，模型的角色是依企業事實擴寫成易執行 SOP。明確章節、術語、人員責任、安全警示及異常處理輸出要求，能減少格式漂移與關鍵遺漏。無需為一次檔案重訓，更不應以外部通用標準完全取代現場已驗證流程。",
+    "options": {
+      "A": "不足：沒有格式與安全要求，容易遺漏流程必要欄位。",
+      "B": "正確：把現有事實與明確寫作驗收條件一併交給模型。",
+      "C": "成本過高：已有內容可用上下文提供，不一定需要改參數。",
+      "D": "錯誤：公開資料可補充核對，但不能全面取代公司現場流程。"
+    },
+    "concept": "生成式 AI 用於組織擴寫已知內容，事實與安全要求須顯式提供。",
+    "pitfalls": "模型可能自行加不存在的裝置步驟，最終須由品管及安全人員校驗。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      }
+    ]
+  },
+  "beginner-115-3-2-q15": {
+    "reasoning": "溫度改變取樣時各 token 機率分佈的集中程度。提高溫度通常讓較低機率選擇有更多機會，產生不同詞彙與表達，從而增進廣告變體。最大 token 只管長度；處理速度不是表達取樣控制；視窗是輸入容量，故 C 最符合。",
+    "options": {
+      "A": "不對焦：調長輸出不直接改變同一句的取樣多樣性。",
+      "B": "不對焦：速度影響等待時間，非文字選擇機率機制。",
+      "C": "正確：提高取樣溫度通常增加輸出變異與創意。",
+      "D": "不對焦：上下文容量不是同提示下的隨機取樣強度。"
+    },
+    "concept": "溫度可理解為 softmax(logit/T) 的縮放，須啟用適當取樣。",
+    "pitfalls": "溫度高也可能增加不合理內容，不能以多樣性取代事實核對。",
+    "sources": [
+      {
+        "title": "Hugging Face：生成與溫度參數",
+        "url": "https://huggingface.co/docs/transformers/main_classes/text_generation"
+      }
+    ],
+    "caveat": "參數支援與解碼方式依模型而異；貪婪解碼或某些推理 API 不一定接受同樣溫度控制。"
+  },
+  "beginner-115-3-2-q16": {
+    "reasoning": "系統虛構法條編號，說明生成內容缺乏可核驗的真實依據。RAG 可先查企業核准的現行法規文字，再按相關條文寫答案與來源，直接緩解事實落地問題。PCA 是數值降維，高溫加創意可能更不利法遵，錯字處理也無法為不存在法條補上證據。",
+    "options": {
+      "A": "不對焦：PCA 不會提供正確條號及法規內容。",
+      "B": "正確：檢索真實法規並根據片段回答，建立證據約束。",
+      "C": "反向風險：更多隨機內容不等於更正確法規。",
+      "D": "不對焦：修錯字無法解決模型虛構法條的核心問題。"
+    },
+    "concept": "事實型問答要約束於真實來源並支援拒絕無依據回答。",
+    "pitfalls": "RAG 也可能檢錯或曲解，應核對條號、版本、有效日及來源支援。",
+    "sources": [
+      {
+        "title": "RAG 原始論文",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      }
+    ]
+  },
+  "beginner-115-3-2-q17": {
+    "reasoning": "裸語言模型產生 token，未連線工具時不能直接讀取即時訂單、執行準確計算程式或寫入外部系統。Tool calling 讓它提出呼叫，應用驗證後執行搜尋、計算器或 API，並把真實結果回饋。這是擴充套件可行動與可獲知資訊，而不是憑空改變參數或視窗上限。",
+    "options": {
+      "A": "正確：工具把模型的文字推測接到真實資料及可驗證行動。",
+      "B": "錯誤：工具可外接記憶與檢索，但不直接擴張模型固有單次視窗。",
+      "C": "錯誤：LLM 本來可輸出 JSON，結構化輸出也無需一定由外工具翻譯。",
+      "D": "錯誤：普通工具呼叫不修改權重，外部新知識只是進入當次上下文。"
+    },
+    "concept": "模型提議工具參數，應用執行；結果以回饋形式提供模型。",
+    "pitfalls": "計算器和資料庫結果也須檢驗參數、權限與真實性，工具不是無限可信。",
+    "sources": [
+      {
+        "title": "OpenAI：Function calling",
+        "url": "https://platform.openai.com/docs/guides/function-calling"
+      },
+      {
+        "title": "Model Context Protocol 官方介紹",
+        "url": "https://modelcontextprotocol.io/docs/getting-started/intro"
+      }
+    ]
+  },
+  "beginner-115-3-2-q18": {
+    "reasoning": "提高思考預算給模型更多推論步驟與 token 空間，可能幫助複雜法律分析，但實際消耗較多會增加生成時間及費用。它不自動減少上下文，也不專門控制創意，亦無法保證一定更少或更多幻覺。應按案件難度量測預算與正確性效益。",
+    "options": {
+      "A": "不能斷定：預算增加不必然提高幻覺，仍取決於任務和證據。",
+      "B": "不能斷定：思考預算與視窗規格不同，但會佔實際可用 token 資源。",
+      "C": "不對焦：創意多樣性主要與生成策略及任務有關。",
+      "D": "正確：更長推論可能提升品質，同時增加延遲和計算費用。"
+    },
+    "concept": "推論計算預算是品質與資源權衡，必須用真實成本效益曲線調節。",
+    "pitfalls": "預算是上限，模型可能沒用滿；延遲和費用應以實際 token 與服務計費量測。",
+    "sources": [
+      {
+        "title": "Anthropic：Extended thinking",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking"
+      },
+      {
+        "title": "OpenAI：Token 定義與計算",
+        "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+      }
+    ]
+  },
+  "beginner-115-3-2-q19": {
+    "reasoning": "兩種模型的差異是品質、推理難度與成本，路由器先判斷請求特性，再選擇簡單問題走便宜快速模型，困難問題走較強模型。D 明確使用模型分析請求，符合自適應需求。負載平衡只按伺服器壓力，固定關鍵詞規則不一定正確識別語意難度。",
+    "options": {
+      "A": "不同：壓力平衡主要解決資源利用，未衡量題目難度與模型能力。",
+      "B": "也可實現：規則路由能分流，但題目強調自動判斷特性的更適應方案。",
+      "C": "較差：讓使用者先選型別增加負擔，非系統自動判斷。",
+      "D": "最符合：模型路由依據任務特性選擇合適品質與成本組合。"
+    },
+    "concept": "Routing 判斷選哪條處理路徑，不等於伺服器負載分攤。",
+    "pitfalls": "路由器也會誤判與有成本，應有升級重試及按難度評估。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "Anthropic：Extended thinking",
+        "url": "https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking"
+      }
+    ],
+    "caveat": "保留官方 D；Model Routing 並不必然由 LLM 執行，也可用規則或輕量分類器，B 在合適條件下同樣可行。"
+  },
+  "beginner-115-3-2-q20": {
+    "reasoning": "延誤包裹事件讓代理自主查狀態、評估重排、通知與建工單，再依結果決定後續步驟，體現目標與環境回饋驅動行動。固定問答、文案生成與檔案翻譯能自動化，但沒有體現自行安排工具與策略。自主仍應限定在已授權業務範圍內。",
+    "options": {
+      "A": "不符合核心：關鍵詞固定回覆是規則式流程。",
+      "B": "不符合核心：只產出候選文案，尚無外部目標執行或回饋迴圈。",
+      "C": "正確：感知事件並動態組織多個工具行動，達成處理目標。",
+      "D": "不符合核心：一次翻譯是指定轉換任務，未體現動態行動規劃。"
+    },
+    "concept": "Agency 的區別在自主選擇行動，而非單純能自動產出。",
+    "pitfalls": "「無需逐步指令」不代表無需事先授權或無需重要操作的人工控制。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "ReAct 原始論文",
+        "url": "https://arxiv.org/abs/2210.03629"
+      }
+    ]
+  },
+  "beginner-115-3-2-q21": {
+    "reasoning": "三份稽核報告是展示章節、風格與格式的示例，模型在本次輸入參考這些例子處理新資料，屬於 few-shot prompting。零樣本沒有示例，角色提示強調身份，而 Self-consistency 是對多條推理結果的一致性篩選，不是模仿三個文件格式。",
+    "options": {
+      "A": "錯誤：已提供三份示例，不是零樣本。",
+      "B": "不同：題目未主要指定專家角色，而是給真實參考產物。",
+      "C": "正確：少量已認可例子指導新報告的結構與用語。",
+      "D": "不同：沒有對多個候選推理結果進行投票或一致性選擇。"
+    },
+    "concept": "示例指導格式與行為，報告中的新年度事實仍須來自本期資料。",
+    "pitfalls": "不能把舊報告的指標數字、部門名稱或成果直接當成本年度事實。",
+    "sources": [
+      {
+        "title": "Chain-of-Thought 原始論文",
+        "url": "https://arxiv.org/abs/2201.11903"
+      },
+      {
+        "title": "OpenAI：Token 定義與計算",
+        "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+      }
+    ]
+  },
+  "beginner-115-3-2-q22": {
+    "reasoning": "MCP Server 暴露標準化工具、資源或提示，讓 AI 應用透過客戶端連線取得訂單與產品資料。LLM 由應用負責呼叫並生成文字，資料庫是工具背後的資料來源。協議建立互通而非代替模型或資料庫，也不要求資料庫直接面對使用者介面。",
+    "options": {
+      "A": "錯誤：MCP Server 是能力服務，不等於生成回應的語言模型。",
+      "B": "正確：以標準協議提供可訪問工具與資料。",
+      "C": "錯誤：資料庫可由服務封裝訪問，不需直接連前端。",
+      "D": "錯誤：MCP 連線外部系統，不取代資料庫儲存與查詢管理。"
+    },
+    "concept": "MCP Host 管應用與模型，Client 維護連線，Server 提供能力。",
+    "pitfalls": "標準協議不自動提供業務授權，訂單查詢仍須檢查該使用者是否有權讀取。",
+    "sources": [
+      {
+        "title": "Model Context Protocol 官方介紹",
+        "url": "https://modelcontextprotocol.io/docs/getting-started/intro"
+      }
+    ],
+    "caveat": "題幹將使用者互動稱「AI 客戶端」較簡化；MCP 嚴格架構中使用者互動與模型編排通常屬於 Host。"
+  },
+  "beginner-115-3-2-q23": {
+    "reasoning": "現代子詞 tokenizer 用已知的較小片段表示罕見詞，常見詞可完整編碼，不熟詞則拆為子詞、字元或 bytes，保持有限詞表還能表示新組合。分詞不會自動教模型新詞實際意義，理解仍依上下文。一般推論也不會即時人工增詞並重訓嵌入。",
+    "options": {
+      "A": "正確：拆為已知子詞或位元組片段繼續處理。",
+      "B": "錯誤：一般不會因為罕見詞就靜默刪掉輸入。",
+      "C": "錯誤：罕見詞通常不是整段請求中止的格式錯誤。",
+      "D": "不典型：推論過程中不會每遇新詞就手改詞表與模型。"
+    },
+    "concept": "子詞切分解決表示覆蓋，不能保證模型已知新專業名詞事實。",
+    "pitfalls": "並非所有舊式 tokenizer 都無未知符號；現代 byte/subword 設計通常改善覆蓋。",
+    "sources": [
+      {
+        "title": "Hugging Face：子詞切分演算法",
+        "url": "https://huggingface.co/docs/transformers/tokenizer_summary"
+      },
+      {
+        "title": "OpenAI：Token 定義與計算",
+        "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+      }
+    ]
+  },
+  "beginner-115-3-2-q24": {
+    "reasoning": "最新補充規章已進前十候選，問題在它排第八卻只給前三，不是檢索未找到。Reranker 對候選做更細的查詢相關性評估，調整順序後選資料，可不改底層模型或重建索引。還可結合檔案有效日、部門條件來核對排序依據。",
+    "options": {
+      "A": "不優先：查詢擴充套件改善候選召回，此檔案已成功召回。",
+      "B": "不符限制：重新切分通常需更新索引，且非目前失誤根因。",
+      "C": "正確：重評候選相關性，避免正確檔案在擷取前三時被丟棄。",
+      "D": "不對焦：快取舊答案可能繼續遺漏新規，不能解決錯誤排名。"
+    },
+    "concept": "Retrieval recall 與 reranking precision 是兩階段的問題。",
+    "pitfalls": "重排序也可能錯，需用包含部門與日期的驗證查詢測試最終上下文。",
+    "sources": [
+      {
+        "title": "Sentence Transformers：Retrieve & Re-Rank",
+        "url": "https://sbert.net/examples/applications/retrieve_rerank/README.html"
+      }
+    ]
+  },
+  "beginner-115-3-2-q25": {
+    "reasoning": "Agent 依據目標及工具結果動態安排下一步，傳統固定流程的控制主要在預先定義的規則。A 的對比符合題目設定。它並不保證比較快、更會程式設計或可取代所有人員；推理與工具往返往往反而增加時延，高風險行動仍須治理。",
+    "options": {
+      "A": "正確：動態規劃與結果回饋是代理式流程的主要區別。",
+      "B": "錯誤：差異不在程式碼或 GUI，也不必預先寫所有詳細步驟。",
+      "C": "過度：Agent 往往更慢，不能全面替代毫秒反射式自動化。",
+      "D": "危險保證：推理能力不授權它取代所有商業決策與監督。"
+    },
+    "concept": "自主代理適合路徑不完全確定的目標任務，固定流程仍適合確定步驟。",
+    "pitfalls": "傳統系統也可含動態最佳化；此處按題目「固定規則自動化」設定進行區別。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "ReAct 原始論文",
+        "url": "https://arxiv.org/abs/2210.03629"
+      }
+    ]
+  },
+  "beginner-115-3-2-q26": {
+    "reasoning": "MCP 解決代理如何以標準介面取得保單、檔案或呼叫工具；Skill 儲存核對理賠所需的步驟、規則及可複用指導，模型用這些內容組織語意判斷。一個負責連線，一個負責任務能力表達，能一起使用，並不要求每次重訓模型。",
+    "options": {
+      "A": "錯誤：兩者語意層次不同，介面協議不能取代專業流程能力。",
+      "B": "正確：MCP 連線外部，Skill 封裝可複用任務方法。",
+      "C": "錯誤：Skill 可含推理引導及專業語意流程，不限機械程式。",
+      "D": "錯誤：普通工具連線與技能載入不需每次更新模型參數。"
+    },
+    "concept": "Tools 讓模型能訪問系統；Skills 指導如何完成特定任務。",
+    "pitfalls": "Skill 寫有專家要求不表示模型真正具備專業資格，理賠仍須稽核證據。",
+    "sources": [
+      {
+        "title": "Model Context Protocol 官方介紹",
+        "url": "https://modelcontextprotocol.io/docs/getting-started/intro"
+      },
+      {
+        "title": "Claude Code：Agent Skills",
+        "url": "https://code.claude.com/docs/en/skills"
+      }
+    ]
+  },
+  "beginner-115-3-2-q27": {
+    "reasoning": "合成車損照片是視覺生成任務；理賠書需引用該客戶的真實條款，適合按客戶權限檢索保單後再生成檔案。專屬影像工具加 RAG/LLM 分工滿足兩項任務。RAG 能提供依據但不能完全防數值錯誤，金額應由確定計算工具與審查校驗。",
+    "options": {
+      "A": "較不合：每個客戶保單寫入參數不利更新、隔離及逐條追溯。",
+      "B": "錯誤：不讀取客戶條款，無法依據他的真實保障範圍判斷。",
+      "C": "正確：視覺生成獨立處理，檢索該客戶保單支援有據寫作。",
+      "D": "不足：公開一般條款不能代替這位客戶實際保單與附加約定。"
+    },
+    "concept": "事實個人化要讀取授權原文，生成式能力不能憑空知道保單。",
+    "pitfalls": "合成車損只可作為訓練樣本，不可偽裝真實索賠證據；數字要另外驗證。",
+    "sources": [
+      {
+        "title": "DDPM 原始論文",
+        "url": "https://arxiv.org/abs/2006.11239"
+      },
+      {
+        "title": "RAG 原始論文",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      }
+    ]
+  },
+  "beginner-115-3-2-q28": {
+    "reasoning": "同一提示內要求先看感測器、警示與現象，再推導原因，是讓模型產生分階段中間推理的 CoT 思路。題目沒有示範幾個解題案例，也沒有先向外部知識庫檢索。零樣本可描述例子數量，但最具體技巧是逐步分析而非直接跳結論。",
+    "options": {
+      "A": "正確：明確要求中間分析步驟，再形成故障結論。",
+      "B": "不最具體：可以同時是零樣本，但未描述逐步推理機制。",
+      "C": "不符合：題目沒有提供已解範例。",
+      "D": "不符合：未描述檢索外部資料的過程。"
+    },
+    "concept": "思維鏈是推理形式，與是否提供範例或使用檢索可分別組合。",
+    "pitfalls": "看起來順暢的推理也可能錯，真正故障原因要依據量測與檢修確認。",
+    "sources": [
+      {
+        "title": "Chain-of-Thought 原始論文",
+        "url": "https://arxiv.org/abs/2201.11903"
+      }
+    ]
+  },
+  "beginner-115-3-2-q29": {
+    "reasoning": "代理每次先推理該查什麼，再呼叫訂位服務，獲得可用時段後判斷是否繼續查另一個時間，構成 reasoning、acting、observation 交錯迴圈。RAG 以證據檢索生成，Prompt Chaining 通常串既定步驟，zero-shot 則只說明沒有範例，都沒有 A 準確描述動態工具回饋。",
+    "options": {
+      "A": "正確：推理決定行動，行動結果再影響下一次推理與查詢。",
+      "B": "不完整：這裡不只是取檔案證據，重點是對工具結果動態決策。",
+      "C": "不最匹配：固定鏈無法充分描述是否改查其他時段的即時調整。",
+      "D": "不同：是否給範例與工具迴圈是兩種不同設計軸。"
+    },
+    "concept": "ReAct 的動作會改變代理能掌握的狀態與後續策略。",
+    "pitfalls": "查到座位不代表完成訂位，寫入訂位仍要明確授權並讀回確認。",
+    "sources": [
+      {
+        "title": "ReAct 原始論文",
+        "url": "https://arxiv.org/abs/2210.03629"
+      }
+    ]
+  },
+  "beginner-115-3-2-q30": {
+    "reasoning": "不寫程式碼的行銷人員可以用明確自然語言需求與 AI 反覆建立小步產物，再實際操作與驗證是否滿足。這樣讓錯誤較早暴露，也能逐步確認需求。只看畫面或最後一次塞入全部整合會遺漏資料儲存、權限、安全與錯誤邊界。",
+    "options": {
+      "A": "較不貼題：要求先人工完成主要程式碼，不符合無程式設計背景的起點。",
+      "B": "正確：對話式迭代需求並驗證結果，形成開發回饋閉環。",
+      "C": "不足：畫面與主流程透過，不能證明權限、資料與異常處理正確。",
+      "D": "風險高：最後一次加入全部重大整合，較難定位失敗與回退。"
+    },
+    "concept": "Vibe Coding 的可用性來自反覆驗收與回饋，而不是一次生成。",
+    "pitfalls": "非技術人員須依測試結果檢驗真實功能，關鍵權限或交易最好有專業審查。",
+    "sources": [
+      {
+        "title": "Google Cloud：Vibe coding",
+        "url": "https://cloud.google.com/discover/what-is-vibe-coding"
+      },
+      {
+        "title": "Claude Code 官方文件",
+        "url": "https://code.claude.com/docs/en/overview"
+      }
+    ]
+  },
+  "beginner-115-3-2-q31": {
+    "reasoning": "提示先指定資深保險客服身份、同理語氣與簡明表達，提供回答的角色與場景，是情境設定。它沒有要求逐步推理，也未給已完成問答範例，B 最貼近題目。零樣本雖可同為示例數量狀態，卻不是此段提示最主要的作用。",
+    "options": {
+      "A": "不符合：沒有列出需要展示的中間推導步驟。",
+      "B": "正確：設定角色、專業場景與語氣，影響回覆方式。",
+      "C": "不最具體：可能沒有示例，但不能說明這段身份情境設計。",
+      "D": "不符合：沒有提供少量輸入輸出示範。"
+    },
+    "concept": "Role/context prompting 塑造表達與關注點，不創造真實執業經驗。",
+    "pitfalls": "「15 年經驗」是角色提示而非事實資格，仍需核對具體理賠依據。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ],
+    "caveat": "更精確通常可稱 Role Prompting；本題將角色與語氣設定歸為 Context Prompting。"
+  },
+  "beginner-115-3-2-q32": {
+    "reasoning": "語意檢索把「請假」與「休假申請規定」編碼為意義相近的向量，即使字面不同也能按相似度找到。純關鍵詞匹配只依字面或詞頻，未提供同義語意能力；重寫全部檔案既非必要也可能改變原意。C 最直接描述這種跨字面語意關聯。",
+    "options": {
+      "A": "不直接：題設限定關鍵詞比對，只找相同文字。",
+      "B": "不直接：僅詞頻與字面排序不足以說明同義語意匹配。",
+      "C": "正確：嵌入表示加向量相似度能檢索語意接近的條款。",
+      "D": "不必要：重寫全部文件會引入事實變形，也不是語意搜尋本身。"
+    },
+    "concept": "Dense retrieval 比較語意表示；lexical retrieval 比較文字項。",
+    "pitfalls": "MySQL 也可裝向量能力，但 A 明確指關鍵詞比對，題目不能按產品名字絕對分類。",
+    "sources": [
+      {
+        "title": "Sentence Transformers：Retrieve & Re-Rank",
+        "url": "https://sbert.net/examples/applications/retrieve_rerank/README.html"
+      }
+    ]
+  },
+  "beginner-115-3-2-q33": {
+    "reasoning": "先處理章節，再把局部重心整合，屬於分層摘要，可讓每階段在較小輸入內提取內容，並在上層處理跨章節關係。優勢是可組織長文而非一次塞入全部；仍須保留來源與重大事項避免重複壓縮刪漏。獨立摘要若不整合，前後衝突可能未被發現。",
+    "options": {
+      "A": "正確：逐層整合局部重心，有助維持全文脈絡。",
+      "B": "過度：摘要是壓縮，無法保證保留所有原始細節。",
+      "C": "不足：不整合獨立摘要，難以協調重複、引用與跨章關係。",
+      "D": "不能一概：全文一次處理可能昂貴且難利用，不必然更省。"
+    },
+    "concept": "分層摘要以局部提煉及上層整合應對長文，但每層都有資訊損失風險。",
+    "pitfalls": "重要異常和決議須另外結構化留存，不能只依多層語言摘要。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "Lost in the Middle 原始論文",
+        "url": "https://arxiv.org/abs/2307.03172"
+      }
+    ]
+  },
+  "beginner-115-3-2-q34": {
+    "reasoning": "資安人員故意偽裝交易特徵，模擬攻擊者試圖讓異常流量被當正常，這是規避型對抗測試。目的在主動檢驗模型面對惡意輸入的魯棒性，而不是被動觀察自然分佈、量測回覆延遲或比較群體公平性。這些測試都需要，但屬於不同軸。",
+    "options": {
+      "A": "不同：長期分佈落差是漂移監控，不是主動攻擊模擬。",
+      "B": "正確：有意改變輸入以誘發誤判，檢驗攻擊條件下表現。",
+      "C": "不同：快答屬於延遲或效能測試。",
+      "D": "不同：群體核貸比例比較屬公平性評估。"
+    },
+    "concept": "對抗測試針對攻擊者可操控的輸入與目標，不只普通錯誤樣本。",
+    "pitfalls": "攻擊擾動應符合真實業務限制，並在授權測試環境執行。",
+    "sources": [
+      {
+        "title": "NIST AI 100-2 E2025：對抗式機器學習",
+        "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final"
+      }
+    ]
+  },
+  "beginner-115-3-2-q35": {
+    "reasoning": "題目已確認分類標準不變，變化在新服飾與包裝照片的輸入特徵，因此是資料漂移，即生產輸入 P(x) 不再像訓練資料。概念漂移是目標條件關係改變；過擬合偏重訓練與泛化；資料偏誤則不特指上線後的時間變化。",
+    "options": {
+      "A": "非題目主因：類別規則未變，題幹指向輸入分佈變化。",
+      "B": "非最具體：過擬合可造成泛化問題，但無法取代已確認漂移原因。",
+      "C": "正確：生產圖片特徵與訓練資料出現顯著分佈差異。",
+      "D": "較寬泛：偏誤討論樣本代表性，題目更明確是時間後的分佈移轉。"
+    },
+    "concept": "資料分佈監控與有標籤效能評估互補，可判斷新商品是否偏離訓練範圍。",
+    "pitfalls": "標準不變不完全證明 P(y｜x) 都不變，但本題明確以輸入變化為主。",
+    "sources": [
+      {
+        "title": "Google Cloud：模型監控與漂移",
+        "url": "https://cloud.google.com/vertex-ai/docs/model-monitoring/overview"
+      }
+    ]
+  },
+  "beginner-115-3-2-q36": {
+    "reasoning": "履歷是被系統讀取的外部資料，求職者把高分指令藏在同背景小字裡，模型誤把資料當命令，這就是間接提示注入。攻擊發生在推論讀取階段，沒有改訓練集或伺服器程式。應隔離資料與指令，評分權限與依據也須在應用層驗證。",
+    "options": {
+      "A": "不符合：沒有透過多輪對話竊取系統提示。",
+      "B": "不符合：沒有汙染訓練資料，攻擊文字在當次履歷輸入。",
+      "C": "正確：外部內容夾帶指令，改變模型原定評估規則。",
+      "D": "不符合：不需入侵或改程式碼，文字即可觸發錯誤信任。"
+    },
+    "concept": "不可見文字仍能進入文字抽取結果，應按不可信文件處理。",
+    "pitfalls": "只刪隱藏樣式不能完全防注入，正常可見文字也可攜帶惡意指令。",
+    "sources": [
+      {
+        "title": "OWASP：LLM 應用安全風險",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      }
+    ]
+  },
+  "beginner-115-3-2-q37": {
+    "reasoning": "聯邦學習讓各供應商保留原始庫存與製程資料，在本地算模型更新，再聚合為共同預測模型，符合不集中上傳商業資料的條件。集中倉庫與完整數字雙生都要求分享大量內部資料；只用公開市場資訊則無法真正共同利用供應商資料訓練。",
+    "options": {
+      "A": "違反前提：要求集中原始資料，正是供應商不接受的做法。",
+      "B": "不符合重點：完整製程數字雙生仍需敏感資料，不解決共同訓練隔離。",
+      "C": "正確：本地訓練、分享更新，降低原始資料集中暴露。",
+      "D": "不足：公開資料可輔助，但未達共同利用內部資料的目標。"
+    },
+    "concept": "聯邦學習交換更新而非原始記錄，可支援跨組織訓練。",
+    "pitfalls": "梯度或更新仍可能洩漏，需安全聚合、權限、差分隱私與異常參與者防護。",
+    "sources": [
+      {
+        "title": "McMahan 等：聯邦學習原始論文",
+        "url": "https://arxiv.org/abs/1602.05629"
+      },
+      {
+        "title": "NIST SP 800-188：政府資料去識別化",
+        "url": "https://csrc.nist.gov/pubs/sp/800/188/final"
+      }
+    ]
+  },
+  "beginner-115-3-2-q38": {
+    "reasoning": "問題不是一般問答能力不夠，而是負面情緒沒有觸發適當處理。加入情緒分析並以門檻連線真人轉接，明確把辨識結果變成流程行動，C 最直接。只擴大模型或給聯絡方式未確保介入；所有退款一律人工則過度犧牲自動化。",
+    "options": {
+      "A": "不足：沒有對應轉接流程，即使認得不滿也可能繼續錯誤回應。",
+      "B": "過度：退款並非每次都需取消自動化，可依風險與情緒分流。",
+      "C": "正確：即時情緒判斷與自動升級人工服務形成可執行機制。",
+      "D": "較弱：關鍵詞容易漏掉間接抱怨，且要求使用者自行轉接。"
+    },
+    "concept": "情緒模型與服務升級規則需要一起設計，而非單獨增大參數。",
+    "pitfalls": "情緒分數可能誤判，應考慮否定、諷刺、方言及顧客主動要求真人的情況。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "beginner-115-3-2-q39": {
+    "reasoning": "開源模型已有對齊仍可能產生不當內容，商業產品需依應用風險另外設定輸入與輸出防護。獨立 guardrails 可檢查有害請求、敏感資料與工具行動，在異常時拒答或轉人工。關鍵字單層易誤擋及漏擋，所有回覆人工稽核則成本高，也不可能保證零風險。",
+    "options": {
+      "A": "錯誤：模型對齊不能替代產品環境的風險監控。",
+      "B": "不足：全面關鍵詞禁詞容易繞過或誤阻合法討論。",
+      "C": "過度：全人工並不能真正達到零風險，也未必具規模可行性。",
+      "D": "正確：前後端獨立檢測與攔截，符合分層防護。"
+    },
+    "concept": "安全對齊與應用護欄互補，需監控並持續驗證新攻擊。",
+    "pitfalls": "高風險場景仍可能須人工逐件稽核；D 不是取消人類治理的理由。",
+    "sources": [
+      {
+        "title": "OWASP：LLM 應用安全風險",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "beginner-115-3-2-q40": {
+    "reasoning": "每份 2,000 字×1.5 token/字=3,000 token；500 份×3,000=1,500,000 輸出 token。按每千 token 0.02 美元，費用=1,500,000/1,000×0.02=30 美元。題目明確忽略輸入與其他費用，不可再把輸入算一遍或改字數比例。",
+    "options": {
+      "A": "正確：150 萬輸出 token 共 1,500 個計費單位，乘 0.02 得 30。",
+      "B": "錯誤：60 是正確結果兩倍，題目無額外雙份費用。",
+      "C": "錯誤：90 是正確結果三倍，已重複套用 token 或數量比例。",
+      "D": "錯誤：120 是正確結果四倍，超出給定用量與費率。"
+    },
+    "concept": "成本=數量×每份字數×token/字÷計費單位×單位費率。",
+    "pitfalls": "真實中文切分不固定 1.5，且真實費用還含輸入、推理或其他服務，本題只用假設。",
+    "sources": [
+      {
+        "title": "OpenAI：Token 定義與計算",
+        "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+      },
+      {
+        "title": "AWS：Calculating the ROI of AI",
+        "url": "https://aws.amazon.com/blogs/aws-cloud-financial-management/calculating-the-roi-of-ai/"
+      }
+    ]
+  },
+  "beginner-115-3-2-q41": {
+    "reasoning": "文獻連結提供可查核路徑，但模型可能引用不存在文章、誤讀原研究、遺漏適用條件，甚至來源只支援部分陳述。醫療人員必須核對來源是否真實、版本與結論是否支援患者情境。附引用不等於經過專科稽核或自動訓練，更不是正確性的證明。",
+    "options": {
+      "A": "錯誤：引用主要提升可查核性，不只是成本最佳化。",
+      "B": "正確：可追溯讓人檢查依據，仍不能保證解讀與引用正確。",
+      "C": "錯誤：普通引用不會自動觸發權重訓練。",
+      "D": "錯誤：有來源不代表已透過醫院專業稽核。"
+    },
+    "concept": "來源存在、來源支援陳述、陳述適用個案是三層不同驗證。",
+    "pitfalls": "即使文獻本身正確，也可能不適用於劑量、病人條件或最新指南。",
+    "sources": [
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "beginner-115-3-2-q42": {
+    "reasoning": "訂單超出代理授權金額，就須在產生不可逆核准前交給有相應權力的人稽核。事後抽查已經越權，拆成小額是規避授權，換另一個無權限 Agent 也沒有合法擴權。人類介入要處理權力邊界，而不只是提高演算法一致性。",
+    "options": {
+      "A": "正確：轉交有核決權者，保留正式審批與記錄。",
+      "B": "錯誤：先核准已超過權限，事後抽查不能補回授權。",
+      "C": "錯誤：拆單繞過額度控制，違反整體風險與治理目的。",
+      "D": "不足：兩個無權限代理一致決定也不產生核決授權。"
+    },
+    "concept": "授權是組織規則，模型推理能力不能自行修改額度。",
+    "pitfalls": "金額控制須由可靠應用或交易層檢查，不能只寫在可被誘導的提示詞。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "人工智慧基本法",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0160093"
+      }
+    ]
+  },
+  "beginner-115-3-2-q43": {
+    "reasoning": "學生透過自己的多輪對話誘導模型突破系統限制，是越獄攻擊的典型目的。它不是任務示例學習，題目也未說輸出虛構事實或洩漏資料。由於明示沒有外部資料夾帶指令，不應判成以檢索內容為入口的間接提示注入。",
+    "options": {
+      "A": "不符合：沒有提供正確範例引導任務，而是繞過限制。",
+      "B": "不符合：回答不相關不等於內容虛構，重點是違反邊界。",
+      "C": "不符合：題目沒有敏感資料被披露的證據。",
+      "D": "正確：以對話誘導突破原有行為與內容限制。"
+    },
+    "concept": "Jailbreak 強調繞過模型護欄，prompt injection 強調惡意指令影響信任邊界。",
+    "pitfalls": "兩名詞在廣義使用可重疊，判題需依題幹明確的攻擊目的與入口。",
+    "sources": [
+      {
+        "title": "OWASP：LLM 應用安全風險",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      },
+      {
+        "title": "NIST AI 100-2 E2025：對抗式機器學習",
+        "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final"
+      }
+    ]
+  },
+  "beginner-115-3-2-q44": {
+    "reasoning": "只有 8% 員工評分且主要是資訊部，訓練訊號便代表一個自願參與的小子群體，不能視為全體需求。獎勵模型可能偏好技術術語與該部門場景，進一步強化局部風格。應擴大部門覆蓋、檢查回應傾向，並設計抽樣與回饋權重。",
+    "options": {
+      "A": "錯誤：後續訓練會受獎勵資料影響，不能因有預訓練就忽略偏差。",
+      "B": "錯誤保證：泛化不代表一個部門自動代表其他部門偏好。",
+      "C": "不符整體目標：即使主使用者多，也需考慮所有被服務群體的需求。",
+      "D": "正確：自選回饋與部門偏斜形成選擇偏差，須增加代表性。"
+    },
+    "concept": "RLHF 對齊的是取樣到的偏好，不是抽象全體人類或員工共識。",
+    "pitfalls": "提高回饋數量若全來自同部門仍會偏，覆蓋與權重同樣重要。",
+    "sources": [
+      {
+        "title": "InstructGPT 與 RLHF 原始論文",
+        "url": "https://arxiv.org/abs/2203.02155"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "beginner-115-3-2-q45": {
+    "reasoning": "主管需要能核對為什麼停機，關鍵是把真實異常數值、門檻與維護規範連到建議，而不是僅標註 AI 產生或讓口吻更權威。依據必須支援這次結論，並可查到原始量測及適用版本。更多排程資訊是後續行動規劃，不直接解釋原因。",
+    "options": {
+      "A": "不足：揭露來源是 AI 不說明它為何判定應停機。",
+      "B": "不足：更長更專業的語言可能更有說服力，卻不增加證據。",
+      "C": "不同：排程與資源說明怎樣執行，不說明停機判斷的依據。",
+      "D": "正確：明確量測證據及規範，讓主管能核驗建議邏輯。"
+    },
+    "concept": "Explainability 要給可核對依據，透明揭露產物來源只是其中一層。",
+    "pitfalls": "模型生成的解釋可能是事後合理化，須由實際資料及規則核查。",
+    "sources": [
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "beginner-115-3-2-q46": {
+    "reasoning": "事故發生後無法追溯模型為什麼把車當天空，難以檢查輸入、模型版本、系統限制及人為監督，因此使各主體責任不易判定。題目核心在決策不透明造成問責與調查困難，不是隻問資料隱私或如何提高視覺準確率。技術記錄須支援事故重建。",
+    "options": {
+      "A": "相關但非主要：路面個資管理不能直接解釋此次歸責困境。",
+      "B": "正確：缺少可追溯決策依據，阻礙責任與系統缺陷調查。",
+      "C": "可能原因但非重點：資料品質需調查，不能由事故直接斷定。",
+      "D": "可能因素但無證據：地圖更新與誤認白色車廂沒有直接題設關聯。"
+    },
+    "concept": "高風險治理需儲存輸入、版本、事件、權限與人類接管記錄。",
+    "pitfalls": "黑箱不能成為各方免責理由，責任須依事實、職責與適用法規判斷。",
+    "sources": [
+      {
+        "title": "人工智慧基本法",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0160093"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "beginner-115-3-2-q47": {
+    "reasoning": "調查已發現不安全的使用者修改程式碼進入模型最佳化資料，問題在缺少訓練資料驗證，模型因此強化了漏洞模式。應篩查來源、靜態與動態安全檢查、去除汙染樣本並驗證重訓。更新提示、縮短輸出或補 RAG 可能緩解表象，但未處理汙染根因。",
+    "options": {
+      "A": "不是已知根因：舊提示不解釋調查發現的有漏洞回饋訓練。",
+      "B": "正確：未經驗證的訓練回饋汙染學習內容。",
+      "C": "不是根因：短程式碼同樣能有漏洞，長度不代表安全。",
+      "D": "不足：外部規範檢索不清除已經汙染的最佳化資料。"
+    },
+    "concept": "資料品質治理要覆蓋持續回饋鏈，不只最初訓練集。",
+    "pitfalls": "汙染未必是惡意攻擊，錯誤或不安全範例也能造成同類後果。",
+    "sources": [
+      {
+        "title": "NIST AI 100-2 E2025：對抗式機器學習",
+        "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final"
+      },
+      {
+        "title": "OWASP：LLM 應用安全風險",
+        "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+      }
+    ]
+  },
+  "beginner-115-3-2-q48": {
+    "reasoning": "互動、工具呼叫與日誌保留真實任務順序、頻率與成功失敗，較能發現員工實際上反覆做哪些工作。SOP 與流程圖反映規定或設計，未必與真實使用一致；模型基準評估反映能力，不是組織任務頻率。分析須先減敏、控權並定保留範圍。",
+    "options": {
+      "A": "正確：真實執行軌跡提供工作模式及重複步驟的觀測證據。",
+      "B": "參考而非主要：SOP 是應該如何做，不保證實際經常如此。",
+      "C": "參考而非主要：設計流程圖可能過時或未反映臨時繞路。",
+      "D": "不同：benchmark 與模型規格不能說明員工實際任務。"
+    },
+    "concept": "從執行軌跡發現流程，再抽象為可複用技能或自動化。",
+    "pitfalls": "日誌可能含客戶個資與秘密，不可為觀察便利而無限存原始對話。",
+    "sources": [
+      {
+        "title": "OpenTelemetry：可觀測性、追蹤與日誌",
+        "url": "https://opentelemetry.io/docs/concepts/observability-primer/"
+      },
+      {
+        "title": "AutoSkill 原始論文",
+        "url": "https://arxiv.org/abs/2603.01145"
+      }
+    ]
+  },
+  "beginner-115-3-2-q49": {
+    "reasoning": "題目把自動特徵轉換、比較多種演算法與超參數調校列為必要功能，這正是 AutoML 的建模自動化範圍。框架提供程式元件仍要專家開發；預訓練服務不一定適配銀行專屬歷史資料；規則引擎也不是自動選擇學習演算法。銀行仍要定義標籤與稽核。",
+    "options": {
+      "A": "正確：自動化特徵、模型比較及調參，降低專業實現需求。",
+      "B": "不符門檻：框架仍需自行撰寫訓練與實驗程式。",
+      "C": "不匹配：現成預訓練任務未必對應自有異常交易定義。",
+      "D": "不同：規則引擎執行專家規則，不自動訓練候選 ML 演算法。"
+    },
+    "concept": "AutoML 加速開發，不免除風險目標、資料治理與模型驗收。",
+    "pitfalls": "洗錢樣本少且誤差代價高，必須驗證群體偏差、解釋性與漏檢，不能只選最高準確率。",
+    "sources": [
+      {
+        "title": "AWS：SageMaker Autopilot",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development.html"
+      }
+    ]
+  },
+  "beginner-115-3-2-q50": {
+    "reasoning": "重大冷凍異常不能只依語言摘要是否保留來決定總部聯絡，因為壓縮本來可能刪掉少見但重要事件。應先用規則或模型明確抓異常事實，並設定人工複核與升級，即使摘要漏寫也能發出警報。測試多樣性有幫助，D 才是針對漏掉重大資訊的實際風險控制。",
+    "options": {
+      "A": "無證據：題目沒有多語問題，語言統一不保證保留異常。",
+      "B": "相關輔助：多樣測試能發現遺漏，但未建立持續關鍵事件保障。",
+      "C": "相關輔助：提示可改善，但沒有保證重大事件一定觸發處理。",
+      "D": "最適當：明確偵測重大異常並人工複核，降低摘要漏報影響。"
+    },
+    "concept": "關鍵事件應獨立結構化記錄與告警，摘要是閱讀輔助而非唯一控制。",
+    "pitfalls": "關鍵字也有誤報漏報，需包含同義、否定、處置狀態與人工核驗。",
+    "sources": [
+      {
+        "title": "Anthropic：降低幻覺與來源核對",
+        "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      },
+      {
+        "title": "NIST AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ],
+    "caveat": "保留官方 D；B 的測試覆蓋不足也是可能原因，題幹不能唯一證明根因，D 是最直接的重大異常風險控制。"
+  }
+}

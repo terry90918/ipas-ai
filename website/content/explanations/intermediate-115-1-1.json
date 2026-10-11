@@ -1,0 +1,964 @@
+{
+  "intermediate-115-1-1-q1": {
+    "reasoning": "POS標註在切詞之後判斷各詞的語法類別，例如「申請人」為名詞、「提出」為動詞，可協助抽取主體、動作與修飾關係。它不負責翻譯或情緒判定，因此D正確。法律領域詞性仍需依上下文與專業用法判斷。",
+    "options": {
+      "A": "翻譯跨語言內容不是POS的主要功能。",
+      "B": "切分基本詞單元是tokenization，通常先於POS。",
+      "C": "情感極性是情感分析，語法標籤不等於情緒。",
+      "D": "正確；為各詞附上名詞、動詞等語法標籤。"
+    },
+    "concept": "語法分析與實體識別是不同層級的文書處理。",
+    "pitfalls": "相同字詞在不同語境可有不同詞性，不能只查固定詞表。",
+    "sources": [
+      {
+        "title": "Stanford Stanza：詞性標註",
+        "url": "https://stanfordnlp.github.io/stanza/pos.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q2": {
+    "reasoning": "LoRA將權重更新寫為ΔW=BA，以小秩r的兩矩陣代替完整更新，凍結原W只訓練A、B，減少梯度與最佳化器狀態儲存，故C。原70B權重仍需載入；若連原權重都放不下還需量化等技術。",
+    "options": {
+      "A": "蒸餾訓練較小學生，不是LoRA低秩更新。",
+      "B": "剪枝刪原引數，與凍結後新增矩陣不同。",
+      "C": "正確；低秩可訓練更新減少訓練狀態。",
+      "D": "稀疏注意力最佳化序列計算，不是LoRA定義。"
+    },
+    "concept": "若W為m×n，LoRA訓練引數約r(m+n)，遠少於mn。",
+    "pitfalls": "不是每一層一定都注入LoRA，目標層可選擇。",
+    "sources": [
+      {
+        "title": "LoRA：低秩引數微調",
+        "url": "https://arxiv.org/abs/2106.09685"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q3": {
+    "reasoning": "CBOW平均上下文來預測中心詞，通常效率較高；Skip-gram以中心詞預測視窗內多詞，一次罕見中心詞出現也形成多對訓練樣本，低頻表示常較好但計算較多，因此B準確說明取捨。",
+    "options": {
+      "A": "平均上下文常偏平滑，不保證罕見詞更好。",
+      "B": "正確；速度與低頻語義品質需衡量。",
+      "C": "Skip-gram通常一次中心生成多上下文目標，不是單目標更快。",
+      "D": "兩者訓練目標方向不同，不只batch組織差異。"
+    },
+    "concept": "區域性共現用於訓練詞向量，模型目標影響低頻學習。",
+    "pitfalls": "長尾詞極少出現時仍缺資訊，不能保證準確語義。",
+    "sources": [
+      {
+        "title": "Stanford GloVe：全域共現詞向量",
+        "url": "https://nlp.stanford.edu/projects/glove/"
+      },
+      {
+        "title": "Word2Vec：Efficient Estimation of Word Representations",
+        "url": "https://arxiv.org/abs/1301.3781"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q4": {
+    "reasoning": "MLM選擇部分token作為隱藏預測目標，讓encoder同時利用左、右上下文恢復原詞；這避免只看前文並學習金融語境中的詞義，因此C。原始BERT的選中位置不全真的換MASK，也包含替換與保留策略。",
+    "options": {
+      "A": "從左到右生成對應因果語言模型。",
+      "B": "對抗真假句是另一目標，不是MLM恢復隱藏詞。",
+      "C": "正確；從雙向可見語境預測選中詞的原始內容。",
+      "D": "遮蔽是訓練任務，詞彙表與嵌入大小不會因此縮減。"
+    },
+    "concept": "預訓練目標決定模型可用的條件上下文。",
+    "pitfalls": "MLM通常只對選中位置計算預測損失，不是完整句生成。",
+    "sources": [
+      {
+        "title": "BERT：雙向預訓練語言表徵",
+        "url": "https://arxiv.org/abs/1810.04805"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q5": {
+    "reasoning": "One-hot每詞獨佔一個維度，任兩不同詞沒有學習來的相似度，維度又隨詞表擴張。Word2Vec把詞對映為固定低維稠密向量，從共現學習語義關係，C同時解決稀疏與缺語義結構問題。",
+    "options": {
+      "A": "靜態Word2Vec不是長距序列依賴模型。",
+      "B": "詞頻會影響訓練，但並非根本解決的表示限制。",
+      "C": "正確；低維稠密表示能讓相似詞更接近。",
+      "D": "通常不需要人工詞類標籤，靠上下文自監督訓練。"
+    },
+    "concept": "詞向量幾何關係來自語料共現而非編碼編號。",
+    "pitfalls": "一個詞一個靜態向量，無法完全區分同字多義語境。",
+    "sources": [
+      {
+        "title": "Stanford GloVe：全域共現詞向量",
+        "url": "https://nlp.stanford.edu/projects/glove/"
+      },
+      {
+        "title": "Word2Vec：Efficient Estimation of Word Representations",
+        "url": "https://arxiv.org/abs/1301.3781"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q6": {
+    "reasoning": "語義分割給所有畫素類別，兩名行人都屬同一「行人」標籤；例項分割對每個行人分別輸出遮罩與身份，C準確。若系統還要覆蓋道路等stuff及個體，整合任務常稱全景分割。",
+    "options": {
+      "A": "兩類都能有畫素標籤，語義分割不是以框為主要輸出。",
+      "B": "例項分割不只是整圖分類，也提供各物件mask。",
+      "C": "正確；是否分別標識同類個體是關鍵差異。",
+      "D": "兩者對個體身份要求有實質差異。"
+    },
+    "concept": "畫素類別與物件例項編號是不同的資訊。",
+    "pitfalls": "道路背景通常屬stuff，不能把僅例項物體遮罩當完整全景輸出。",
+    "sources": [
+      {
+        "title": "Panoptic Segmentation",
+        "url": "https://arxiv.org/abs/1801.00868"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q7": {
+    "reasoning": "需求是逐畫素物件區塊，且同類不同個體分別標記；例項分割為每個購物籃、手機或商品給獨立mask，C符合。影像分類無位置，檢測只給框，語義分割不分同類別個體。",
+    "options": {
+      "A": "只能說圖中有什麼，無法指明各物件畫素。",
+      "B": "邊界框提供粗範圍，不滿足精確畫素mask。",
+      "C": "正確；逐個物件生成獨立遮罩。",
+      "D": "同商品類別畫素會同標號，缺個體區分。"
+    },
+    "concept": "任務選擇先看需要類別、框、mask還是例項身份。",
+    "pitfalls": "遮罩重疊與遮擋仍須合理建模，技術名稱不保證準確。",
+    "sources": [
+      {
+        "title": "Panoptic Segmentation",
+        "url": "https://arxiv.org/abs/1801.00868"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q8": {
+    "reasoning": "ROC隨分類閾值變化畫出FPR=FP/(FP+TN)與TPR=TP/(TP+FN)。醫療中前者是良性被誤判惡性的比例，後者是惡性被正確檢出的比例，B正確；不同閾值體現漏診與誤報的取捨。",
+    "options": {
+      "A": "Accuracy不是ROC橫軸，不能據此定義ROC。",
+      "B": "正確；橫軸假陽率，縱軸敏感度／召回。",
+      "C": "Precision與Recall是PR曲線的軸，不是ROC。",
+      "D": "IoU與mAP屬於物件定位評估，非本二分類ROC。"
+    },
+    "concept": "TPR也稱敏感度；FPR=1−特異度。",
+    "pitfalls": "ROC AUC高不保證特定臨床閾值下有足夠陽性預測值。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q9": {
+    "reasoning": "單一混淆矩陣含某固定閾值的TP、FP、TN、FN，能算Precision、Recall與Accuracy。ROC AUC要橫跨多個閾值的排序或機率分數，單一矩陣只給曲線上一點，不能直接求整塊面積，故D。",
+    "options": {
+      "A": "Precision=TP/(TP+FP)，可由計數求出。",
+      "B": "Accuracy=(TP+TN)/總數，可直接求出。",
+      "C": "Recall=TP/(TP+FN)，可直接求出。",
+      "D": "正確的排除項；AUC需要分數或多閾值資訊。"
+    },
+    "concept": "硬分類結果與連續評分保留的資訊不同。",
+    "pitfalls": "不要把某點TPR高當整個ROC面積大。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q10": {
+    "reasoning": "YOLO把整圖位置及類別預測放在單階段網路；Faster R-CNN先以RPN提候選區，再對區域進行分類與邊界調整。A抓住流程根本差異，即時應用還需實測硬體與輸入解析度下的延遲。",
+    "options": {
+      "A": "正確；單階段直接預測與兩階段候選區域處理。",
+      "B": "YOLO不是傳統兩階段候選區流程。",
+      "C": "增加候選區域數不是YOLO單階段定義。",
+      "D": "Faster R-CNN有RPN及後續區域頭，屬於兩階段。"
+    },
+    "concept": "one-stage與two-stage描述檢測流程，不直接等同所有速度排名。",
+    "pitfalls": "新版架構與硬體不同，不能單憑名稱保證100ms內。",
+    "sources": [
+      {
+        "title": "YOLO：單階段物件偵測",
+        "url": "https://arxiv.org/abs/1506.02640"
+      },
+      {
+        "title": "Faster R-CNN：Region Proposal Networks",
+        "url": "https://arxiv.org/abs/1506.01497"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q11": {
+    "reasoning": "自注意力用token的Q與其他位置K計算關係，再以權重聚合V；每個位置能直接獲得其他位置訊號，適合長距關係，B正確。因果模型會加mask禁止看未來，所以「所有」應依注意力掩碼理解。",
+    "options": {
+      "A": "隱藏狀態逐步傳遞是迴圈網路機制。",
+      "B": "正確；按內容關聯對可見token加權整合。",
+      "C": "純區域性操作更像區域性卷積或視窗注意力。",
+      "D": "自注意力通常輸出每個位置表徵，不必壓成單一向量。"
+    },
+    "concept": "注意力連線範圍由架構與mask決定。",
+    "pitfalls": "可見性不代表每個token權重相同，核心就是選擇性加權。",
+    "sources": [
+      {
+        "title": "Attention Is All You Need",
+        "url": "https://arxiv.org/abs/1706.03762"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q12": {
+    "reasoning": "Sigmoid(x)=1/(1+e^(−x))把有限輸入映到(0,1)，適合作二分類輸出機率；導數σ(1−σ)在極端輸入趨0，會飽和，B同時指出特性與限制。數值穩定損失常直接接受logit。",
+    "options": {
+      "A": "輸出有界，不能表示任意實數迴歸值。",
+      "B": "正確；機率樣輸出與大絕對值梯度飽和。",
+      "C": "互斥多類通常用softmax歸一成整體分佈。",
+      "D": "梯度並非全範圍穩定，正負極端值都接近0。"
+    },
+    "concept": "輸出函式與損失須配合，區分logit與機率。",
+    "pitfalls": "機率解釋還需校準，落在0到1不代表預測機率可信。",
+    "sources": [
+      {
+        "title": "scikit-learn：MLP",
+        "url": "https://scikit-learn.org/stable/modules/neural_networks_supervised.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q13": {
+    "reasoning": "Prompt tuning凍結主體模型，訓練新增軟提示的嵌入，藉輸入條件改變行為；全量傳統微調更新模型本身權重。C以更新物件區分兩方案，軟提示仍需反向傳播，不是隻手寫一句指令。",
+    "options": {
+      "A": "軟提示可能增加輸入長度，不主要為降低推論延遲。",
+      "B": "權重更新位置不同，不只是學習率差異。",
+      "C": "正確；輸入軟向量與主體權重更新是根本差別。",
+      "D": "兩者都常以預訓練模型為起點。"
+    },
+    "concept": "引數高效微調依訓練子集或附加模組降低成本。",
+    "pitfalls": "soft prompt是連續可訓練向量，不一定可讀成人類文字。",
+    "sources": [
+      {
+        "title": "The Power of Scale for Parameter-Efficient Prompt Tuning",
+        "url": "https://arxiv.org/abs/2104.08691"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q14": {
+    "reasoning": "凍結主體並用LoRA等少量更新能限制對原引數的擾動，在資源有限時更經濟，A最佳。它只緩解遺忘風險，adapter仍可能改變行為，故需以舊任務測試、混合資料或約束驗證原能力。",
+    "options": {
+      "A": "正確；小範圍更新降低全量引數被新任務重寫的程度。",
+      "B": "較大學習率可能更劇烈破壞原能力。",
+      "C": "反覆僅訓醫療資料容易更偏向新域。",
+      "D": "大batch讓梯度平穩但不自動保留舊知識。"
+    },
+    "concept": "災難性遺忘來自新目標學習後舊任務表現退化。",
+    "pitfalls": "凍結原權重不代表加adapter後輸出完全保持原能力。",
+    "sources": [
+      {
+        "title": "LoRA：低秩引數微調",
+        "url": "https://arxiv.org/abs/2106.09685"
+      },
+      {
+        "title": "The Power of Scale for Parameter-Efficient Prompt Tuning",
+        "url": "https://arxiv.org/abs/2104.08691"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q15": {
+    "reasoning": "Orchestrator必須檢查worker結果是否滿足需求，失敗時有限重試、換執行者或降級，並記錄原因，B能把單次失敗隔離為可恢復問題。重試需次數及終止條件，避免無限花費。",
+    "options": {
+      "A": "直接接受已知不合格結果會把錯誤傳到最終產物。",
+      "B": "正確；評估加恢復機制支撐任務可靠性。",
+      "C": "同模型可能共享同樣盲點，不能替代結果驗證。",
+      "D": "任一失敗立即全停太脆弱，可恢復故障應先處理。"
+    },
+    "concept": "任務完成應看可驗收產物，不能僅看worker成功狀態。",
+    "pitfalls": "換worker不保證答案正確，仍須獨立檢查實際輸出。",
+    "sources": [
+      {
+        "title": "ReAct：推理與工具行動",
+        "url": "https://arxiv.org/abs/2210.03629"
+      },
+      {
+        "title": "Microsoft：Circuit Breaker",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q16": {
+    "reasoning": "問題問「目前最大」與數量，會隨時間變化；agent未用任何檢索卻報精確值，缺證據。A要求先查詢當前來源再核對日期與統計口徑，最直接修復此流程缺口；搜摘要後還需讀取原文支援。",
+    "options": {
+      "A": "正確；即時事實應透過工具檢索並核對來源。",
+      "B": "日期與計算可能有用，不應單因工具多就刪去。",
+      "C": "刪除推理欄位不能讓陳舊事實自動準確。",
+      "D": "所有工具一口氣使用會浪費且可能順序不合理。"
+    },
+    "concept": "ReAct把行動與觀察交替用於更新任務狀態。",
+    "pitfalls": "「最大」可指站點、樁數或營收，先明確單位與範圍。",
+    "sources": [
+      {
+        "title": "ReAct：推理與工具行動",
+        "url": "https://arxiv.org/abs/2210.03629"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q17": {
+    "reasoning": "影像有空間區域性結構，CNN適合取視覺特徵；文字需上下文語義，可用Transformer；生命訊號沿時間變化，可用LSTM或Temporal CNN。D按模態特性分工，再融合各表徵最合理。",
+    "options": {
+      "A": "靜態影像優先LSTM、數值時序用語言BERT的搭配欠合適。",
+      "B": "TF-IDF針對文字，ResNet針對影像，配對顛倒。",
+      "C": "Transformer可改造多模態輸入，但標準BERT不能直接理解任意輸入。",
+      "D": "正確；各模態專用編碼再作融合。"
+    },
+    "concept": "異質模態需要適當輸入表示與時間／患者對齊。",
+    "pitfalls": "編碼器選對仍須處理同步、缺失及隱私，而非直接拼接。",
+    "sources": [
+      {
+        "title": "PyTorch：Conv2d",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+      },
+      {
+        "title": "BERT：雙向預訓練語言表徵",
+        "url": "https://arxiv.org/abs/1810.04805"
+      },
+      {
+        "title": "PyTorch：LSTM",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q18": {
+    "reasoning": "CT區域、病歷描述與基因特徵編碼方式不同；對齊把對應患者或語義的表徵拉到可比較空間，讓模型學習互補關聯，D正確。配對資料、關聯監督或共同任務目標通常仍需設計。",
+    "options": {
+      "A": "只用影像是捨棄模態，不是跨模態對齊。",
+      "B": "自動配對標註可能是輔助，非對齊主要定義。",
+      "C": "降低成本可能另最佳化，對齊目標是語義關係。",
+      "D": "正確；建立不同表示間有意義的對應。"
+    },
+    "concept": "共享語義空間需保留每模態有效訊號及對應關係。",
+    "pitfalls": "同患者資料也可能時間不一致，不能忽略臨床時序。",
+    "sources": [
+      {
+        "title": "CLIP：Learning Transferable Visual Models",
+        "url": "https://arxiv.org/abs/2103.00020"
+      },
+      {
+        "title": "Multi-Task Learning Using Uncertainty to Weigh Losses",
+        "url": "https://arxiv.org/abs/1705.07115"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q19": {
+    "reasoning": "離線AUC衡量排序，在不同推薦曝光與使用者反應下不保證點選或收入提升。看到高AUC就斷言匯入成功，忽略CTR與營收及統計不確定性，A指出根本問題；應對照受控線上實驗的業務與風險指標。",
+    "options": {
+      "A": "正確；離線預測與線上產品目標不能混為同一證據。",
+      "B": "即使AUC好，CTR下降也須調查，不能直接宣稱品質提升。",
+      "C": "3.2%到3.1%是否顯著需樣本量與實驗設計，不能立即確診。",
+      "D": "訂單均價增加不必然彌補訂單數或轉化下降。"
+    },
+    "concept": "模型指標、業務指標及服務指標分別反映不同層次。",
+    "pitfalls": "不能只選有利指標下結論，要預先定義成功與護欄。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      },
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q20": {
+    "reasoning": "批次模型可離線訓練，線上REST服務使用Kafka更新的即時特徵，經Redis或Online Feature Store快速讀取；若所有請求先等倉儲寫入及計算會增加熱路徑延遲，所以A保留1、2、3並用5取代4。",
+    "options": {
+      "A": "正確；即時特徵熱路徑不依賴慢速倉儲查詢。",
+      "B": "刪串流會使最新行為難及時反映。",
+      "C": "線上學習可另評估，但不必為此強行替換批次模型。",
+      "D": "全部序列保留倉儲計算可能違背100ms要求。"
+    },
+    "concept": "離線訓練與線上特徵更新可獨立進行。",
+    "pitfalls": "可並行寫倉儲保留歷史，但不要作為即時響應前置條件。",
+    "sources": [
+      {
+        "title": "Feast：Online Store",
+        "url": "https://docs.feast.dev/getting-started/components/online-store"
+      },
+      {
+        "title": "Spark：Structured Streaming",
+        "url": "https://spark.apache.org/docs/latest/streaming/index.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q21": {
+    "reasoning": "輸入為6000檢索+500系統+8000歷史=14500 tokens；按題定價每次輸入0.0725美元、輸出0.0045美元，總0.077。降至60%需省0.0308；主要壓縮歷史及可快取字首，B最對症，但必須測摘要忠實與cache命中。",
+    "options": {
+      "A": "輸出300降200只省100×15/1M=0.0015美元，遠不夠目標。",
+      "B": "正確的最佳組合；減少最大輸入歷史並複用靜態字首。",
+      "C": "Batch可有價格優勢但非同步影響互動場景，不降低輸入token數。",
+      "D": "簡短輸出指令主要影響輸出，不處理14500輸入。"
+    },
+    "concept": "token數量節省與快取摺價是兩種成本機制。",
+    "pitfalls": "題中500-token字首不足1024的快取門檻，須有更長可重複字首。",
+    "sources": [
+      {
+        "title": "OpenAI：Prompt Caching",
+        "url": "https://platform.openai.com/docs/guides/prompt-caching"
+      }
+    ],
+    "caveat": "價格只依題設計算，非當前報價；快取有門檻且摘要不保證絕對無損，B需實測才能達到40%節省。"
+  },
+  "intermediate-115-1-1-q22": {
+    "reasoning": "MLOps把訓練、評估、登入、部署與監控串成可追溯流程，記錄模型、資料與環境版本，並以監控觸發驗證與更新，C符合全生命週期。它不是隻自動選演算法，也不會消除後續維護需求。",
+    "options": {
+      "A": "資料品質是流程一部分，範圍不止於標註。",
+      "B": "自動搜尋更對應AutoML，而非完整運維。",
+      "C": "正確；自動化及版本管理貫穿訓練至持續更新。",
+      "D": "環境與業務會變化，MLOps正為持續維護而設計。"
+    },
+    "concept": "可追溯需要連結模型產物、訓練執行、資料與部署版本。",
+    "pitfalls": "管線全自動不等於可無條件自動上線，須有明確檢查門檻。",
+    "sources": [
+      {
+        "title": "MLflow：Model Registry",
+        "url": "https://mlflow.org/docs/latest/ml/model-registry/"
+      },
+      {
+        "title": "GitHub：持續整合",
+        "url": "https://docs.github.com/en/actions/about-github-actions/about-continuous-integration-with-github-actions"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q23": {
+    "reasoning": "缺陷僅800張且無地端GPU，應先用預訓練視覺特徵微調，降低從零訓練需求，再量化或蒸餾輕量模型，於實際CPU地端測100ms延遲。B最符合預算、資料量與部署限制，準確率需以缺陷召回評估。",
+    "options": {
+      "A": "從零大型CNN與高階硬體超出短期資源限制。",
+      "B": "正確；重用預訓練並最佳化部署模型。",
+      "C": "沒有必須10萬張才可開始的普遍門檻。",
+      "D": "雲端推論違背必須地端即時的限制。"
+    },
+    "concept": "訓練地點與推論地點可分開，交付應以目標裝置實測。",
+    "pitfalls": "壓縮可能損及少數瑕疵識別，需校準與獨立品質檢查。",
+    "sources": [
+      {
+        "title": "PyTorch：影像遷移學習",
+        "url": "https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html"
+      },
+      {
+        "title": "Intel Neural Compressor：模型量化",
+        "url": "https://www.intel.com/content/www/us/en/developer/tools/oneapi/neural-compressor.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q24": {
+    "reasoning": "Latency Testing量測輸入收到至預測結果可用的時間，需包含前處理、排隊、推論與傳輸，D直接回應交易時間要求。應測P95/P99與尖峰負載，不只平均耗時。",
+    "options": {
+      "A": "視訊記憶體測試是資源容量，與延遲雖相關但目標不同。",
+      "B": "攻擊穩健測試檢查安全與穩定，並非時間主旨。",
+      "C": "群體一致性是公平性評估，不是響應時間。",
+      "D": "正確；比較端到端反應時間與服務限制。"
+    },
+    "concept": "平均延遲、尾端延遲與吞吐量需分別量測。",
+    "pitfalls": "離線一次推論很快不能證明併發尖峰仍達時限。",
+    "sources": [
+      {
+        "title": "NVIDIA Triton：Dynamic Batching",
+        "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q25": {
+    "reasoning": "第三方能重現評估需有不可混淆的模型與資料版本、切分、預處理、環境、種子及評分程式。B讓評價步驟與產物可追溯，比只報高分或擴大資料更能直接驗證宣稱。",
+    "options": {
+      "A": "99%沒有資料、任務與誤差證據，不能自證可靠。",
+      "B": "正確；儲存可重跑的資料與關鍵設定。",
+      "C": "發版快不能替代重現步驟與證據。",
+      "D": "百萬筆仍可能有偏差、洩漏或錯誤標籤。"
+    },
+    "concept": "可驗證主張需要記錄、可執行程式與明確驗收條件。",
+    "pitfalls": "固定隨機種子也未必消除硬體非確定性，應記錄環境限制。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      },
+      {
+        "title": "MLflow：Model Registry",
+        "url": "https://mlflow.org/docs/latest/ml/model-registry/"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q26": {
+    "reasoning": "每筆拒貸要具體說明哪些因素推動拒絕，要求的是區域性可解釋性與適當理由產生能力，D正確。可用特徵貢獻等工具支援，但說明須對應真實模型及該申請人，不是隻列全域性重要性。",
+    "options": {
+      "A": "任意10秒刪資料不提供拒貸理由，且保留義務依實際規則。",
+      "B": "隨機改決定無法滿足個案解釋，也可能傷害一致性。",
+      "C": "100%準確不現實，亦不等於說明依據。",
+      "D": "正確；提供可理解且對應決策的特徵影響。"
+    },
+    "concept": "區域性解釋解釋個案，全域性解釋描述整體模式。",
+    "pitfalls": "特徵貢獻不自動等同法律上充分的拒貸理由。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      },
+      {
+        "title": "SHAP：TreeExplainer輸出尺度",
+        "url": "https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q27": {
+    "reasoning": "HITL把AI作為輔助，由醫師審查影像、病史與模型建議再做最終臨床決定，可保留人的專業監督與責任，A最符合題幹。還需防自動化偏誤，並給醫師足夠資訊與否決許可權。",
+    "options": {
+      "A": "正確；具實質審查能力的人在決策環路中。",
+      "B": "低信心可轉人工，不必直接關閉全系統。",
+      "C": "隨機換模型不建立責任與穩定依據。",
+      "D": "隨機擾動輸入可能損害影像品質，不是監督機制。"
+    },
+    "concept": "人類監督要有行動能力與可辨識風險，而非形式點同意。",
+    "pitfalls": "高信心模型也會錯，人工不能只核查低信心結果。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q28": {
+    "reasoning": "SHAP把模型輸出相對基準的差拆成特徵貢獻；−2.3表示收入把所解釋尺度的輸出往負方向推2.3單位，+1.8負債比往正方向推。若解釋違約log-odds，方向與風險相關但不是百分比，故B。",
+    "options": {
+      "A": "未經輸出尺度定義，不能把2.3直接當2.3百分點。",
+      "B": "正確；相對base value的區域性貢獻與方向。",
+      "C": "負值表示降低該輸出，不代表不重要。",
+      "D": "一個人的+1.8不能推出全資料重要性第一。"
+    },
+    "concept": "base value＋各SHAP貢獻＝該解釋尺度的模型輸出。",
+    "pitfalls": "需確認model_output及正類定義；機率與log-odds單位不同。",
+    "sources": [
+      {
+        "title": "SHAP：TreeExplainer輸出尺度",
+        "url": "https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q29": {
+    "reasoning": "Grad-CAM用目標類別對卷積特徵圖的梯度作加權，生成關注區域熱圖，通常只需一次前向及反向，不用大量擾動取樣，所以C符合CNN與近即時限制；200ms仍需在目標裝置量測。",
+    "options": {
+      "A": "LIME需多次擾動及預測，較難符合禁止大量取樣條件。",
+      "B": "Kernel SHAP通常多次模型評估，畫素級代價尤其高。",
+      "C": "正確；梯度與卷積啟用生成類別相關粗定位。",
+      "D": "TreeExplainer適用樹模型，不直接解釋CNN影像。"
+    },
+    "concept": "熱圖是模型敏感區域的解釋，不是完整因果證明。",
+    "pitfalls": "圖面放大不增加真實定位解析度，也不能保證醫學正確。",
+    "sources": [
+      {
+        "title": "Grad-CAM：梯度式視覺解釋",
+        "url": "https://arxiv.org/abs/1610.02391"
+      },
+      {
+        "title": "SHAP：TreeExplainer輸出尺度",
+        "url": "https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q30": {
+    "reasoning": "PCA以最大方差方向為主成分，協方差矩陣的特徵向量給方向、特徵值給該方向變異量，按由大到小選取，所以C。常用SVD對中心化矩陣求解，也與此理論關係一致。",
+    "options": {
+      "A": "某些PCA變體可迭代最佳化，但非這裡的標準數學描述。",
+      "B": "PCA不使用目標標籤相關性來排序特徵。",
+      "C": "正確；特徵分解取得正交主軸與變異量。",
+      "D": "卷積提區域性模式，不是PCA解協方差方向。"
+    },
+    "concept": "輸入中心化、尺度選擇與成分數共同影響PCA結果。",
+    "pitfalls": "理論特徵分解不等於所有實作真的顯式建立協方差。",
+    "sources": [
+      {
+        "title": "scikit-learn：主成分分析",
+        "url": "https://scikit-learn.org/stable/modules/decomposition.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q31": {
+    "reasoning": "300維時距離可能趨同，難用固定ε區隔高密度群與背景；稀疏空間也使鄰域不足，所以A最契合。應檢查度量、縮放、有效維度及群集假設，而非無限調整MinPts。",
+    "options": {
+      "A": "正確；維度災難弱化距離與區域性密度辨別力。",
+      "B": "DBSCAN能接受高維輸入，只是效能與統計效果可能差。",
+      "C": "維度多不證明沒有任何群結構。",
+      "D": "沒有指定高維核心點數的普遍數學上限。"
+    },
+    "concept": "演算法可執行與結果可解釋、可擴充套件是不同問題。",
+    "pitfalls": "降維可能幫助但也改變距離，須核對群集是否仍合理。",
+    "sources": [
+      {
+        "title": "scikit-learn：分群與DBSCAN",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q32": {
+    "reasoning": "傳統CNN分類頭若要求每張圖的一維特徵向量，應把N×C×H×W展平為N×(CHW)，再送Linear，B符合題設介面。只展平特徵維，要保留batch軸，不能把多張圖拼成一筆。",
+    "options": {
+      "A": "GAP也是可行設計，但會改變空間匯聚方式，非此題預設展平介面。",
+      "B": "正確；Flatten把各樣本特徵圖轉成向量。",
+      "C": "Linear只變換最後維，不會自動把全部空間維展平。",
+      "D": "提前Softmax會改變特徵且不解決輸入形狀。"
+    },
+    "concept": "Linear的in_features必須等於展平後最後維度。",
+    "pitfalls": "A並非技術錯誤，CNN也常以GAP接FC降低引數。",
+    "sources": [
+      {
+        "title": "PyTorch：Linear",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html"
+      }
+    ],
+    "caveat": "Flatten不是所有CNN分類頭唯一必要操作；GAP亦可完成合理架構，B是題設傳統接法。"
+  },
+  "intermediate-115-1-1-q33": {
+    "reasoning": "合成雨霧場景可控制強度、光線與道路物件，並自動取得標籤，補足稀少真惡劣天氣，D最合理。訓練仍應混合真實資料並在真實雨霧獨立測試，以確認模擬到真實域差異可接受。",
+    "options": {
+      "A": "合成資料同樣常用於影像與模擬感測任務。",
+      "B": "完全替換真實資料會面臨domain gap，不能普遍保證效果。",
+      "C": "主要補訓練覆蓋，不直接減少推論計算。",
+      "D": "正確；可控多樣場景擴充資料與穩健性。"
+    },
+    "concept": "合成分佈是否覆蓋現實決定其效用。",
+    "pitfalls": "畫面看似真實不等於感測器噪聲與真實雨霧統計一致。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      },
+      {
+        "title": "PyTorch：Conv2d",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q34": {
+    "reasoning": "增量學習可隨新資料更新引數而不每次全量重訓，B最接近即時變化需求。新增特徵卻還需穩定表示，如固定維hash或支援擴維的模型；一般partial_fit常要求特徵數不變，不能忽略此限制。",
+    "options": {
+      "A": "縮短到每日仍可能落後小時級的新特徵。",
+      "B": "正確方向；採用線上更新並設計可持續的特徵表示。",
+      "C": "每次擴層再重訓成本高，不滿足實時更新。",
+      "D": "GNN不自動解決新輸入特徵及訓練目標更新。"
+    },
+    "concept": "新樣本增量與新特徵維度擴充套件是兩種不同支援能力。",
+    "pitfalls": "不可宣稱所有增量模型都自動接受新增欄位。",
+    "sources": [
+      {
+        "title": "scikit-learn：增量學習與特徵串流",
+        "url": "https://scikit-learn.org/stable/computing/scaling_strategies.html"
+      }
+    ],
+    "caveat": "B將增量資料更新與動態特徵擴充套件混用；需特徵hash或明確支援新維度的架構。"
+  },
+  "intermediate-115-1-1-q35": {
+    "reasoning": "基因高維數值先按生物與預測目標篩選，病歷文字用語義編碼保留上下文，再校準尺度並融合，B較能保留異質模態特性。選擇須在訓練折進行，避免標籤洩漏與選特徵偏差。",
+    "options": {
+      "A": "直接混合PCA可能被尺度及高變異無關訊號主導。",
+      "B": "正確；各模態先適當處理再融合。",
+      "C": "一次隨機森林排序可能丟失文字語義結構與互補關係。",
+      "D": "簡單詞頻會忽略否定、時間與臨床上下文。"
+    },
+    "concept": "模態內編碼與模態間融合應分別設計與驗證。",
+    "pitfalls": "高維基因篩選尤其容易過擬合，小樣本需外部驗證。",
+    "sources": [
+      {
+        "title": "BERT：雙向預訓練語言表徵",
+        "url": "https://arxiv.org/abs/1810.04805"
+      },
+      {
+        "title": "Multi-Task Learning Using Uncertainty to Weigh Losses",
+        "url": "https://arxiv.org/abs/1705.07115"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q36": {
+    "reasoning": "僅500張影像從零學習大型網路風險高，預訓練CNN已學邊緣與紋理等可遷移表徵，微調少量層可降低標註需求，A最好。應以目標瑕疵樣本驗證，並根據任務差異選擇凍結程度。",
+    "options": {
+      "A": "正確；借用預訓練表徵並適應十類新任務。",
+      "B": "從頭大ViT常需更多資料，500張難支撐可靠學習。",
+      "C": "K-means群不自動對應十種已定義瑕疵標籤。",
+      "D": "複製不產生獨立資訊，仍易記憶原樣本。"
+    },
+    "concept": "遷移學習效率來自重用舊任務的特徵知識。",
+    "pitfalls": "預訓練域與工業影象可能不同，須查遷移負效應。",
+    "sources": [
+      {
+        "title": "PyTorch：影像遷移學習",
+        "url": "https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q37": {
+    "reasoning": "題目限制只改資料前處理，SMOTE可在少數類鄰居間合成擴增，降低99比1訓練偏向，所以A。若是原始瑕疵影像，通常應在合理表徵或採用影像增強調節，不隨意畫素插值。",
+    "options": {
+      "A": "正確；少數類擴增屬於資料層的調整。",
+      "B": "加入L1/L2改變訓練目標，非僅前處理。",
+      "C": "增加層數改變模型架構，違背限制。",
+      "D": "複製良品更加劇多數類優勢。"
+    },
+    "concept": "重取樣只在訓練折做，評價保留真實類別比例。",
+    "pitfalls": "SMOTE不是任何影像都適合，合成邊界樣本可能不真實。",
+    "sources": [
+      {
+        "title": "imbalanced-learn：過取樣與SMOTE",
+        "url": "https://imbalanced-learn.org/stable/over_sampling.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q38": {
+    "reasoning": "999°C已確定不可能且源於通訊錯誤，保留會強烈扭曲平均及訓練。刪除損壞記錄或先標成缺值再用適當中位數填補，D最佳；同時保留原始稽核與錯誤原因以修復感測鏈路。",
+    "options": {
+      "A": "異常會拉動平均，直接保留不符合已知物理限制。",
+      "B": "Z=(999−25)/2=487，標準化並不截斷到−3至3。",
+      "C": "把連續壞值設獨立類仍未修復無效資訊。",
+      "D": "正確；移除無效觀測或合理補值。"
+    },
+    "concept": "已知資料錯誤與罕見真實事件應採用不同清理策略。",
+    "pitfalls": "不可把所有極端值都刪除，先確認物理與來源證據。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      },
+      {
+        "title": "NIST：偏態與峰態",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q39": {
+    "reasoning": "原影像及文字適合物件／檔案式資料湖儲存原貌，多種結構統一治理；整理好的結構化特徵可放倉儲供SQL分析，A符合典型分工。湖倉整合架構也可實現兩種功能，選擇依實際查詢及治理需求。",
+    "options": {
+      "A": "正確；原始多格式與整理後結構化用途分配。",
+      "B": "倉儲雖可儲存引用或部分半結構，直接統一全部原始大檔不一定合適。",
+      "C": "現代資料湖可高效查詢結構資料，不必必然犧牲效率。",
+      "D": "原始非結構文字與影像同樣可用資料湖。"
+    },
+    "concept": "schema-on-read與整理後的分析schema針對不同使用階段。",
+    "pitfalls": "儲存位置不代替許可權、版本、質量與生命週期管理。",
+    "sources": [
+      {
+        "title": "Microsoft：Data Lake",
+        "url": "https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q40": {
+    "reasoning": "INT8以較低精度存權重與可能的啟用，減小記憶體頻寬並利用支援的整數核心；配合融合與執行最佳化可降低邊緣推論延遲，D符合不換裝置條件。必須做代表性校準及量化後品質測試。",
+    "options": {
+      "A": "訓練資料少不改變已定模型的單次推論工作量。",
+      "B": "大batch提高吞吐卻可能加等待，不保證每張低於200ms。",
+      "C": "整合多個模型通常增加推論成本。",
+      "D": "正確；精度壓縮與相容核心加速。"
+    },
+    "concept": "量化收益依硬體、運算元支援與前後處理比例決定。",
+    "pitfalls": "若硬體缺高效INT8，可能沒有加速甚至更慢，須實測。",
+    "sources": [
+      {
+        "title": "Intel Neural Compressor：模型量化",
+        "url": "https://www.intel.com/content/www/us/en/developer/tools/oneapi/neural-compressor.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q41": {
+    "reasoning": "GPU核之間留空檔、小batch而CPU未飽和，較支援排程與批次策略無法填滿運算的診斷，A。可量測排隊、複製、kernel launch與動態batch等待，找適合吞吐與尾延遲的引數，不應只看60%平均值。",
+    "options": {
+      "A": "正確；排程與批次利用不足對應觀察現象。",
+      "B": "題幹已排除併發控制異常，不能再直接歸因。",
+      "C": "硬體已排除，且閒置不是算力不足的直接證據。",
+      "D": "未量化可能耗算力，但不能單獨解釋明顯核間空檔。"
+    },
+    "concept": "GPU利用率、每請求延遲與kernel時間線互補診斷。",
+    "pitfalls": "更大batch有等待成本，要按延遲SLO尋找上限。",
+    "sources": [
+      {
+        "title": "NVIDIA Triton：Dynamic Batching",
+        "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q42": {
+    "reasoning": "高額只佔5%，群體退化可能被其餘95%的穩定或改善所抵消。只監控總體RMSE會錯過特定區間，D指出缺乏切片監控；應按金額、案件型別及群體追蹤誤差與樣本數。",
+    "options": {
+      "A": "提高頻率仍會每次只看同一總體平均，不能解除盲點。",
+      "B": "長尾可以用區間指標、分位誤差等監控，不是無法偵測。",
+      "C": "RMSE反而放大大誤差，換MAE仍未解決群體混合。",
+      "D": "正確；要分組觀察高額案件表現。"
+    },
+    "concept": "整體指標穩定不代表每個重要子群都穩定。",
+    "pitfalls": "高額樣本少時區間波動大，應報告不確定性與計數。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      },
+      {
+        "title": "Evidently：監控指標",
+        "url": "https://docs.evidentlyai.com/metrics/all_metrics"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q43": {
+    "reasoning": "要量測真實點選、購買與體驗，必須讓部分真實使用者看到新推薦；小流量金絲雀在受控風險下取得CTR/CVR並依護欄逐步擴量，C。還需隨機分配對照及足夠樣本，單純少量曝光不能保證因果結論。",
+    "options": {
+      "A": "影子模式使用者看不到新結果，難量測對新推薦的反應。",
+      "B": "歷史回測仍離線，無法完全模擬新曝光行為。",
+      "C": "正確；真實有限流量驗證業務影響。",
+      "D": "負載測系統容量，不證明推薦對使用者有益。"
+    },
+    "concept": "上線風險控制與隨機實驗統計設計要共同規劃。",
+    "pitfalls": "1–5%是候選範圍，樣本量與實驗時間應依最低可檢測效果計算。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      },
+      {
+        "title": "Kubernetes：核心功能",
+        "url": "https://kubernetes.io/docs/concepts/overview/"
+      },
+      {
+        "title": "Argo Rollouts：漸進金絲雀部署",
+        "url": "https://argo-rollouts.readthedocs.io/en/stable/features/canary/"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q44": {
+    "reasoning": "5MB二進位影像放POST body，以multipart攜帶檔案和欄位，或octet-stream傳原始位元組，可避免URL長度限制與Base64額外膨脹，B最佳。仍需驗證檔案型別、大小、授權與超時。",
+    "options": {
+      "A": "URL query不適合大二進位，還易被日誌與代理記錄。",
+      "B": "正確；以請求body和合適Content-Type傳送影像。",
+      "C": "PUT語義通常更新指定資源，XML對二進位不高效。",
+      "D": "客戶端推論改變產品架構，未回答服務API傳檔需求。"
+    },
+    "concept": "HTTP方法語義與媒體型別是兩個獨立設計層面。",
+    "pitfalls": "multipart的boundary應由客戶端庫產生，不能漏掉邊界。",
+    "sources": [
+      {
+        "title": "MDN：HTTP POST",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q45": {
+    "reasoning": "外部服務失敗時持續呼叫會佔滿連線或執行緒並拖垮上游。Circuit Breaker超過失敗門檻後開啟，快速拒絕或回退，稍後半開試探恢復，B能隔離連鎖失敗；另需超時與有限重試。",
+    "options": {
+      "A": "取消超時可能讓請求無限等候，擴大積壓。",
+      "B": "正確；暫停對不健康依賴的呼叫並提供可控退路。",
+      "C": "無限加執行緒會放大下游負載及資源耗盡。",
+      "D": "停健康檢查不會修復失敗，還降低觀察能力。"
+    },
+    "concept": "Closed、Open、Half-open三態控制失敗恢復。",
+    "pitfalls": "斷路器不是保證業務成功，替代響應要明確表示降級。",
+    "sources": [
+      {
+        "title": "Microsoft：Circuit Breaker",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q46": {
+    "reasoning": "聯邦學習把原始患者資料留院內，院內訓練後只上傳更新供雲端聚合，C滿足「不傳原始」的關鍵限制。雲端主要聚合而非直接用GPU讀取原影像訓練；模型更新仍可能洩漏，需要安全聚合等措施。",
+    "options": {
+      "A": "加密後再雲端解密仍把原始患者資料離院，違背題設。",
+      "B": "加密推論請求不解決共同訓練方案。",
+      "C": "官方正確；本地訓練、更新聚合的資料留置架構。",
+      "D": "VPN保護傳輸，不表示資料未上傳。"
+    },
+    "concept": "聯邦學習減少原始資料集中，但不自動等同隱私或合規保證。",
+    "pitfalls": "HIPAA並非普遍禁止雲端儲存ePHI；本題院內規則應視額外約束。",
+    "sources": [
+      {
+        "title": "Federated Learning：Decentralized Data",
+        "url": "https://arxiv.org/abs/1602.05629"
+      },
+      {
+        "title": "HHS：HIPAA與雲端運算",
+        "url": "https://www.hhs.gov/hipaa/for-professionals/special-topics/cloud-computing/index.html"
+      }
+    ],
+    "caveat": "C未充分實現「公有云GPU訓練影像模型」，且題幹把HIPAA誤簡化為絕對不得離院；官方答案須結合這些限制理解。"
+  },
+  "intermediate-115-1-1-q47": {
+    "reasoning": "流量到30%出現延遲，說明擴量護欄受影響；先暫停增加，量測瓶頸與尾延遲，最佳化後重測再繼續，D最合理。若已超過安全界限，應回退或降低流量，而非等最佳化期間繼續傷害體驗。",
+    "options": {
+      "A": "直接100%會擴大已觀察的效能問題。",
+      "B": "永久終止所有試驗過度，但嚴重SLO違規時回退可適當。",
+      "C": "無調整持續觀察不能處理已知體驗退化。",
+      "D": "正確；停止擴量並解決瓶頸後驗證。"
+    },
+    "concept": "漸進部署須預設業務、服務與安全停止條件。",
+    "pitfalls": "轉化率略升不能抵消明顯延遲風險，須一起衡量。",
+    "sources": [
+      {
+        "title": "NVIDIA Triton：Dynamic Batching",
+        "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html"
+      },
+      {
+        "title": "Kubernetes：核心功能",
+        "url": "https://kubernetes.io/docs/concepts/overview/"
+      },
+      {
+        "title": "Argo Rollouts：setWeight與pause",
+        "url": "https://argo-rollouts.readthedocs.io/en/stable/features/canary/"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q48": {
+    "reasoning": "P(X)未見明顯變化、處理管線未改，卻同型態交易的真實風險改變，是P(Y∣X)變化，即Concept Drift，選C。AUC可能維持排序但機率校準或固定閾值的指標變差，需分群和真實標籤核查。",
+    "options": {
+      "A": "題幹未觀察輸入特徵分佈變動，不最支援資料漂移。",
+      "B": "沒有離線線上處理差異證據，不能歸因skew。",
+      "C": "正確；特徵與標籤關係隨行為環境改變。",
+      "D": "門檻可能需更新，但題幹無門檻改變，非所述根因。"
+    },
+    "concept": "概念漂移、校準變化與排序指標變化可以不同步。",
+    "pitfalls": "該描述屬候選診斷，要核實標籤延遲與業務規則也未變。",
+    "sources": [
+      {
+        "title": "Evidently：監控指標",
+        "url": "https://docs.evidentlyai.com/metrics/all_metrics"
+      },
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q49": {
+    "reasoning": "每epoch學習率與調參軌跡是訓練執行的歷史後設資料，適合實驗追蹤；API延遲、輸入PSI與預測對實際反饋則是線上服務或模型狀態監控。A最不適合作實時生產監控主指標。",
+    "options": {
+      "A": "正確的排除項；訓練設定屬於實驗過程證據。",
+      "B": "P50/P95/P99及RPS直接反映線上服務壓力。",
+      "C": "PSI可在滾動視窗比較輸入分佈，屬於模型監控。",
+      "D": "預測與反饋比對可持續檢查效能，標籤可能有延遲。"
+    },
+    "concept": "實驗追蹤回答「如何產生模型」，線上監控回答「目前如何運作」。",
+    "pitfalls": "不是所有指標都能每秒更新，PSI與標籤評估需合理時間窗。",
+    "sources": [
+      {
+        "title": "MLflow：Model Registry",
+        "url": "https://mlflow.org/docs/latest/ml/model-registry/"
+      },
+      {
+        "title": "Evidently：監控指標",
+        "url": "https://docs.evidentlyai.com/metrics/all_metrics"
+      }
+    ]
+  },
+  "intermediate-115-1-1-q50": {
+    "reasoning": "晚期融合在各模態獨立預測後組合分數，可降低低品質文字透過共享特徵擾亂影像的程度，並依質量調權。D說在「輸入階段」整合，是早期融合定義，故為最不可能的原因。",
+    "options": {
+      "A": "獨立預測減少單模態問題傳播，合理。",
+      "B": "融合權重可降低不可靠文字的影響，合理。",
+      "C": "沒有共享早期特徵，較不易互相放大錯誤，合理。",
+      "D": "正確的排除項；輸入整合不屬於Late Fusion。"
+    },
+    "concept": "Early、中期、Late Fusion依組合發生的位置區分。",
+    "pitfalls": "晚期融合不保證穩健；權重錯誤仍可能讓壞模態主導。",
+    "sources": [
+      {
+        "title": "Multi-Task Learning Using Uncertainty to Weigh Losses",
+        "url": "https://arxiv.org/abs/1705.07115"
+      },
+      {
+        "title": "ModDrop：缺失模態穩健訓練",
+        "url": "https://chriswolfvision.github.io/www/papers/pami2015.pdf"
+      }
+    ]
+  }
+}

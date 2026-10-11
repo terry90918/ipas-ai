@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1580" viewBox="0 0 1200 1580">
+  <rect width="1200" height="1580" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1500" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">題庫第 18 題｜概念圖解</text>
+  <rect x="80" y="158" width="310" height="54" rx="27" fill="#fff0e9"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#a4421a">標準答案 B</text>
+  <text x="80" y="270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="600" fill="#35404b">差分隱私：讓單一個人的資料不會明顯改變統計輸出。</text>
+  <rect x="80" y="315" width="1040" height="385" rx="24" fill="#f5f7f9"/>
+  <text x="120" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#17212b">做法與效果</text>
+  <rect x="120" y="415" width="420" height="95" rx="18" fill="#eef4fb"/>
+  <text x="330" y="455" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">許多人一起的統計查詢</text>
+  <text x="330" y="488" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="18" fill="#52606d">例如某地區慢性病人數</text>
+  <text x="600" y="473" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="700" fill="#a34b13">＋雜訊</text>
+  <rect x="660" y="415" width="420" height="95" rx="18" fill="#fff3e9"/>
+  <text x="870" y="455" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">輸出統計結果</text>
+  <text x="870" y="488" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="18" fill="#8c471d">單筆資料變動，結果只小幅變化</text>
+  <line x1="120" y1="550" x2="1080" y2="550" stroke="#d9e0e6" stroke-width="2"/>
+  <text x="120" y="600" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="700" fill="#174c85">為什麼有用？</text>
+  <text x="120" y="645" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#35404b">即使有人反覆比較不同查詢結果，也較難推斷某位病患是否在資料中。</text>
+  <text x="80" y="770" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="700" fill="#17212b">生活比喻</text>
+  <text x="80" y="825" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">像公布班級統計時加上一點點自然波動：多一位或少一位同學，</text>
+  <text x="80" y="865" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">公布的數字不會大幅改變，外人就難以從統計猜出某個人是否參與。</text>
+  <text x="80" y="950" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="700" fill="#17212b">其他選項差在哪裡</text>
+  <text x="90" y="1015" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="600" fill="#24313d">A　k-匿名化：讓個人資料看起來至少和 k−1 人相似，不是以雜訊穩定查詢輸出。</text>
+  <text x="90" y="1090" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="600" fill="#24313d">C　假名化：把姓名等識別資訊換成代碼，仍可能被其他資料連回個人。</text>
+  <text x="90" y="1165" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="600" fill="#24313d">D　資料遮罩：隱藏或遮蔽欄位值，不等同限制單筆資料對統計結果的影響。</text>
+  <rect x="80" y="1240" width="1040" height="200" rx="24" fill="#eef4fb"/>
+  <text x="120" y="1300" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="700" fill="#174c85">題幹線索</text>
+  <text x="120" y="1350" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">反覆查詢可能推論個人；加入隨機雜訊；一筆資料增減不會明顯改變輸出。</text>
+  <text x="120" y="1400" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="700" fill="#17212b">這種保護方式就是差分隱私（B）。</text>
+</svg>

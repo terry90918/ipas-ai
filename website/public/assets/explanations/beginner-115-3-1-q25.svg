@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1650" viewBox="0 0 1200 1650">
+  <rect width="1200" height="1650" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1570" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">第 25 題｜概念圖解</text>
+  <rect x="80" y="158" width="310" height="54" rx="27" fill="#fff0e9"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#a4421a">標準答案 C</text>
+  <text x="80" y="275" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="600" fill="#35404b">交叉驗證：把資料分成幾份，輪流留一份評估，其餘用來訓練。</text>
+  <text x="80" y="335" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#52606d">本題是 5 折：每輪 4 份訓練、1 份評估；輪完 5 次後取平均。</text>
+  <rect x="80" y="380" width="1040" height="570" rx="24" fill="#f5f7f9"/>
+  <text x="120" y="435" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#35404b">每一欄代表一輪；橘色那份輪流當評估資料。</text>
+  <text x="120" y="500" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" font-weight="600" fill="#52606d">資料份</text>
+  <text x="355" y="500" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" font-weight="600" fill="#52606d">第 1 輪</text>
+  <text x="505" y="500" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" font-weight="600" fill="#52606d">第 2 輪</text>
+  <text x="655" y="500" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" font-weight="600" fill="#52606d">第 3 輪</text>
+  <text x="805" y="500" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" font-weight="600" fill="#52606d">第 4 輪</text>
+  <text x="955" y="500" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" font-weight="600" fill="#52606d">第 5 輪</text>
+  <text x="120" y="567" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">第 1 份</text>
+  <text x="120" y="647" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">第 2 份</text>
+  <text x="120" y="727" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">第 3 份</text>
+  <text x="120" y="807" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">第 4 份</text>
+  <text x="120" y="887" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">第 5 份</text>
+  <rect x="285" y="525" width="140" height="58" rx="10" fill="#f5b17d"/><text x="355" y="562" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="600" fill="#5a2c11">評估</text>
+  <rect x="435" y="525" width="140" height="58" rx="10" fill="#dceaf5"/><text x="505" y="562" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="585" y="525" width="140" height="58" rx="10" fill="#dceaf5"/><text x="655" y="562" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="735" y="525" width="140" height="58" rx="10" fill="#dceaf5"/><text x="805" y="562" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="885" y="525" width="140" height="58" rx="10" fill="#dceaf5"/><text x="955" y="562" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="285" y="605" width="140" height="58" rx="10" fill="#dceaf5"/><text x="355" y="642" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="435" y="605" width="140" height="58" rx="10" fill="#f5b17d"/><text x="505" y="642" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="600" fill="#5a2c11">評估</text>
+  <rect x="585" y="605" width="140" height="58" rx="10" fill="#dceaf5"/><text x="655" y="642" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="735" y="605" width="140" height="58" rx="10" fill="#dceaf5"/><text x="805" y="642" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="885" y="605" width="140" height="58" rx="10" fill="#dceaf5"/><text x="955" y="642" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="285" y="685" width="140" height="58" rx="10" fill="#dceaf5"/><text x="355" y="722" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="435" y="685" width="140" height="58" rx="10" fill="#dceaf5"/><text x="505" y="722" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="585" y="685" width="140" height="58" rx="10" fill="#f5b17d"/><text x="655" y="722" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="600" fill="#5a2c11">評估</text>
+  <rect x="735" y="685" width="140" height="58" rx="10" fill="#dceaf5"/><text x="805" y="722" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="885" y="685" width="140" height="58" rx="10" fill="#dceaf5"/><text x="955" y="722" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="285" y="765" width="140" height="58" rx="10" fill="#dceaf5"/><text x="355" y="802" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="435" y="765" width="140" height="58" rx="10" fill="#dceaf5"/><text x="505" y="802" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="585" y="765" width="140" height="58" rx="10" fill="#dceaf5"/><text x="655" y="802" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="735" y="765" width="140" height="58" rx="10" fill="#f5b17d"/><text x="805" y="802" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="600" fill="#5a2c11">評估</text>
+  <rect x="885" y="765" width="140" height="58" rx="10" fill="#dceaf5"/><text x="955" y="802" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="285" y="845" width="140" height="58" rx="10" fill="#dceaf5"/><text x="355" y="882" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="435" y="845" width="140" height="58" rx="10" fill="#dceaf5"/><text x="505" y="882" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="585" y="845" width="140" height="58" rx="10" fill="#dceaf5"/><text x="655" y="882" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="735" y="845" width="140" height="58" rx="10" fill="#dceaf5"/><text x="805" y="882" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#244865">訓練</text>
+  <rect x="885" y="845" width="140" height="58" rx="10" fill="#f5b17d"/><text x="955" y="882" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="600" fill="#5a2c11">評估</text>
+  <text x="80" y="1010" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#35404b">生活比喻：把題庫分成五包，輪流用四包練習、一包測驗；最後平均五次成績。</text>
+  <text x="80" y="1090" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="700" fill="#17212b">其他選項差在哪裡</text>
+  <text x="90" y="1150" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">A　隨機森林是用來預測的模型演算法，不是資料評估切法。</text>
+  <text x="90" y="1210" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">B　保留法通常只切一次固定的訓練集與測試集，沒有輪流五次。</text>
+  <text x="90" y="1270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">D　自助抽樣會「有放回」抽資料，樣本可能重複；不是五份輪替。</text>
+  <rect x="80" y="1340" width="1040" height="160" rx="22" fill="#17212b"/>
+  <text x="600" y="1400" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="600" fill="#ffffff">交叉驗證：多次切分、輪流評估、最後取平均</text>
+  <text x="600" y="1450" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#ffffff">題目出現「分成 k 份、輪流留一份、重複 k 次」就想到它。</text>
+</svg>

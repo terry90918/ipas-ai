@@ -1,0 +1,1005 @@
+{
+  "beginner-115-1-2-q1": {
+    "reasoning": "輸入購物行為等條件相同而群體結果差異無法解釋，應先查訓練群體覆蓋、標籤偏差與代理特徵，A。題目又規定不改架構與推論設定，所以限制暢銷、縮模型或增加隨機性既不查根因也可能掩蓋差異。",
+    "options": {
+      "A": "A：檢視代表性與歷史標籤，能定位模型學到的群體偏差。",
+      "B": "B：只推暢銷縮減內容，不證明對各群體的差異已公平。",
+      "C": "C：改變規模違反固定架構前提，也不自動去偏。",
+      "D": "D：隨機性增加不修復訓練偏差，可能使差異更難測量。"
+    },
+    "concept": "群體結果差異與訓練資料偏差。",
+    "pitfalls": "同時控制相關業務條件並比較錯誤率，不能只看推薦品名不同。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-115-1-2-q2": {
+    "reasoning": "LoRA 凍結大模型原權重，以低秩分解 ΔW=BA 學少量更新矩陣；若秩遠小於原維度，需要訓練與儲存的參數大幅下降，故 D。基礎權重和前向激活仍佔資源，嚴重顯存限制還可能要量化或其他優化。",
+    "options": {
+      "A": "A：蒸餾是教師教學生，通常需訓練另一模型，不是本題適配矩陣。",
+      "B": "B：提示工程不更新權重，非所問參數高效微調技術。",
+      "C": "C：單純凍結部分參數可省更新，但未說明有效可訓練適配機制。",
+      "D": "D：低秩增量承載更新，讓基礎大權重保持凍結。"
+    },
+    "concept": "低秩適配與參數高效微調。",
+    "pitfalls": "可訓練參數少不等於模型本體完全不用顯存。",
+    "sources": [
+      {
+        "title": "Hu 等：LoRA（凍結基礎權重與低秩適配）",
+        "url": "https://arxiv.org/abs/2106.09685"
+      }
+    ]
+  },
+  "beginner-115-1-2-q3": {
+    "reasoning": "儀表板可視化再漂亮，若資料串接斷斷續續或更新滯後，就會顯示錯誤營運狀況。A 穩定來源連接、更新與資料質量是分析可信基礎。應顯示資料時間與失敗狀態，防止舊資料靜默留在畫面被當成即時結果。",
+    "options": {
+      "A": "A：來源可用、更新及時，直接影響顯示是否可信。",
+      "B": "B：自動預測不是看板穩定的前提，錯誤輸入仍會誤導。",
+      "C": "C：介面及權限重要，但不會自行確保數值資料新鮮。",
+      "D": "D：通知流程不修復看板來源資料錯誤或更新失敗。"
+    },
+    "concept": "分析資料來源、更新與新鮮度。",
+    "pitfalls": "需要量測來源截止時間，不要以瀏覽器刷新時間冒充資料更新時間。",
+    "sources": [
+      {
+        "title": "Microsoft：Extract, transform, load（ETL）",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl"
+      },
+      {
+        "title": "Microsoft：What is Azure IoT?",
+        "url": "https://learn.microsoft.com/en-us/azure/iot/iot-introduction"
+      }
+    ]
+  },
+  "beginner-115-1-2-q4": {
+    "reasoning": "系統吞吐高不代表每個使用者等得短。應分析單次互動的排隊、首回應、各段生成及完整回復時間，D。已排除前端網路時，後端推論或調度尾端延遲仍可讓使用者感覺卡頓。",
+    "options": {
+      "A": "A：長期穩定描述可用性，不能指出單次回復卡頓。",
+      "B": "B：單位時間完成量是吞吐，本題已經說明表現不錯。",
+      "C": "C：語言內容質量與使用者等待時間是不同維度。",
+      "D": "D：量測單次反應與時間分布，直接對應卡頓體驗。"
+    },
+    "concept": "單筆延遲與高吞吐的區別。",
+    "pitfalls": "檢查 p95/p99 與串流間隔，平均延遲可能掩蓋尖峰。",
+    "sources": [
+      {
+        "title": "scikit-learn：Computational Performance（Latency、Throughput、Batch）",
+        "url": "https://scikit-learn.org/stable/computing/computational_performance.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q5": {
+    "reasoning": "Transformer 自回歸模型用注意力整合可見上下文，依前綴逐 token 生成連貫回復或摘要，C 最符合長對話語言需求。上下文長度和注意力能力仍有限，需檢索與記憶整理，不能保證無限長度都一致。",
+    "options": {
+      "A": "A：CNN 可處理局部模式，但非長文本生成主流架構。",
+      "B": "B：RNN 可生成序列，卻常受長距依賴與順序運算限制。",
+      "C": "C：注意力加因果生成可聯合利用長前文和生成後續內容。",
+      "D": "D：GAN 對抗生成不是企業長對話語言建模的典型選擇。"
+    },
+    "concept": "因果注意力與自回歸語言生成。",
+    "pitfalls": "長視窗不等於模型會可靠利用所有內容，仍須測試資訊遺漏。",
+    "sources": [
+      {
+        "title": "Vaswani 等：Attention Is All You Need",
+        "url": "https://arxiv.org/abs/1706.03762"
+      },
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q6": {
+    "reasoning": "官方歷史資料列出 C2PA 元資料、默認可見動態水印，以及內部反向影片或圖像音訊追蹤工具。題目問不屬於已提供工具，公開即時來源驗證接口未列為當時機制，故 D。內部調查工具不可當作外部可直接呼叫的 API。",
+    "options": {
+      "A": "A：C2PA 元資料記錄可驗證來源，官方出處措施之一。",
+      "B": "B：默認動態可見水印幫助觀眾辨識 AI 影片。",
+      "C": "C：官方有內部反向搜尋用於來源追溯，不是對外開放接口。",
+      "D": "D：當時公開說明未提供此實時外部來源驗證介面。"
+    },
+    "concept": "生成媒體出處、元資料與水印。",
+    "pitfalls": "水印可能被修改，不能把沒有水印就判為真實影片。",
+    "sources": [
+      {
+        "title": "OpenAI：Launching Sora responsibly（2025-09-30）",
+        "url": "https://openai.com/index/launching-sora-responsibly/"
+      },
+      {
+        "title": "OpenAI：Sora System Card（2024-12-09）",
+        "url": "https://openai.com/index/sora-system-card/"
+      }
+    ],
+    "caveat": "按試卷時期的官方機制判斷；截至本次查證，官方頁面已註明 Sora 產品於 2026-04-26 停止提供。歷史的「目前」不能當作現行可用性。"
+  },
+  "beginner-115-1-2-q7": {
+    "reasoning": "平台的身份、角色、資料連接與日誌控制可把企業治理規則落到應用執行層，因此 A。開放自助開發不等於放棄規範，管理員仍需訂定權限、審核、環境與資料防洩漏政策；平台有功能也要實際配置才能有效。",
+    "options": {
+      "A": "A：內建權限與訪問控制可實施治理制度，方向合理。",
+      "B": "B：部門自主不必破壞治理，可透過統一規則協調。",
+      "C": "C：許多平台內建治理功能，不是完全仰賴外部。",
+      "D": "D：自動化減少手工步驟，不免除合規與責任需求。"
+    },
+    "concept": "自助開發與平台治理控制。",
+    "pitfalls": "治理功能存在不等於每個應用已正確配置權限。",
+    "sources": [
+      {
+        "title": "Microsoft：Power Platform Data policies（連接器與治理）",
+        "url": "https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention"
+      },
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-115-1-2-q8": {
+    "reasoning": "雲端能分配較多 CPU/GPU、記憶體與並行資源；邊緣硬體較小，同一應用移植後可能因計算、記憶體或平台運行負擔而變慢，D。邊緣減網路往返卻不保證本地計算更快，要按設備預算選模型和運行環境。",
+    "options": {
+      "A": "A：邊緣減少傳輸，不取消運算與延遲需求。",
+      "B": "B：是否支援邊緣依產品而定，不是所有低程式碼僅限雲端。",
+      "C": "C：遠端傳輸有延遲，但本題實際瓶頸不能據此否定邊緣資源限制。",
+      "D": "D：設備算力、記憶體和電力約束可解釋相同應用變慢。"
+    },
+    "concept": "邊緣計算資源與端到端延遲。",
+    "pitfalls": "應在真實硬體測量，不用雲端通過代替邊緣驗收。",
+    "sources": [
+      {
+        "title": "Microsoft：What is Azure IoT?",
+        "url": "https://learn.microsoft.com/en-us/azure/iot/iot-introduction"
+      },
+      {
+        "title": "scikit-learn：Computational Performance（Latency、Throughput、Batch）",
+        "url": "https://scikit-learn.org/stable/computing/computational_performance.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q9": {
+    "reasoning": "範例沒有涵蓋新市場常見表達，模型無法從少量舊情境示例建立可靠新分類規則，B 最對準證據。應補代表性新市場例子、類別定義和邊界案例，再獨立評估，不是籠統認定模型完全不能分類。",
+    "options": {
+      "A": "A：單例過度依賴可能發生，但題乾明確是新表達覆蓋不足。",
+      "B": "B：少量舊例不足以代表新資料，導致遷移不穩定。",
+      "C": "C：好的提示可以引導共通規則，不能說提示完全無效。",
+      "D": "D：原場景表現可用，不足以證明模型沒有任何分類能力。"
+    },
+    "concept": "少樣本代表性與領域偏移。",
+    "pitfalls": "新市場測試應包含當地措辭、類別比例和歧義用語。",
+    "sources": [
+      {
+        "title": "Brown 等：Language Models are Few-Shot Learners",
+        "url": "https://arxiv.org/abs/2005.14165"
+      }
+    ]
+  },
+  "beginner-115-1-2-q10": {
+    "reasoning": "蒸餾讓較小學生模仿教師的輸出或概率模式，可能用更少計算提供相近回答，D。知識檢索與生成仍可保留，必須測任務正確性、引用與延遲，不能假設學生每項能力無損複製。",
+    "options": {
+      "A": "A：規則替代模型是另一種架構改造，不是知識蒸餾定義。",
+      "B": "B：多檢索文件可能增加推論輸入和成本，且不訓練學生。",
+      "C": "C：關閉生成器就不再完成原有生成任務。",
+      "D": "D：小模型學習教師行為，是蒸餾降成本的主要方法。"
+    },
+    "concept": "知識蒸餾與 RAG 推論資源。",
+    "pitfalls": "先確認成本在檢索還是生成，蒸餾不一定修復所有瓶頸。",
+    "sources": [
+      {
+        "title": "Hinton 等：Distilling the Knowledge in a Neural Network",
+        "url": "https://arxiv.org/abs/1503.02531"
+      },
+      {
+        "title": "Lewis 等：Retrieval-Augmented Generation",
+        "url": "https://arxiv.org/abs/2005.11401"
+      }
+    ]
+  },
+  "beginner-115-1-2-q11": {
+    "reasoning": "No-Code 擅長讓使用者可視化組成畫面、表單和工作流程；AutoML 擅長自動模型選擇與調參。門市畫面調整由前者、銷售預測模型由後者，B 符合各自主要定位，可將預測結果通過接口接回看板。",
+    "options": {
+      "A": "A：把主要定位對調，AutoML 不以畫面編輯為核心。",
+      "B": "B：展示與流程交給視覺平台，模型訓練交給 AutoML。",
+      "C": "C：部分平台整合訓練，但不能假設所有 No-Code 都提供高階建模。",
+      "D": "D：AutoML 可訓練，不代表能讓主管自由設計營運介面。"
+    },
+    "concept": "應用建構與自動模型開發的分工。",
+    "pitfalls": "產品整合功能有交疊，仍須依實際版本和資料任務確認。",
+    "sources": [
+      {
+        "title": "Microsoft：Model-driven app overview",
+        "url": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/model-driven-app-overview"
+      },
+      {
+        "title": "Google Cloud：What is AutoML?",
+        "url": "https://cloud.google.com/automl"
+      }
+    ]
+  },
+  "beginner-115-1-2-q12": {
+    "reasoning": "MCP 為 AI 應用連接外部工具、資源定義標準交換方式；RAG 在生成前補充檢索到的知識證據，B。兩者可同時使用。RAG 可用全文或關係式檢索，不必須向量庫；MCP 的價值正是外部連接而非不需整合。",
+    "options": {
+      "A": "A：兩者定位都不是直接降低訓練成本或必然加快推論。",
+      "B": "B：協議連接與知識增強架構的職責區分正確。",
+      "C": "C：RAG 不限向量庫，MCP 則本來用於連外部服務。",
+      "D": "D：把協議與檢索架構名稱完全顛倒。"
+    },
+    "concept": "連接協議與檢索增強生成。",
+    "pitfalls": "採用標準協議不保證資料最新、工具授權或答案事實正確。",
+    "sources": [
+      {
+        "title": "MCP 官方：Architecture overview",
+        "url": "https://modelcontextprotocol.io/docs/learn/architecture"
+      },
+      {
+        "title": "Lewis 等：Retrieval-Augmented Generation",
+        "url": "https://arxiv.org/abs/2005.11401"
+      }
+    ]
+  },
+  "beginner-115-1-2-q13": {
+    "reasoning": "整篇長文件包含多主題，會讓查詢向量匹配不精確並把大量無關資料送進模型。按語意切成段、保留標題與來源，可提升檢索定位和減噪，B。段太短又會斷掉條件，所以須測正確片段召回與引用。",
+    "options": {
+      "A": "A：加速可能是附帶效果，但主問題是語義相關性。",
+      "B": "B：聚焦檢索單位並降低無關上下文，直接對應觀察。",
+      "C": "C：記憶體使用可能下降，但不是引文精准的主要解釋。",
+      "D": "D：切分不會以創意為主要目標，知識問答反而要忠實來源。"
+    },
+    "concept": "Chunking 的語義粒度與證據定位。",
+    "pitfalls": "標題、條件、例外與條號須一起保留，不能任意切字數。",
+    "sources": [
+      {
+        "title": "Lewis 等：Retrieval-Augmented Generation",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q14": {
+    "reasoning": "把表格明確序列化為 JSON 或 Markdown，保留欄名、行對應、單位和空值，可減少複製 Excel 時位置結構遺失，A。若需大量精確計算，應交給程序或表格工具並回讀，不讓語言模型只憑文字猜數值關係。",
+    "options": {
+      "A": "A：結構化欄位和列對應較清楚，提升上下文可解析性。",
+      "B": "B：補說明有助，但不一定修復原始表格損壞的行列關係。",
+      "C": "C：隨機切割可能讓欄名與資料脫離，惡化誤讀。",
+      "D": "D：保持原樣未處理已經發現的解析不穩定根因。"
+    },
+    "concept": "表格序列化、欄位語義與資料保真。",
+    "pitfalls": "轉換後核對行數、單位和缺值，避免新格式看起來整齊卻丟資料。",
+    "sources": [
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      },
+      {
+        "title": "Microsoft：Extract, transform, load（ETL）",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl"
+      }
+    ]
+  },
+  "beginner-115-1-2-q15": {
+    "reasoning": "情境感知代理利用對話歷史、當前任務狀態及環境資訊決定下一步，而非每次只看最新一句話，因此 D。它可以通過更新上下文達到此能力，不要求每個請求都重訓模型，也不以多模態為必要條件。",
+    "options": {
+      "A": "A：動態再訓練權重不是情境感知的定義或必要步驟。",
+      "B": "B：忽略歷史和狀態會失去本題核心情境資訊。",
+      "C": "C：多模態是輸入能力，文本代理也可情境感知。",
+      "D": "D：根據歷史和任務狀態調整決策，符合核心定義。"
+    },
+    "concept": "代理記憶、任務狀態與上下文。",
+    "pitfalls": "歷史需適度壓縮和驗證，舊狀態可能已失效。",
+    "sources": [
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q16": {
+    "reasoning": "Solution Graph 將任務拆為狀態、依賴和可選決策路徑，供代理規劃、執行與回溯，D。它可以配合語言模型選擇工具，不是完全取代推理，也不僅是已完成案例倉庫。路徑完成須核驗實際產物。",
+    "options": {
+      "A": "A：圖搜索是輔助，未必取代語意理解和模型推理。",
+      "B": "B：案例可作為知識，但圖的主要用途是當前任務結構。",
+      "C": "C：可以約束動作，但不必將所有情境鎖死為腳本。",
+      "D": "D：明確任務分解與路徑關係，提供可參考規劃結構。"
+    },
+    "concept": "任務依賴圖與執行狀態。",
+    "pitfalls": "Solution Graph 是概括術語，不保證所有實現有同一規範。",
+    "sources": [
+      {
+        "title": "Besta 等：Graph of Thoughts",
+        "url": "https://arxiv.org/abs/2308.09687"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q17": {
+    "reasoning": "多服務實例配負載分散可把流量分配到健康實例，並在故障時切換，B 同時改善擴展性與可用性。還需避免共同單點、設健康檢查、容量及狀態管理；僅複製模型而共用一個脆弱依賴仍可能全面中斷。",
+    "options": {
+      "A": "A：單一 VM 再快也構成故障單點，容量擴張有限。",
+      "B": "B：多實例和健康路由提供冗余與水平擴展。",
+      "C": "C：客戶端推論可分散成本，但不直接保證原服務的高可用。",
+      "D": "D：FTP 不是互動推論 API 的合適請求回覆協議。"
+    },
+    "concept": "冗余服務、負載平衡與故障域。",
+    "pitfalls": "狀態、模型版本和限流需要一致，別只看實例數量。",
+    "sources": [
+      {
+        "title": "Azure Well-Architected：Recommendations for designing redundancy",
+        "url": "https://learn.microsoft.com/en-us/azure/well-architected/reliability/redundancy"
+      },
+      {
+        "title": "scikit-learn：Computational Performance（Latency、Throughput、Batch）",
+        "url": "https://scikit-learn.org/stable/computing/computational_performance.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q18": {
+    "reasoning": "程式碼模型根據文本和程式上下文生成後續 tokens，能產生合語法但邏輯錯誤的程式，A。產品可另外運行測試或工具，但沒有所有輸出都會預先編譯驗證的通用保證；正確性須針對需求和安全邊界檢驗。",
+    "options": {
+      "A": "A：概率生成加上不保證正確性，是合理基礎機制描述。",
+      "B": "B：補全不代表已執行及驗證所有可能輸入。",
+      "C": "C：Claude 可動態生成，不只是查固定答案資料庫。",
+      "D": "D：編譯只能抓部分問題，亦無自動更正所有邏輯的保證。"
+    },
+    "concept": "生成程式碼與執行驗證的證據邊界。",
+    "pitfalls": "必須驗證呼叫、異常、權限與實際行為，不只檢查程式碼能編譯。",
+    "sources": [
+      {
+        "title": "GitHub 官方：What is GitHub Copilot?",
+        "url": "https://docs.github.com/en/copilot/get-started/what-is-github-copilot"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q19": {
+    "reasoning": "快速生成可運行原型不證明正式可維護、安全或滿足邊界情況。C 把程式碼納入審查、必要重構和安全測試，能發現權限、輸入驗證和資料寫入問題。應保留最小可審閱差異與實際測試結果，避免只有提示改良卻沒驗證產物。",
+    "options": {
+      "A": "A：原樣上線跳過必要質量與安全驗證。",
+      "B": "B：提示能改善產出，但不能代替程式碼和運行證據。",
+      "C": "C：審查結構、風險與真實行為，直接降低上線缺陷。",
+      "D": "D：禁止修改會阻礙修復錯誤，並無可靠性保證。"
+    },
+    "concept": "原型速度與生產質量門檻。",
+    "pitfalls": "MVP 減少功能範圍，不應省略信任邊界驗證和資料安全。",
+    "sources": [
+      {
+        "title": "OWASP：LLM Prompt Injection Prevention Cheat Sheet",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q20": {
+    "reasoning": "gpt-realtime 以低延遲語音交互為目標，可直接處理音訊、產出語音並呼叫工具，故 C 的語音客服與互動代理最匹配。批次報表、固定法規摘要與普通結構化查詢可用其他架構，不必承擔實時音訊鏈路。",
+    "options": {
+      "A": "A：離線大量長報告更重視成本與吞吐，非實時語音優勢。",
+      "B": "B：即時查詢可用工具，但不一定需要語音實時模型。",
+      "C": "C：雙向語音、自然對話與工具動作符合設計用途。",
+      "D": "D：穩定法規摘要應看來源準確和格式，不以低語音延遲為主要需求。"
+    },
+    "concept": "原生語音互動與低延遲工具使用。",
+    "pitfalls": "低延遲不等於查詢正確，應核驗工具結果和敏感動作授權。",
+    "sources": [
+      {
+        "title": "OpenAI：Introducing gpt-realtime（2025-08-28）",
+        "url": "https://openai.com/index/introducing-gpt-realtime/"
+      }
+    ]
+  },
+  "beginner-115-1-2-q21": {
+    "reasoning": "2025 AgentKit 用於建構、部署和優化代理，包含工作流程設計、連接器管理與聊天體驗工具，因此 D。它不是 A2A 標準本身，也不是基礎大模型預訓練工具；代理開發與模型權重訓練須分開。",
+    "options": {
+      "A": "A：模擬環境是某些強化訓練組件，不是 AgentKit 的主要定位。",
+      "B": "B：基礎預訓練和大規模權重優化並非該套件核心。",
+      "C": "C：A2A 是不同協議，不能把產品工具包視作該協議。",
+      "D": "D：代理流程、工具連接及應用整合符合官方發表用途。"
+    },
+    "concept": "代理開發工具包與訓練或通訊協議。",
+    "pitfalls": "依歷史2025發佈內容理解題目，實際功能和產品狀態可能演變。",
+    "sources": [
+      {
+        "title": "OpenAI：Introducing AgentKit（2025-10-06）",
+        "url": "https://openai.com/index/introducing-agentkit/"
+      }
+    ],
+    "caveat": "題目明指 2025 年 AgentKit。官方頁面後續更新說明 Agent Builder 與 Evals 將於 2026-11-30 停止提供；不改變 2025 年發布用途。"
+  },
+  "beginner-115-1-2-q22": {
+    "reasoning": "SynthID 在生成影片各幀像素嵌入人眼不易看見的水印，之後可透過檢測識別來源，D。它是來源辨識輔助，不是保證影片事實為真或阻止所有修改，仍須看檢測覆蓋和素材處理方式。",
+    "options": {
+      "A": "A：用量限制控制資源，不是內容來源辨識措施。",
+      "B": "B：題目指定的技術是不可見水印，不是首尾警語。",
+      "C": "C：沒有通用強制十秒免責聲明的此項機制。",
+      "D": "D：每幀嵌入不可見數字水印，符合 SynthID 影片設計。"
+    },
+    "concept": "不可見內容水印與生成來源。",
+    "pitfalls": "沒有檢出水印不證明真人拍攝，尤其經過修改或來源不在覆蓋範圍時。",
+    "sources": [
+      {
+        "title": "Google DeepMind：Watermarking AI-generated text and video with SynthID",
+        "url": "https://deepmind.google/blog/watermarking-ai-generated-text-and-video-with-synthid/"
+      }
+    ]
+  },
+  "beginner-115-1-2-q23": {
+    "reasoning": "判別詐欺以資料預測已有類別，是鑒別式任務；撰寫新調查報告則生成文字序列，是生成式任務，因此 A。兩者可串聯，讓分類證據支撐報告，但報告生成不能假冒已經完成交易核驗。",
+    "options": {
+      "A": "A：類別判斷與文字創造分屬鑒別和生成，配對正確。",
+      "B": "B：把兩個任務類別倒置。",
+      "C": "C：報告不是只輸出類別，不能都稱鑒別式。",
+      "D": "D：詐欺類別判定主要是區分，不是生成新文字樣本。"
+    },
+    "concept": "鑒別類別決策與生成內容。",
+    "pitfalls": "生成模型也能做分類提示，但任務目標與訓練形式要分別說明。",
+    "sources": [
+      {
+        "title": "scikit-learn：Linear Models（Lasso、Ridge、Logistic regression）",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      },
+      {
+        "title": "Hugging Face：Text generation（temperature 與解碼）",
+        "url": "https://huggingface.co/docs/transformers/main_classes/text_generation"
+      }
+    ]
+  },
+  "beginner-115-1-2-q24": {
+    "reasoning": "已列直接月支出15+8+5=28萬元，但 TCO 還包括導入整合、人員培訓、資安合規、升級與退場等生命週期成本。D 比 C 更完整；評估時把一次支出和週期支出依相同期間展開，避免重算或遺漏。",
+    "options": {
+      "A": "A：只算 API 忽略維護和基礎設施，少13萬已知月成本。",
+      "B": "B：15+8=23萬，仍漏基礎設施5萬和其他生命週期支出。",
+      "C": "C：28萬直接月支出計算正確，但不足完整 TCO。",
+      "D": "D：加計訓練、整合及合規等相關支出，更完整。"
+    },
+    "concept": "總擁有成本的期間與成本類別。",
+    "pitfalls": "TCO 是成本，需再與節能或效率收益比較才形成商業效益判斷。",
+    "sources": [
+      {
+        "title": "Microsoft：Estimate total cost of ownership",
+        "url": "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/plan/estimate-total-cost-of-ownership"
+      }
+    ]
+  },
+  "beginner-115-1-2-q25": {
+    "reasoning": "人工月費600×50=30,000元；API 月費600×2,000/1,000×0.8=960元；月淨節省30,000−960=29,040元。單純回收期200,000/29,040≈6.887個月，約7個月，因此 A。這依題目假設，不含維護或輸出額外費用。",
+    "options": {
+      "A": "A：月省29,040元、約6.89個月回本，計算正確。",
+      "B": "B：漏扣960元 API 月支出，雖然四捨五入回收仍約7月。",
+      "C": "C：月節省錯誤減掉額外不存在的1000元。",
+      "D": "D：25,000元不是給定數量和單價導出的結果。"
+    },
+    "concept": "每月淨節省與簡單投資回收期。",
+    "pitfalls": "回收期不是 ROI 百分比；真正 ROI 還要指定評價期間與全部成本。",
+    "sources": [
+      {
+        "title": "Microsoft：Estimate total cost of ownership",
+        "url": "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/plan/estimate-total-cost-of-ownership"
+      }
+    ],
+    "caveat": "0.8元/千token 是題設單價，非實時 API 報價；題目實際算回收期，不是完整 ROI 指標。"
+  },
+  "beginner-115-1-2-q26": {
+    "reasoning": "RAG 從已授權歷史交易與案例庫找相關證據，再讓模型整理可疑特徵與報告，C。這樣能把企業特有事實納入，不必只依預訓練泛知識。應標示引用及不確定性，報告輔助分析不等於最終洗錢認定。",
+    "options": {
+      "A": "A：生成圖像不對準交易文字證據與分析報告。",
+      "B": "B：圖像識別與所給交易記錄類型和報告目標不符。",
+      "C": "C：檢索真實案例作為條件，生成可追溯描述。",
+      "D": "D：基礎模型無法直接得知企業內部尚未提供的交易案例。"
+    },
+    "concept": "企業案例檢索與證據支撐報告。",
+    "pitfalls": "金融報告須確保訪問權限、去識別與引用真實性。",
+    "sources": [
+      {
+        "title": "Lewis 等：Retrieval-Augmented Generation",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "金管會：金融業運用人工智慧指引（治理及問責）",
+        "url": "https://law.fsc.gov.tw/LawContent.aspx?id=GL003920"
+      }
+    ]
+  },
+  "beginner-115-1-2-q27": {
+    "reasoning": "已有瑕疵檢測 API，後續拍照、存檔及通知是事件驅動工作流。n8n 可用節點連接 API、文件和通訊服務，A 兼顧快速和可調整；仍需失敗重試、冪等及權限，避免同一事件重復通知或覆蓋文件。",
+    "options": {
+      "A": "A：視覺節點加少量程式碼能整合既有服務，符合開發能力與速度。",
+      "B": "B：全客制可行但通常耗時和維護成本更高。",
+      "C": "C：現成套件不一定對接既有檢測器和通知需求。",
+      "D": "D：人工作業與巨集難達成實時跨系統自動鏈路。"
+    },
+    "concept": "事件驅動整合與工作流自動化。",
+    "pitfalls": "確認拍照和存檔實際成功後再通知，不能只看流程啓動。",
+    "sources": [
+      {
+        "title": "n8n 官方：Workflow automation documentation",
+        "url": "https://docs.n8n.io/"
+      }
+    ]
+  },
+  "beginner-115-1-2-q28": {
+    "reasoning": "題目將 Token Economics 限定推論輸入、生成輸出的使用量與費用，因此 C 的訓練階段 GPU 記憶體成本不在此範圍。輸入輸出各需計價和紀錄，快取、重試與長對話也可改變推論 token 成本。",
+    "options": {
+      "A": "A：每次送入模型的 tokens 影響推論成本，屬於範圍。",
+      "B": "B：輸出生成數量和單價決定生成費用，屬於範圍。",
+      "C": "C：訓練顯存資源是不同階段及成本類別。",
+      "D": "D：推論用量統計是成本分析的計量基礎。"
+    },
+    "concept": "推論 token 計量與訓練基礎設施成本。",
+    "pitfalls": "整套 TCO 包括訓練資源，但本題較窄的推論 Token Economics 不包括它。",
+    "sources": [
+      {
+        "title": "Microsoft：Estimate total cost of ownership",
+        "url": "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/plan/estimate-total-cost-of-ownership"
+      },
+      {
+        "title": "scikit-learn：Computational Performance（Latency、Throughput、Batch）",
+        "url": "https://scikit-learn.org/stable/computing/computational_performance.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q29": {
+    "reasoning": "單一IT人員有基礎程式概念，需串照片、通知、案件與排程，Low-Code 的視覺流程加必要腳本可快速完成及修正整合，C。純 No-Code 也可能支援，但若需客制接口與邏輯，少量程式碼保留彈性。",
+    "options": {
+      "A": "A：從零寫全系統增加有限人力的負擔。",
+      "B": "B：可能滿足部分任務，但「完全不需要技能」並非整合通則。",
+      "C": "C：現成組件加少量邏輯適合資源受限且有整合需求。",
+      "D": "D：不客制的套件未必符合回報及訪查流程。"
+    },
+    "concept": "低程式碼的開發速度與整合彈性。",
+    "pitfalls": "仍需維護訪問權限、照片個人資訊及失敗記錄。",
+    "sources": [
+      {
+        "title": "Microsoft：Model-driven app overview",
+        "url": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/model-driven-app-overview"
+      },
+      {
+        "title": "n8n 官方：Workflow automation documentation",
+        "url": "https://docs.n8n.io/"
+      }
+    ]
+  },
+  "beginner-115-1-2-q30": {
+    "reasoning": "少樣本方法利用少量任務實例來適應新類別，而不是必須準備巨量標記或完全無例，B。在垃圾分類提示中，示範需說明地方規則、復合材質和例外；未知物品應可要求補資料，避免憑名字強行分類。",
+    "options": {
+      "A": "A：大量標注需求與少樣本重點相反。",
+      "B": "B：少量示例展示新任務或類別，符合主要特徵。",
+      "C": "C：沒有示例是 zero-shot，不能當成 few-shot 定義。",
+      "D": "D：少樣本也用於影像等模態，不僅自然語言。"
+    },
+    "concept": "少樣本適應與任務示範。",
+    "pitfalls": "Few-shot Learning 是廣義方法，Few-shot Prompting 是不改權重的其中一種。",
+    "sources": [
+      {
+        "title": "Brown 等：Language Models are Few-Shot Learners",
+        "url": "https://arxiv.org/abs/2005.14165"
+      }
+    ]
+  },
+  "beginner-115-1-2-q31": {
+    "reasoning": "農場十年文件包含特有品種、症狀與效果，RAG 可建可檢索索引，取相關條目生成建議並引用歷史案例，所以 C。並非所有資料都能塞入一個系統提示，少量示例也無法替代完整可更新知識庫。",
+    "options": {
+      "A": "A：預訓練不知道該農場具體歷史，不保證針對當地情況。",
+      "B": "B：長文件超過視窗或產生噪音，且難維護更新與權限。",
+      "C": "C：相關檢索加生成讓答案依實際文件支撐。",
+      "D": "D：三五例提供任務模式，無法涵蓋所有十年案件知識。"
+    },
+    "concept": "領域文件檢索與來源可追溯建議。",
+    "pitfalls": "防治措施須查版本和當地適用條件，歷史有效不代表當前都可使用。",
+    "sources": [
+      {
+        "title": "Lewis 等：Retrieval-Augmented Generation",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "Elasticsearch：Index API（增量新增與更新文件）",
+        "url": "https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-index"
+      }
+    ]
+  },
+  "beginner-115-1-2-q32": {
+    "reasoning": "模型開發類低程式碼工具把資料選擇、訓練、調參和評估包裝為視覺化流程，A 是典型優勢。平台能力各異，應用建構平台不必全部能訓練AI；不能因有可視介面就自動省掉資料與驗證責任。",
+    "options": {
+      "A": "A：標準化視覺流程讓訓練和調整更易操作，符合定位。",
+      "B": "B：部分產品只推論，但不能將其概括成所有平台訓練特性。",
+      "C": "C：整合建模工具可直接訓練，並非一律須外部工具。",
+      "D": "D：產品可支援多種後端，不限 Spark。"
+    },
+    "concept": "低程式碼模型流程與平台能力範圍。",
+    "pitfalls": "選型需查真正支援的資料類型、訓練方法和模型導出。",
+    "sources": [
+      {
+        "title": "Google Cloud：What is AutoML?",
+        "url": "https://cloud.google.com/automl"
+      },
+      {
+        "title": "Microsoft：Model-driven app overview",
+        "url": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/model-driven-app-overview"
+      }
+    ]
+  },
+  "beginner-115-1-2-q33": {
+    "reasoning": "行政表單及申請流程可交給 Low-Code，文本理解與分類使用預訓練語言 API，A 降低自建模型和大量程式碼維護需求。院所仍需檢查敏感病歷是否被傳出、權限和分類錯誤處理，不能以行政效率為由忽略個資。",
+    "options": {
+      "A": "A：視覺流程處理表單，現有語言能力處理文字分類，分工合理。",
+      "B": "B：規則對固定條件有效，但難覆蓋多樣自然語句。",
+      "C": "C：全自建需較多開發、訓練和維運資源。",
+      "D": "D：手動標記不能實現所需自動判讀與可調整流程。"
+    },
+    "concept": "流程平台與語言模型接口整合。",
+    "pitfalls": "先用去識別資料驗證，重要行政決策應可人工覆核。",
+    "sources": [
+      {
+        "title": "Microsoft：Model-driven app overview",
+        "url": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/model-driven-app-overview"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-115-1-2-q34": {
+    "reasoning": "重復應用、欄位語義不一、未經審核上線和權限混亂，共同指向缺少統一開發與發佈治理，A。應建立共用資料字典、組件、環境、審核及責任，而不是僅減少介面自主性或改善報表格式。",
+    "options": {
+      "A": "A：統一開發、審核、權限與維護責任可處理這些共同根因。",
+      "B": "B：自主性是平台優勢，問題在邊界管理而非自由本身。",
+      "C": "C：呈現規範不能覆蓋資料語義、權限和上線審核。",
+      "D": "D：整合功能再強，若無人制定規則仍可產生混亂。"
+    },
+    "concept": "公民開發治理與發佈門檻。",
+    "pitfalls": "對已有系統先盤點權限和擁有者，再訂統一規範。",
+    "sources": [
+      {
+        "title": "Microsoft：Power Platform Data policies（連接器與治理）",
+        "url": "https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention"
+      },
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-115-1-2-q35": {
+    "reasoning": "Encoder 將輸入建成上下文表示，Decoder 利用它和已生成前文產出；Decoder-only 把輸入前綴與輸出放在同一因果序列，由同一堆疊處理，B 最明確說明機制。兩者均可用於多個任務，且都不必然依賴 RAG。",
+    "options": {
+      "A": "A：大方向也合理，但沒有像B清楚說明上下文與生成分工。",
+      "B": "B：區分編碼輸入和因果生成，以及單堆疊前綴生成，描述核心。",
+      "C": "C：外部檢索是應用設計，不由 decoder-only 架構強制要求。",
+      "D": "D：Encoder–Decoder 可摘要、問答等，不限定翻譯。"
+    },
+    "concept": "編碼表示、交叉注意力與因果解碼。",
+    "pitfalls": "「單一模型」不代表沒有多層模塊，比較的是輸入輸出處理結構。",
+    "sources": [
+      {
+        "title": "Vaswani 等：Attention Is All You Need",
+        "url": "https://arxiv.org/abs/1706.03762"
+      }
+    ],
+    "caveat": "A 亦為合理簡述，官方 B 是更具體回答，不能將 A 當作技術上完全錯誤。"
+  },
+  "beginner-115-1-2-q36": {
+    "reasoning": "庫存、促銷、區域與物流相互牽動，圖式提示用節點及邊明確寫出依賴和約束，有助避免只逐步說卻漏關聯，C。仍須將條件輸入正確，再驗證預算和運輸限制；圖結構不自動證明決策最優。",
+    "options": {
+      "A": "A：題目已能逐步解釋，單加線性步驟未補足交互結構。",
+      "B": "B：樹搜索可探索方案，但重點欠缺的是條件關係表示。",
+      "C": "C：明確關係與約束，使多因素依賴可追蹤。",
+      "D": "D：移除示例不會自動補上非線性條件關聯。"
+    },
+    "concept": "關聯結構提示與多因素決策。",
+    "pitfalls": "可先建明確關係表，無需為了圖概念引入複雜工具。",
+    "sources": [
+      {
+        "title": "Besta 等：Graph of Thoughts",
+        "url": "https://arxiv.org/abs/2308.09687"
+      },
+      {
+        "title": "Yao 等：Tree of Thoughts",
+        "url": "https://arxiv.org/abs/2305.10601"
+      }
+    ]
+  },
+  "beginner-115-1-2-q37": {
+    "reasoning": "用提示定義品牌語氣與格式，用RAG 每天取最新促銷商品知識，C 同時滿足風格和新鮮度且避免重訓。兩部分分別驗證，資料版本與訪問權限仍須在檢索層控制，提示也需有實際風格評量。",
+    "options": {
+      "A": "A：只微調難以每天納入最新活動，頻繁重訓增加成本。",
+      "B": "B：檢索提供事實，不保證模型自動採用指定品牌風格。",
+      "C": "C：風格條件與知識來源分工，兼顧穩定及更新。",
+      "D": "D：不斷改權重帶來驗證負擔，並非避免重訓的目標。"
+    },
+    "concept": "提示行為控制與 RAG 知識更新。",
+    "pitfalls": "提示明確比提示複雜重要；不要用促銷資料改變行為邊界。",
+    "sources": [
+      {
+        "title": "Lewis 等：Retrieval-Augmented Generation",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q38": {
+    "reasoning": "PoC 主要驗證實際任務質量、需求匹配、技術限制與整合可行性，C 的完整跨部門長期框架更偏後續組織落地，而非概念可行性驗證的主要工作。然而安全及法遵最低邊界必須從PoC就設，不能延後所有治理。",
+    "options": {
+      "A": "A：實際任務能否有效回答，是可行性證據。",
+      "B": "B：功能是否解決業務問題，是PoC核心。",
+      "C": "C：完整長期治理框架不必全在概念驗證階段完成。",
+      "D": "D：整合與技術限制會決定方案是否可用，須先驗證。"
+    },
+    "concept": "概念驗證範圍與基礎風險控制。",
+    "pitfalls": "PoC可縮小範圍，但仍須有授權、敏感資料和測試安全邊界。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q39": {
+    "reasoning": "從資料層先減少暴露，最直接是只提供任務必需欄位，並移除或轉化可識別資訊，D。輸出遮罩、權限與加密應一起使用，卻不能代替入口最小化，因為資料一旦提供就擴大可能洩漏的範圍。",
+    "options": {
+      "A": "A：輸出審核是最後防線，模型此前已接觸敏感輸入。",
+      "B": "B：角色權限重要，但此項未明確減少任務資料的識別內容。",
+      "C": "C：加密保護儲存，模型處理時仍可能看到過多明文資料。",
+      "D": "D：減少輸入範圍和識別性，從源頭降低暴露。"
+    },
+    "concept": "資料最小化與去識別。",
+    "pitfalls": "只刪姓名不一定夠，交易組合和時間也可能重新辨識顧客。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "OWASP：LLM Prompt Injection Prevention Cheat Sheet",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q40": {
+    "reasoning": "RFT 依據獎勵評估模型行為，調整輸出策略以符合服務優先順序及偏好，B。與單純記憶新知識不同，獎勵必須量化目標並防投機；若評分只看語氣好聽，模型可能掩蓋實際服務錯誤。",
+    "options": {
+      "A": "A：擴大知識範圍是預訓練、資料或檢索問題，非主要行為獎勵目的。",
+      "B": "B：以獎勵信號改善策略和行為偏好，符合強化微調。",
+      "C": "C：優化速度不是用獎勵對齊服務行為的主要目標。",
+      "D": "D：RFT 本身也是訓練，不能說取代所有訓練過程。"
+    },
+    "concept": "獎勵驅動的行為優化。",
+    "pitfalls": "需保留獨立評價集，防獎勵高但實際業務完成差。",
+    "sources": [
+      {
+        "title": "OpenAI 官方：Reinforcement fine-tuning（獎勵與 grader）",
+        "url": "https://developers.openai.com/api/docs/guides/reinforcement-fine-tuning"
+      }
+    ]
+  },
+  "beginner-115-1-2-q41": {
+    "reasoning": "Bias Detection 要量測是否存在群體差異，例如分群結果、誤判和漏判率；A 做比較而未改模型，屬於檢測。重加權、過濾和調門檻已經改變訓練或決策，屬於緩解；緩解後仍要重新檢測。",
+    "options": {
+      "A": "A：比較結果和錯誤率是發現及量化偏見的測量。",
+      "B": "B：改樣本權重會改變學習過程，屬於緩解措施。",
+      "C": "C：過濾改變輸出，是事後處理緩解。",
+      "D": "D：調門檻改變決策，屬於推論或決策層緩解。"
+    },
+    "concept": "公平風險檢測與緩解的循環。",
+    "pitfalls": "不同公平指標可能衝突，選指標須依場景和合法業務目標。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "金管會：金融業運用人工智慧指引（治理及問責）",
+        "url": "https://law.fsc.gov.tw/LawContent.aspx?id=GL003920"
+      }
+    ]
+  },
+  "beginner-115-1-2-q42": {
+    "reasoning": "同態加密讓服務對密文執行運算，解密後得到對應的明文計算結果，B 直接滿足「資料加密狀態仍可計算」。資料可集中不排除同態；其實際模型操作、精度、延遲和訓練成本須依方案評估，不能假設任意LLM訓練都輕鬆可行。",
+    "options": {
+      "A": "A：聯邦學習把訓練分散，但本地計算通常仍用明文。",
+      "B": "B：無需先解密即可計算，是題目明確要求的能力。",
+      "C": "C：零知識證明檢驗命題，不等於通用密文模型運算。",
+      "D": "D：匿名化降低識別風險，卻不是密碼學上的加密計算。"
+    },
+    "concept": "密文運算與資料位置的區別。",
+    "pitfalls": "同態加密有運算限制和高成本，安全需求不代表部署經濟可行。",
+    "sources": [
+      {
+        "title": "Microsoft Research：SEAL 同態加密計算",
+        "url": "https://www.microsoft.com/en-us/research/project/microsoft-seal/"
+      }
+    ]
+  },
+  "beginner-115-1-2-q43": {
+    "reasoning": "自管部署能把敏感輸入留在企業控制邊界，減少傳給外部模型服務的必要，B。它不改變同一模型固有幻覺或取樣機制，也可能增加算力和維運負擔；須檢查網絡出口、外部工具、遙測和日誌才證明資料流受控。",
+    "options": {
+      "A": "A：隨機性由模型和解碼設定決定，不由機器所屬直接決定。",
+      "B": "B：控制資料處理地點與對外傳輸，符合治理動機。",
+      "C": "C：通常要自行承擔資源和維運，不保證成本較低。",
+      "D": "D：部署地點無法消除權重和生成機制的偏差或幻覺。"
+    },
+    "concept": "部署控制權與敏感資料流。",
+    "pitfalls": "本地服務仍可能呼叫外部工具，要逐條檢查資料流向。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q44": {
+    "reasoning": "專業術語ASR錯在上游，會使後續指令和查詢全錯。先改善語音辨識，再校正語言模型與知識來源，之後調生成參數，最後處理可接受的速度，B。每層都應讀回實際文本和工具參數驗證，而非只聽最後流暢回覆。",
+    "options": {
+      "A": "A：先優化LLM但仍收錯ASR輸入，未優先堵上游錯誤。",
+      "B": "B：語音→語意及知識→解碼→效能，符合正確執行優先。",
+      "C": "C：速度尚可，先改效能不對準主要術語錯誤。",
+      "D": "D：在語音修復後把速度放在語意正確前，優先級不佳。"
+    },
+    "concept": "串聯語音流程的錯誤傳播。",
+    "pitfalls": "重要設備指令需參數確認及安全授權，不能只用回覆文字作成功證據。",
+    "sources": [
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "title": "Anthropic：Effective context engineering for AI agents",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      },
+      {
+        "title": "scikit-learn：Computational Performance（Latency、Throughput、Batch）",
+        "url": "https://scikit-learn.org/stable/computing/computational_performance.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q45": {
+    "reasoning": "CoT 提示要求將任務推理組織成中間步驟，最後得結論。D 明確要求逐步判斷依據和推導，最符合題目定義。提供示範是few-shot，拆工作流程不一定等於闡述推理；公開生成的解釋也不保證忠實還原內部模型過程。",
+    "options": {
+      "A": "A：直接結果省略中間步驟，與本題CoT策略相反。",
+      "B": "B：這是示範格式的few-shot，未必包含推理鏈。",
+      "C": "C：規定執行階段，可幫助規劃，但未直接要求每步判斷依據。",
+      "D": "D：明確要求步驟化分析與最後結論，符合CoT提示。"
+    },
+    "concept": "步驟化推理提示與示範或任務分解。",
+    "pitfalls": "解釋邏輯可檢查，但不能把流暢推理說明當事實正確的保證。",
+    "sources": [
+      {
+        "title": "Wei 等：Chain-of-Thought Prompting",
+        "url": "https://arxiv.org/abs/2201.11903"
+      }
+    ]
+  },
+  "beginner-115-1-2-q46": {
+    "reasoning": "題目把資料安全和合規排在成本速度之前，C 明確組合私有部署、訪問控制與稽核，比只說成本彈性或先快上線更完整。自訓不是保密的必要條件，現成權重私有部署也能納入同樣控制；須有資料來源及模型授權。",
+    "options": {
+      "A": "A：遮罩加密有幫助，但仍需說明外部服務與敏感處理的合規條件。",
+      "B": "B：私有開源可控制模型，但選項未完整列出所需訪問及稽核。",
+      "C": "C：私有環境加控制與記錄，最直接滿足題設治理條件。",
+      "D": "D：先試效益再補安全違反明確安全優先要求。"
+    },
+    "concept": "安全優先的私有部署與問責。",
+    "pitfalls": "從零訓練不自動更安全，應以實際權限、日誌、資料流檢驗。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "金管會：金融業運用人工智慧指引（治理及問責）",
+        "url": "https://law.fsc.gov.tw/LawContent.aspx?id=GL003920"
+      }
+    ],
+    "caveat": "官方 C 不意味著自訓是唯一合規方案；B 只要補齊控制與審計也可能符合需求。"
+  },
+  "beginner-115-1-2-q47": {
+    "reasoning": "工程建議會影響維修和生產，應先驗證內容是否與現場證據和專業判斷一致、是否可能引發危險，A。速度、格式和可讀性也要量測，但漂亮快速的錯誤建議無法降低營運決策風險。",
+    "options": {
+      "A": "A：正確和可執行的工程判斷直接關係安全與營運結果。",
+      "B": "B：速度是性能維度，不能保證處置措施不會出錯。",
+      "C": "C：格式轉換支援資料接入，不能代替工程意義檢查。",
+      "D": "D：容易閱讀不等於技術正確，錯誤可更容易被採信。"
+    },
+    "concept": "生成建議的專業正確性驗收。",
+    "pitfalls": "專家意見也要對照記錄和設備條件，保留原始依據及邊界。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "數位發展部：AI 評測機制與十項評測指標",
+        "url": "https://moda.gov.tw/press/multimedia/blog/10273"
+      }
+    ]
+  },
+  "beginner-115-1-2-q48": {
+    "reasoning": "上線數月後使用者行為改變，輸入統計分布與訓練時不同，導致點擊和準確率下降，C 是資料漂移。測試原本好，且已觀察到時變資料，不能僅歸因於當時過擬合或欄位錯置；仍須查來源和目標概念是否同時改變。",
+    "options": {
+      "A": "A：過擬合可導致泛化差，但本題給出的新證據是時間分布變動。",
+      "B": "B：特徵設計可能需更新，尚不能取代資料漂移的主要描述。",
+      "C": "C：隨時間輸入特徵改變，符合data drift。",
+      "D": "D：題目未說schema或欄位調整，不應憑空推斷錯置。"
+    },
+    "concept": "部署後的分布監控與模型更新。",
+    "pitfalls": "更新前做切分驗證，不要只重訓而不檢查資料品質和漂移成因。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "scikit-learn：Cross-validation（時間序列與資料切分）",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "beginner-115-1-2-q49": {
+    "reasoning": "外部物流失敗、財務回傳格式變化等異常不能只靠UI預覽發現。自動化測試配可控服務模擬及可重復整合驗證，B 能覆蓋正常和失敗路徑，並在更新後重跑回歸；真實外部行為還需適當實測。",
+    "options": {
+      "A": "A：預覽只覆蓋有限常用路徑，難驗證真實跨服務異常。",
+      "B": "B：固定輸入及模擬邊界可重跑，也可驗證真實整合契約。",
+      "C": "C：介面操作順不代表庫存或財務寫入正確。",
+      "D": "D：上線才發現錯誤風險高，不能代替發佈前測試。"
+    },
+    "concept": "服務模擬、整合契約與回歸測試。",
+    "pitfalls": "模擬與真實服務差異須管理，不把mock通過當外部驗收。",
+    "sources": [
+      {
+        "title": "Microsoft：Power Apps Test Studio（自動化測試）",
+        "url": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/test-studio"
+      },
+      {
+        "title": "Anthropic：Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ]
+  },
+  "beginner-115-1-2-q50": {
+    "reasoning": "選項中人工審查可識別性別年齡刻板推論，並依具體偏差修正候選評估，C 是直接降低不公平輸出的方法。它需明確量表與責任，長期還應改善資料及分群評價，不能只讓主管使用或隨意增加未經清理的偏資料。",
+    "options": {
+      "A": "A：更靈活生成未必公平，還可能產生更複雜偏見。",
+      "B": "B：重復放大不平衡資料可能加重原偏差。",
+      "C": "C：具體檢查並修正歧視性結論，直接控制發佈輸出。",
+      "D": "D：使用者職級不決定模型是否偏見，無法從機制去偏。"
+    },
+    "concept": "招聘生成偏差的人工覆核與反饋。",
+    "pitfalls": "人工也會有偏見，審查必須有標準、記錄和分群結果評估。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      },
+      {
+        "title": "金管會：金融業運用人工智慧指引（治理及問責）",
+        "url": "https://law.fsc.gov.tw/LawContent.aspx?id=GL003920"
+      }
+    ]
+  }
+}
