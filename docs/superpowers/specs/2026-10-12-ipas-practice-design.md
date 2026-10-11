@@ -1,6 +1,6 @@
 # iPAS 全題庫練習網站
 
-私人 Sites + ChatGPT identity + dedicated Supabase database. All questions in all 14 existing PDFs, each with detailed reasoning, four option analyses, concept/pitfall notes and primary source references. Preserve original question diagrams and page provenance. Existing generated explanations are supplemental images only. No runtime AI.
+Next.js App Router + shadcn/ui, 私人 Sites + ChatGPT identity + dedicated Supabase database. All questions in all 14 existing PDFs, each with detailed reasoning, four option analyses, concept/pitfall notes and primary source references. Preserve original question diagrams and page provenance. Existing generated explanations are supplemental images only. No runtime AI.
 
 5-question sessions: unseen first, then least practiced, random tie breaking, no duplicates. Wrong review based on last attempt. Submit locks answer and saves atomically. One incomplete session per user; resume across devices. Completed sessions show summary. Retry saves without duplicate scoring. Import existing 5 sessions / 24 answers once with explicit confirmation.
 

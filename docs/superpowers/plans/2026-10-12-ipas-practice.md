@@ -3,8 +3,8 @@
 > For agentic workers: use Superpowers execution and focused delegated content work. Preserve owned files and shared interfaces.
 
 Goal: complete private exam practice website with all 14 PDFs and detailed explanations.
-Architecture: Vinext Sites frontend/server, platform identity, server-only Supabase REST RPC. Offline extracted immutable corpus with original assets. Database stores immutable corpus and user sessions/attempts.
-Tech Stack: React, TypeScript, Vinext, Supabase Postgres, Poppler/Python, node:test.
+Architecture: Next.js App Router and shadcn/ui frontend, Next.js API routes on Sites via OpenNext, platform identity, server-only Supabase REST RPC. Offline extracted immutable corpus with original assets. Database stores immutable corpus and user sessions/attempts.
+Tech Stack: Next.js16.4.0, React, TypeScript, shadcn/ui, OpenNext, Supabase Postgres, Poppler/Python, node:test.
 Spec: ../specs/2026-10-12-ipas-practice-design.md
 
 ## Global Constraints
