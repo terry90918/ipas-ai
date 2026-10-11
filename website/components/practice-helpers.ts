@@ -29,3 +29,21 @@ export function resumeIndex(active: NonNullable<PracticeState['active']>) {
 export function paperUrl(source: string, page: number) {
   return `/papers/${source.split('/').map(encodeURIComponent).join('/')}#page=${page}`;
 }
+
+export function reconcileAnswerView(
+  current: PracticeState['active'],
+  incoming: PracticeState['active'] | undefined,
+  index: number,
+  choice: string,
+  questionId: string,
+): { index: number; choice: string; screen: 'home' | 'practice' | 'summary' | null } {
+  if (incoming === undefined) return { index, choice, screen: null };
+  if (!incoming) return { index: 0, choice: '', screen: 'home' };
+  if (current?.id !== incoming.id) {
+    return { index: resumeIndex(incoming), choice: '', screen: incoming.completed ? 'summary' : 'practice' };
+  }
+  const savedIndex = incoming.items.findIndex(item => item.question.id === questionId);
+  return savedIndex < 0
+    ? { index: resumeIndex(incoming), choice: '', screen: incoming.completed ? 'summary' : 'practice' }
+    : { index: savedIndex, choice: '', screen: null };
+}

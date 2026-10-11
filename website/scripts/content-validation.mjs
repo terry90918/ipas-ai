@@ -9,10 +9,13 @@ export function validateContent(exams,questions,explanations) {
  for(const q of questions) {
   if(ids.has(q.id) || !exams.some(e=>e.id===q.examId)) throw new Error(`${q.id}: 題目識別碼無效`);
   ids.add(q.id);
-  if(!q.stem || !/^[ABCD]$/.test(q.answer) || ['A','B','C','D'].some(k=>typeof q.options[k]!=='string' || !q.options[k].trim())) throw new Error(`${q.id}: 題目或答案不完整`);
+  if(!q.stem || !/^[ABCD]$/.test(q.answer) || ['A','B','C','D'].some(k=>typeof q.options[k]!=='string' || (!/[\p{L}\p{N}]/u.test(q.options[k]) && !/^\s*\[\s*\]\s*[；;]?\s*$/.test(q.options[k])))) throw new Error(`${q.id}: 題目或答案不完整`);
   const e=explanations[q.id];
   if(!e || typeof e.reasoning!=='string' || e.reasoning.trim().length<60) throw new Error(`${q.id}: 詳細解析不足`);
-  for(const letter of ['A','B','C','D']) if(typeof e.options?.[letter]!=='string' || e.options[letter].trim().length<12) throw new Error(`${q.id}: ${letter} 選項解析不足`);
+  for(const letter of ['A','B','C','D']) {
+  if(typeof e.options?.[letter]!=='string' || e.options[letter].trim().length<12) throw new Error(`${q.id}: ${letter} 選項解析不足`);
+  if(letter!==q.answer && /^(?:[ABCD]\s*[：:]\s*)?正確(?:[；;]|的最佳選項)/.test(e.options[letter].trim())) throw new Error(`${q.id}: ${letter} 選項解析與公告答案不符`);
+ }
   if(typeof e.concept!=='string' || !e.concept.trim() || typeof e.pitfalls!=='string' || !e.pitfalls.trim()) throw new Error(`${q.id}: 概念與誤區不足`);
   if(e.reasoning.length+Object.values(e.options).reduce((sum,value)=>sum+value.length,0)+e.concept.length+e.pitfalls.length<180) throw new Error(`${q.id}: 詳細解答總內容不足`);
   if(!Array.isArray(e.sources) || !e.sources.length || e.sources.some(source=>!source.title || !/^https?:\/\//.test(source.url))) throw new Error(`${q.id}: 解析來源不足`);

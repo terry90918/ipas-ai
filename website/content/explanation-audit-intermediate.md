@@ -247,3 +247,14 @@ intermediate-115-1-3-q40與q42原JSON曾混入選項標記或題幹；已通知�
 ## 驗證範圍與限制
 
 本稽核證明解析資料完整、圖片指定內容已讀及來源可追溯。未執行網站UI、登入／同步、部署、CI或任何雲端寫入；這些由主代理處理。原命題的非唯一或技術瑕疵以caveat公開，讀者須區分「公告選項」與實務完整條件。未對外發布或提交版本。
+
+## Post-review corrections
+
+The original authoring hashes above describe the pre-review draft. Seven per-option note dictionaries were aligned to the actual A–D choices; their overall reasoning and official keys did not change. Apriori q19 now distinguishes largest-cardinality from inclusion-maximal frequent sets. Shared contexts in the question corpus were separately repaired. Current explanation file hashes:
+
+- `intermediate-114-2-1.json`: `d7dfbaa1127557264abdc0ba2c5a46317da2bbea975383ee754d05a38a1bd11a`
+- `intermediate-114-2-2.json`: `4b36563b0a8a87b52934767a63237ebac97eb9c5ee67a109c07934c28f322203`
+- `intermediate-114-2-3.json`: `982c8c437e11ed0528711528dc0433114482b471ae8e95a87a64a6e5c858e539`
+- `intermediate-115-1-1.json`: `e775ba3d0deb7241c1b21736f57f4be2807b3cef47be54a349cb374aab9e0f8f`
+- `intermediate-115-1-2.json`: `fdbb76e7dcc4477cb663c0380a2235561ddc29b867c5486ecbb2fb398d9f6673`
+- `intermediate-115-1-3.json`: `9d4a96a44702bd69e00791c13de18c8b9a13f04b8dd94473c1119bf03c790b6f`

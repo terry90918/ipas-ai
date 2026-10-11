@@ -75,6 +75,38 @@ class CorpusTests(unittest.TestCase):
             paper = public / 'papers' / f"{exam['examId']}.pdf"
             self.assertEqual(hashlib.sha256(paper.read_bytes()).hexdigest(), exam['sourceSha256'])
 
+    def test_four_shared_ranges_from_independent_source_fixtures(self):
+        fixtures = [
+            ('intermediate-114-2-2', 43, 47, 'vgsales.csv', [13], 42),
+            ('intermediate-114-2-2', 48, 50, 'marketing.csv', [15, 16], 47),
+            ('intermediate-114-2-3', 42, 45, 'VGG16 是由', [11, 12, 13], 41),
+            ('intermediate-114-2-3', 46, 47, '8×8', [14, 15], 45),
+        ]
+        for exam, start, end, keyword, pages, previous in fixtures:
+            with self.subTest(exam=exam, start=start, end=end):
+                prefix = f'/assets/questions/{exam}-context{start}-{end}-'
+                for number in range(start, end + 1):
+                    question = next(q for q in self.questions if q['id'] == f'{exam}-q{number}')
+                    self.assertIn(keyword, question['stem'])
+                    self.assertTrue(set(pages).issubset(question['pages']))
+                    self.assertTrue(any(image.startswith(prefix) for image in question['images']))
+                predecessor = next(q for q in self.questions if q['id'] == f'{exam}-q{previous}')
+                self.assertFalse(any(keyword in option for option in predecessor['options'].values()))
+
+    def test_option_text_does_not_contain_shared_question_ranges(self):
+        import re
+        for question in self.questions:
+            for text in question['options'].values():
+                self.assertIsNone(re.search(r'\d+\s*[~～至-]\s*\d+\s*題', text), question['id'])
+
+    def test_vgg16_image_options_preserve_distinct_freezing_targets(self):
+        question = next(q for q in self.questions if q['id'] == 'intermediate-114-2-3-q45')
+        self.assertIn('model.parameters()', question['options']['A'])
+        self.assertIn('model.features.parameters()', question['options']['B'])
+        self.assertIn('model.classifier.parameters()', question['options']['C'])
+        self.assertIn('model.requires_grad = False', question['options']['D'])
+        self.assertTrue(any('-q45-p14-s2.webp' in image for image in question['images']))
+
     def test_shared_context_is_attached_to_every_question(self):
         for exam in self.audit['exams']:
             for group in exam['sharedContexts']:
@@ -90,8 +122,8 @@ class CorpusTests(unittest.TestCase):
         self.assertIn("train_test_split(y, X_norm", question['options']['D'])
         self.assertTrue(all(q['options'][letter] for q in self.questions for letter in 'ABCD'))
         transcriptions = [item for exam in self.audit['exams'] for item in exam['transcriptions']]
-        self.assertEqual(len(transcriptions), 1)
-        self.assertEqual(transcriptions[0]['questionId'], question['id'])
+        self.assertEqual(len(transcriptions), 2)
+        self.assertIn(question['id'], [item['questionId'] for item in transcriptions])
 
     def test_cross_page_segments_do_not_overwrite_each_other(self):
         filenames = [segment['file'] for exam in self.audit['exams'] for segment in exam['segments']]

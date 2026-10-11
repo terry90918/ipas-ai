@@ -350,7 +350,7 @@
     ]
   },
   "intermediate-115-1-2-q19": {
-    "reasoning": "圖中B與E同現於訂單1、3、4、5共4次，達最小計數3；A出現5次但其超集BE更大。AD只2次、ABE只2次，皆不達門檻。其他達門檻單項無法擴成三項，因此最大頻繁項集BE，選D。",
+    "reasoning": "圖中B與E同現於訂單1、3、4、5共4次，達最小計數3；A出現5次但只是頻繁單項集，BE是元素較多的頻繁二項集，並非A的超集。AD只2次、ABE只2次，皆不達門檻。達門檻的二項集只有BE，沒有頻繁三項集，因此以最大項數解讀題意時選D。",
     "options": {
       "A": "A頻繁但只有單項，不是最大規模答案。",
       "B": "AD出現在6、8，計數2小於3。",
@@ -363,8 +363,13 @@
       {
         "title": "mlxtend：Apriori",
         "url": "https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/apriori/"
+      },
+      {
+        "title": "mlxtend：FP-Max（maximal itemset 與頻繁超集定義）",
+        "url": "https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/fpmax/"
       }
-    ]
+    ],
+    "caveat": "「最大」若指最大元素數（maximum cardinality），答案為BE；若指沒有頻繁真超集的極大頻繁項集（maximal itemsets），此資料的A、D、BE都符合，題目用語需區分。保留公告D。"
   },
   "intermediate-115-1-2-q20": {
     "reasoning": "永遠輸出「正常」恰可正確處理99.5%記錄，卻找不到任何0.5%詐騙，Recall=0。若只挑最高Accuracy就可能選中這種模型，B說明嚴重後果；應結合PR、召回與誤報成本。",

@@ -2,7 +2,7 @@
   "method": "Poppler bbox text + PDF table geometry; original answer-free row crops at 160 DPI",
   "examCount": 14,
   "questionCount": 700,
-  "imageCount": 888,
+  "imageCount": 907,
   "exams": [
     {
       "examId": "intermediate-114-2-1",
@@ -1393,7 +1393,7 @@
           "file": "intermediate-114-2-2-q42-p13-s2.webp"
         },
         {
-          "owner": "intermediate-114-2-2-q42",
+          "owner": "intermediate-114-2-2-context43-47",
           "page": 13,
           "bbox": [
             96.2,
@@ -1401,7 +1401,7 @@
             509.48,
             712.54
           ],
-          "file": "intermediate-114-2-2-q42-p13-s3.webp"
+          "file": "intermediate-114-2-2-context43-47-p13-s3.webp"
         },
         {
           "owner": "intermediate-114-2-2-q43",
@@ -1470,7 +1470,7 @@
           "file": "intermediate-114-2-2-q47-p15-s4.webp"
         },
         {
-          "owner": "intermediate-114-2-2-q47",
+          "owner": "intermediate-114-2-2-context48-50",
           "page": 15,
           "bbox": [
             96.2,
@@ -1478,10 +1478,10 @@
             509.48,
             724.78
           ],
-          "file": "intermediate-114-2-2-q47-p15-s5.webp"
+          "file": "intermediate-114-2-2-context48-50-p15-s5.webp"
         },
         {
-          "owner": "intermediate-114-2-2-q47",
+          "owner": "intermediate-114-2-2-context48-50",
           "page": 16,
           "bbox": [
             96.2,
@@ -1489,7 +1489,7 @@
             509.48,
             407.21
           ],
-          "file": "intermediate-114-2-2-q47-p16-s2.webp"
+          "file": "intermediate-114-2-2-context48-50-p16-s2.webp"
         },
         {
           "owner": "intermediate-114-2-2-q48",
@@ -1536,7 +1536,37 @@
           "file": "intermediate-114-2-2-q50-p17-s3.webp"
         }
       ],
-      "sharedContexts": [],
+      "sharedContexts": [
+        {
+          "start": 43,
+          "end": 47,
+          "parts": [
+            "一間遊戲市場研究公司正在分析全球電子遊戲銷售情況，並準備建立一份\n「熱銷遊戲銷售報告」。分析師取得了一份名為 vgsales.csv 的資料集，\n內容包含了全球銷量超過 10 萬份的電子遊戲清單。研究團隊希望透過這\n份資料，了解不同年份、平台與地區的銷售趨勢。資料集的欄位說明如\n下，請根據下述資料情境回答以 43~47 題。\nName：遊戲名稱\nPlatform：遊戲平台（如 PS4、X360、Wii 等）\nYear：發售年份\nGenre：遊戲類型（如 Action、Sports、Role-Playing 等）\nPublisher：發行商名稱\nNA_Sales / EU_Sales / JP_Sales / Other_Sales：各地區銷售量（單\n位：百萬份）\nGlobal_Sales：全球總銷售量（單位：百萬份）\n資料的欄位概觀如下："
+          ],
+          "pages": [
+            13
+          ],
+          "images": [
+            "/assets/questions/intermediate-114-2-2-context43-47-p13-s3.webp"
+          ]
+        },
+        {
+          "start": 48,
+          "end": 50,
+          "parts": [
+            "使用銷售資料集(marketing.csv)進行迴歸分析，附圖程式碼展示資料載\n入與處理，請回答後續 48~50 題。\n下圖顯示資料集的前 5 筆資料與相關資訊。",
+            ""
+          ],
+          "pages": [
+            15,
+            16
+          ],
+          "images": [
+            "/assets/questions/intermediate-114-2-2-context48-50-p15-s5.webp",
+            "/assets/questions/intermediate-114-2-2-context48-50-p16-s2.webp"
+          ]
+        }
+      ],
       "transcriptions": [],
       "exceptions": []
     },
@@ -2161,7 +2191,7 @@
           "file": "intermediate-114-2-3-q41-p11-s2.webp"
         },
         {
-          "owner": "intermediate-114-2-3-q41",
+          "owner": "intermediate-114-2-3-context42-45",
           "page": 11,
           "bbox": [
             94.0,
@@ -2169,10 +2199,10 @@
             515.36,
             788.496
           ],
-          "file": "intermediate-114-2-3-q41-p11-s3.webp"
+          "file": "intermediate-114-2-3-context42-45-p11-s3.webp"
         },
         {
-          "owner": "intermediate-114-2-3-q41",
+          "owner": "intermediate-114-2-3-context42-45",
           "page": 12,
           "bbox": [
             94.0,
@@ -2180,10 +2210,10 @@
             515.36,
             792.096
           ],
-          "file": "intermediate-114-2-3-q41-p12-s2.webp"
+          "file": "intermediate-114-2-3-context42-45-p12-s2.webp"
         },
         {
-          "owner": "intermediate-114-2-3-q41",
+          "owner": "intermediate-114-2-3-context42-45",
           "page": 13,
           "bbox": [
             94.0,
@@ -2191,7 +2221,7 @@
             515.36,
             203.18
           ],
-          "file": "intermediate-114-2-3-q41-p13-s2.webp"
+          "file": "intermediate-114-2-3-context42-45-p13-s2.webp"
         },
         {
           "owner": "intermediate-114-2-3-q42",
@@ -2249,7 +2279,7 @@
           "file": "intermediate-114-2-3-q45-p14-s2.webp"
         },
         {
-          "owner": "intermediate-114-2-3-q45",
+          "owner": "intermediate-114-2-3-context46-47",
           "page": 14,
           "bbox": [
             94.0,
@@ -2257,10 +2287,10 @@
             515.36,
             753.336
           ],
-          "file": "intermediate-114-2-3-q45-p14-s3.webp"
+          "file": "intermediate-114-2-3-context46-47-p14-s3.webp"
         },
         {
-          "owner": "intermediate-114-2-3-q45",
+          "owner": "intermediate-114-2-3-context46-47",
           "page": 15,
           "bbox": [
             94.0,
@@ -2268,7 +2298,7 @@
             515.36,
             203.18
           ],
-          "file": "intermediate-114-2-3-q45-p15-s2.webp"
+          "file": "intermediate-114-2-3-context46-47-p15-s2.webp"
         },
         {
           "owner": "intermediate-114-2-3-q46",
@@ -2383,6 +2413,41 @@
       ],
       "sharedContexts": [
         {
+          "start": 42,
+          "end": 45,
+          "parts": [
+            "VGG16 是由牛津大學 Visual Geometry Group(VGG)在 2014 年提出的經典\n卷積神經網路（Convolutional Neural Network, CNN）架構。該模型以簡\n潔且規則的層堆疊設計聞名，廣泛應用於影像分類、特徵提取及遷移學習\n等任務。附圖程式碼載入了預訓練的 VGG16 模型，並輸出其完整層級結構\n及參數統計摘要（如附表）。請根據此資訊回答 42~45 題。\n----------------------------------------------------------------\nLayer (type) Output Shape Param #\n================================================================\nConv2d-1 [-1, 64, 150, 150] 1,792\nReLU-2 [-1, 64, 150, 150] 0\nConv2d-3 [-1, 64, 150, 150] 36,928\nReLU-4 [-1, 64, 150, 150] 0\nMaxPool2d-5 [-1, 64, 75, 75] 0\nConv2d-6 [-1, 128, 75, 75] 73,856\nReLU-7 [-1, 128, 75, 75] 0\nConv2d-8 [-1, 128, 75, 75] 147,584",
+            "ReLU-9 [-1, 128, 75, 75] 0\nMaxPool2d-10 [-1, 128, 37, 37] 0\nConv2d-11 [-1, 256, 37, 37] 295,168\nReLU-12 [-1, 256, 37, 37] 0\nConv2d-13 [-1, 256, 37, 37] 590,080\nReLU-14 [-1, 256, 37, 37] 0\nConv2d-15 [-1, 256, 37, 37] 590,080\nReLU-16 [-1, 256, 37, 37] 0\nMaxPool2d-17 [-1, 256, 18, 18] 0\nConv2d-18 [-1, 512, 18, 18] 1,180,160\nReLU-19 [-1, 512, 18, 18] 0\nConv2d-20 [-1, 512, 18, 18] 2,359,808\nReLU-21 [-1, 512, 18, 18] 0\nConv2d-22 [-1, 512, 18, 18] 2,359,808\nReLU-23 [-1, 512, 18, 18] 0\nMaxPool2d-24 [-1, 512, 9, 9] 0\nConv2d-25 [-1, 512, 9, 9] 2,359,808\nReLU-26 [-1, 512, 9, 9] 0\nConv2d-27 [-1, 512, 9, 9] 2,359,808\nReLU-28 [-1, 512, 9, 9] 0\nConv2d-29 [-1, 512, 9, 9] 2,359,808\nReLU-30 [-1, 512, 9, 9] 0\nMaxPool2d-31 [-1, 512, 4, 4] 0\nAdaptiveAvgPool2d-32 [-1, 512, 7, 7] 0\nLinear-33 [-1, 4096] 102,764,544\nReLU-34 [-1, 4096] 0\nDropout-35 [-1, 4096] 0\nLinear-36 [-1, 4096] 16,781,312\nReLU-37 [-1, 4096] 0\nDropout-38 [-1, 4096] 0\nLinear-39 [-1, 1000] 4,097,000\n================================================================\nTotal params: 138,357,544\nTrainable params: 138,357,544\nNon-trainable params: 0\n----------------------------------------------------------------\nInput size (MB): 0.26",
+            "Forward/backward pass size (MB): 96.93\nParams size (MB): 527.79\nEstimated Total Size (MB): 624.98\n----------------------------------------------------------------"
+          ],
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "images": [
+            "/assets/questions/intermediate-114-2-3-context42-45-p11-s3.webp",
+            "/assets/questions/intermediate-114-2-3-context42-45-p12-s2.webp",
+            "/assets/questions/intermediate-114-2-3-context42-45-p13-s2.webp"
+          ]
+        },
+        {
+          "start": 46,
+          "end": 47,
+          "parts": [
+            "在郵遞區號自動辨識的研究中，研究人員收集了一份手寫數字影像資料\n集，每一張影像為 8×8 的灰階圖片，共包含多個手寫數字樣本。這份資料\n集來自 UCI Machine Learning Repository，常被用於數字辨識與機器學\n習方法的教學與實驗。\n在過程中，研究人員發現資料中可能存在雜訊，例如筆跡模糊或影像中附\n加的干擾點，這會影響後續分類模型的效能。因此，他們希望透過資料降\n噪的方法，提升後續分類的準確度。同時，他們也想透過 KNN (K-Nearest\nNeighbors) 搭配交叉驗證來評估模型表現，確保模型在不同資料切割下都\n能有穩定的預測能力。\n部分樣本經繪製後的外觀如下圖所示：",
+            "根據這份資料來回答 46~47 題。"
+          ],
+          "pages": [
+            14,
+            15
+          ],
+          "images": [
+            "/assets/questions/intermediate-114-2-3-context46-47-p14-s3.webp",
+            "/assets/questions/intermediate-114-2-3-context46-47-p15-s2.webp"
+          ]
+        },
+        {
           "start": 48,
           "end": 50,
           "parts": [
@@ -2399,7 +2464,14 @@
           ]
         }
       ],
-      "transcriptions": [],
+      "transcriptions": [
+        {
+          "questionId": "intermediate-114-2-3-q45",
+          "type": "visually-verified-image-option-transcription",
+          "sourcePage": 14,
+          "sourceImage": "/assets/questions/intermediate-114-2-3-q45-p14-s2.webp"
+        }
+      ],
       "exceptions": []
     },
     {

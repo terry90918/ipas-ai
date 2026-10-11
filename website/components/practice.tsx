@@ -12,7 +12,7 @@ import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select'
 import { Progress } from '@/components/ui/progress';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import type { Filters, PracticeAction, PracticeState } from '@/lib/types';
-import { filterExams, filterOptions, paperUrl, resumeIndex } from './practice-helpers';
+import { filterExams, filterOptions, paperUrl, resumeIndex, reconcileAnswerView } from './practice-helpers';
 
 const filterLabels = { level: '考試級別', subject: '考試科目', year: '年度', session: '梯次' };
 const loginUrl = '/signin-with-chatgpt?return_to=%2F';
@@ -69,6 +69,7 @@ export function Practice() {
     setBusy(true);
     setError('');
     setConflict(false);
+    let incoming: PracticeState | undefined;
     try {
       const response = await fetch('/api/practice', {
         method: 'POST',
@@ -79,23 +80,26 @@ export function Practice() {
         setAuthRequired(response.status === 401);
         const body = await response.json().catch(() => null) as { error?: string; state?: PracticeState } | null;
         if (response.status === 409 && body?.state) {
-          setState(body.state);
+          incoming = body.state;
           setConflict(true);
-          if (action.action === 'answer' && body.state.active) {
-            const savedIndex = body.state.active.items.findIndex(entry => entry.question.id === action.questionId);
-            setIndex(savedIndex < 0 ? resumeIndex(body.state.active) : savedIndex);
-          }
         }
         throw new Error(body?.error ?? `儲存失敗（${response.status}），請重試。`);
       }
       const data: PracticeState = await response.json();
-      setState(data);
+      incoming = data;
       setAuthRequired(false);
       return data;
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : '儲存失敗，請重試。');
       return null;
     } finally {
+      if (action.action === 'answer') {
+        const view = reconcileAnswerView(state?.active ?? null, incoming?.active, index, choice, action.questionId);
+        setIndex(view.index);
+        setChoice(view.choice);
+        if (view.screen) setScreen(view.screen);
+      }
+      if (incoming) setState(incoming);
       setBusy(false);
     }
   }
@@ -158,7 +162,7 @@ export function Practice() {
         </aside>
 
         <main id="main-content" className="main-content">
-          {error && <div role="alert" className="error-message"><CircleHelp className="shrink-0" size={18} /><div><p>{error}</p>{state && <p className="mt-1 text-xs">{conflict ? '已同步其他裝置儲存的作答，以下顯示已儲存的結果。' : '目前選擇已保留；送出成功後才會記錄作答。'}</p>}{authRequired && <Button variant="link" asChild className="px-0"><a href={loginUrl} target="_top">重新登入</a></Button>}</div></div>}
+          {error && <div role="alert" className="error-message"><CircleHelp className="shrink-0" size={18} /><div><p>{error}</p>{state && <p className="mt-1 text-xs">{conflict ? '已同步最新練習進度，請確認目前題目。' : '目前選擇已保留；送出成功後才會記錄作答。'}</p>}{authRequired && <Button variant="link" asChild className="px-0"><a href={loginUrl} target="_top">重新登入</a></Button>}</div></div>}
 
           {phase !== 'ready' ? (
             <section className="gate-wrap">

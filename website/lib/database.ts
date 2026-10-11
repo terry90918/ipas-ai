@@ -13,7 +13,7 @@ export async function rpc<T>(name: string, args: Record<string, unknown>): Promi
  if(!response.ok) {
   const detail=await response.json().catch(()=>({})) as {message?: unknown};
   const message=typeof detail.message === 'string' ? detail.message : 'DATABASE';
-  const messages:Record<string,string>={NO_QUESTIONS:'目前篩選條件沒有可練習的題目。',INVALID_CHOICE:'請選擇有效答案。',SESSION_NOT_FOUND:'找不到這個練習回合，請重新整理。',QUESTION_NOT_IN_SESSION:'這題不屬於目前的回合。',ANSWER_CONFLICT:'此題已在另一個裝置提交，已載入保存的答案。',SESSION_COMPLETED:'回合已完成，請重新整理。',CATALOG_NOT_READY:'題庫尚未完成設定。'};
+  const messages:Record<string,string>={NO_QUESTIONS:'目前篩選條件沒有可練習的題目。',INVALID_CHOICE:'請選擇有效答案。',SESSION_NOT_FOUND:'找不到這個練習回合，請重新整理。',QUESTION_NOT_IN_SESSION:'這題不屬於目前的回合。',ANSWER_CONFLICT:'此題已在另一個裝置提交，已同步最新練習進度。',SESSION_COMPLETED:'回合已完成，請重新整理。',CATALOG_NOT_READY:'題庫尚未完成設定。'};
   const code=Object.hasOwn(messages,message) ? message : 'DATABASE';
   throw new DatabaseError(code,messages[code] ?? '同步失敗，請稍後重試。',code==='ANSWER_CONFLICT' ? 409 : ['SESSION_NOT_FOUND','QUESTION_NOT_IN_SESSION'].includes(code) ? 404 : code==='NO_QUESTIONS' || code==='INVALID_CHOICE' ? 400 : 503);
  }

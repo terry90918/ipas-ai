@@ -42,6 +42,13 @@ def split_options(text):
 
 
 def transcribe_image_options(question):
+    if question['id'] == 'intermediate-114-2-3-q45':
+        header = 'import torch\nimport torchvision.models as models\n\nmodel = models.vgg16(pretrained=True)\n'
+        targets = {'A': 'model.parameters()', 'B': 'model.features.parameters()', 'C': 'model.classifier.parameters()'}
+        for letter, target in targets.items():
+            question['options'][letter] = header + f'for param in {target}:\n    param.requires_grad = False\nmodel.classifier[6] = torch.nn.Linear(4096, 10)'
+        question['options']['D'] = header + 'model.requires_grad = False\nmodel.classifier[6] = torch.nn.Linear(4096, 10)'
+        return {'questionId': question['id'], 'type': 'visually-verified-image-option-transcription', 'sourcePage': 14, 'sourceImage': '/assets/questions/intermediate-114-2-3-q45-p14-s2.webp'}
     if question['id'] != 'intermediate-115-1-2-q49':
         return None
     for letter in 'ABCD':
@@ -113,9 +120,27 @@ def extract_exam(source, root, output, render):
                 answer_words = [unicodedata.normalize('NFKC', word['text']) for word in inside if word['x1'] < divider - 1 and re.fullmatch(r'[ABCDＡＢＣＤ、,／/ ]+', word['text'])]
                 content = [word for word in inside if word['x0'] > divider + 1 and word not in markers]
                 text = join_words(content)
-                shared = re.search(r'第\s*(\d+)\s*[~～至-]\s*(\d+)\s*題', text) if not markers else None
+                shared = re.search(r'(?:第\s*)?(\d+)\s*[~～至-]\s*(\d+)\s*題', text) if not markers else None
                 if shared:
                     active_context = {'start': int(shared[1]), 'end': int(shared[2]), 'parts': [], 'pages': [], 'images': []}
+                    if questions:
+                        preceding = questions[-1]
+                        option_parts = [index for index, part in enumerate(preceding['_parts']) if re.search(r'[（(]D[)）]', part)]
+                        if option_parts:
+                            first = option_parts[-1] + 1
+                            if first < len(preceding['_parts']) and preceding['pages'][first] == preceding['pages'][first - 1]:
+                                active_context['parts'] = preceding['_parts'][first:]
+                                active_context['pages'] = preceding['pages'][first:]
+                                owner = f"{exam['id']}-context{active_context['start']}-{active_context['end']}"
+                                for image_url in preceding['images'][first:]:
+                                    filename = image_url.rsplit('/', 1)[-1]
+                                    segment = next(item for item in segments if item['file'] == filename)
+                                    segment['owner'] = owner
+                                    segment['file'] = filename.replace(preceding['id'], owner)
+                                    active_context['images'].append(f"/assets/questions/{segment['file']}")
+                                preceding['_parts'] = preceding['_parts'][:first]
+                                preceding['pages'] = preceding['pages'][:first]
+                                preceding['images'] = preceding['images'][:first]
                     shared_groups.append(active_context)
                 if markers:
                     active_context = None
