@@ -1,0 +1,919 @@
+{
+  "beginner-114-4-1-q1": {
+    "reasoning": "本題著重系統運作期間由人類持續監督，必要時介入，故選 B。人可以讓自動流程先運作，同時保有停機、覆寫或修正權限，和每次決策都要人工核准的流程不同。",
+    "options": {
+      "A": "A：由人主動啟動決策，較接近人在迴圈內的控制。",
+      "B": "B：日常監督與必要時介入，符合題目所指監督模式。",
+      "C": "C：完全等到事故才接管，欠缺日常監督的要求。",
+      "D": "D：每次結果均須先核准，屬逐案人工決策關卡。"
+    },
+    "concept": "人類監督與介入權限。",
+    "pitfalls": "名稱的譯法可能不同；依實際核准時點及控制權判斷。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ],
+    "caveat": "題目使用 Human-over-the-loop；文獻常用 Human-on-the-loop 描述監督型態，各框架的分類並不完全一致。"
+  },
+  "beginner-114-4-1-q2": {
+    "reasoning": "星期和時段可能共同影響通勤，例如週一八點與週日八點的交通狀態不同。交叉特徵把兩欄的組合明確表示，模型能學到條件交互作用，故選 C。單獨縮放或編碼不等於建立交互項。",
+    "options": {
+      "A": "A：可表示星期類別，但單獨編碼不會自動形成兩欄組合。",
+      "B": "B：只調整數值尺度，不能表達星期與時段的聯合作用。",
+      "C": "C：建立星期×時段組合，直接呈現交通尖峰的交互效應。",
+      "D": "D：是模型架構，可利用交叉特徵，但不是題目所問技巧。"
+    },
+    "concept": "特徵交叉與交互作用。",
+    "pitfalls": "高基數交叉會增加稀疏度，須注意資料量與過擬合。",
+    "sources": [
+      {
+        "title": "TensorFlow：Structured data（Crossed feature columns）",
+        "url": "https://www.tensorflow.org/tutorials/structured_data/feature_columns"
+      }
+    ]
+  },
+  "beginner-114-4-1-q3": {
+    "reasoning": "ETL 的 E 是從來源擷取，T 是轉換，L 是載入目的儲存庫。清理缺漏、統一格式、排序等都可屬轉換階段，因此 D 正確。流程變形可以有 ELT，但名稱、處理位置與順序須明確，不能任意交換仍稱 ETL。",
+    "options": {
+      "A": "A：把資料放入目標是 Load，混淆擷取與載入。",
+      "B": "B：轉換通常須先取得資料，不能任意改成 TEL。",
+      "C": "C：載入是寫入目的系統，與所謂反加密無關。",
+      "D": "D：清理及排序改變資料品質或表示，屬 Transform。"
+    },
+    "concept": "資料擷取、轉換、載入。",
+    "pitfalls": "ELT 是另一種資料管線設計，不代表所有順序可任意替換。",
+    "sources": [
+      {
+        "title": "Microsoft：Extract, transform, load（ETL）",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl"
+      }
+    ]
+  },
+  "beginner-114-4-1-q4": {
+    "reasoning": "L1 在目標函數加入 λΣ絕對值(w)，限制係數大小並可能得到稀疏解；L2 加入 λΣw²，通常使係數縮小而非直接歸零。C 雖措辭較簡略，對應 L1 的絕對值懲罰。增加參數個數不保證泛化更好。",
+    "options": {
+      "A": "A：更多權重可能提升容量，也可能過擬合，沒有單調保證。",
+      "B": "B：Lasso 對應 L1；Ridge 才是典型 L2。",
+      "C": "C：L1 用係數絕對值作懲罰，約束模型複雜度。",
+      "D": "D：產生零係數的典型效果是 L1，選項顛倒兩者差異。"
+    },
+    "concept": "L1、L2 正則化與稀疏係數。",
+    "pitfalls": "先標準化特徵，避免不同尺度使懲罰比較失真。",
+    "sources": [
+      {
+        "title": "scikit-learn：Linear Models（Lasso、Ridge、Logistic regression）",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q5": {
+    "reasoning": "過於簡單的模型可能有高偏差、低變異；過於複雜的模型可能有低偏差、高變異。需以驗證資料選擇適當複雜度，降低未見資料的誤差，故 D。這是模型泛化的權衡，與標籤不均或資料外洩是不同問題。",
+    "options": {
+      "A": "A：是資料覆蓋或取樣限制，並非偏差與變異權衡的完整定義。",
+      "B": "B：重複訓練測試樣本是資料外洩，須修正評估切分。",
+      "C": "C：是類別不平衡，宜看少數類別指標與權重。",
+      "D": "D：同時處理欠擬合與過擬合，對應泛化誤差的權衡。"
+    },
+    "concept": "模型容量、偏差與變異。",
+    "pitfalls": "不能只看訓練誤差；複雜模型可能訓練好、驗證差。",
+    "sources": [
+      {
+        "title": "scikit-learn：Ensembles（Bagging 與隨機森林）",
+        "url": "https://scikit-learn.org/stable/modules/ensemble.html"
+      },
+      {
+        "title": "scikit-learn：Cross-validation（時間序列與資料切分）",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q6": {
+    "reasoning": "Lasso 的 L1 懲罰具有在零點不可微的幾何特性；最佳解可落在座標軸上，使部分係數精確為零。C 是官方答案，稀疏化效果正確；但不能只以「對大係數懲罰較強」說明，L2 對大係數的懲罰其實成長更快。",
+    "options": {
+      "A": "A：Lasso 的擬合誤差仍使用目標 y，並未忽略目標。",
+      "B": "B：L1 在零點不光滑，平滑梯度不是其稀疏化原因。",
+      "C": "C：可促使稀疏係數，須用絕對值懲罰的零點特性理解。",
+      "D": "D：線性迴歸加 L1 仍是凸問題，不會必然變成非凸。"
+    },
+    "concept": "L1 零點、軟閾值與稀疏化。",
+    "pitfalls": "L1 λ絕對值(w)；L2 λw²，勿把稀疏原因簡化為懲罰越大。",
+    "sources": [
+      {
+        "title": "scikit-learn：Linear Models（Lasso、Ridge、Logistic regression）",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ],
+    "caveat": "官方 C 的原因描述不精確；正確機制是 L1 的非光滑零點與稀疏解幾何。"
+  },
+  "beginner-114-4-1-q7": {
+    "reasoning": "Naive Bayes 用類別先驗 P(y) 與條件似然 P(x給定y)，由貝氏定理求後驗類別機率，並假設給定類別後特徵條件獨立。因此它是生成式分類模型，B 正確，即使實際用途是分類也不變。",
+    "options": {
+      "A": "A：直接學邊界或 P(y給定x)，較接近鑑別式模型。",
+      "B": "B：估計類別先驗和條件分布，再做後驗分類。",
+      "C": "C：描述分群，不是使用已知類別的貝氏分類。",
+      "D": "D：描述由獎勵學策略的強化學習。"
+    },
+    "concept": "生成式分類與條件獨立假設。",
+    "pitfalls": "生成式模型也能分類；不要把生成式等同產生聊天文字。",
+    "sources": [
+      {
+        "title": "scikit-learn：Naive Bayes",
+        "url": "https://scikit-learn.org/stable/modules/naive_bayes.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q8": {
+    "reasoning": "條件語言模型根據提示、前文或外部條件估計下一詞分布，使生成內容與指定語境連結，故 B。語境一致性仍受上下文品質、模型能力與解碼策略影響，使用條件模型並不保證事實永遠正確。",
+    "options": {
+      "A": "A：決策樹輸出類別，不是建模連續文字條件分布的主要工具。",
+      "B": "B：將前文與任務條件納入生成機率，支援語境一致性。",
+      "C": "C：Q-learning 學行動價值，並非本題文字條件建模的直接答案。",
+      "D": "D：基因演演算法是搜尋最佳化方法，不是語言條件生成模型。"
+    },
+    "concept": "條件機率與自回歸語言生成。",
+    "pitfalls": "語意連貫與事實正確性需分別評估。",
+    "sources": [
+      {
+        "title": "Vaswani 等：Attention Is All You Need",
+        "url": "https://arxiv.org/abs/1706.03762"
+      }
+    ]
+  },
+  "beginner-114-4-1-q9": {
+    "reasoning": "監理沙盒提供有限時間、受控條件與監督下的創新測試環境，讓業者試驗系統並確認合規，因此 B。創新實驗不是取消法規，而是在保障權益的前提下提供監理協作與驗證條件。",
+    "options": {
+      "A": "A：DPIA 是個資處理影響評估，不是受控產品試驗制度。",
+      "B": "B：Regulatory Sandbox 即監理沙盒，直接對應創新實驗。",
+      "C": "C：信任標章是評認或標示，不能代替實驗環境。",
+      "D": "D：倫理委員會是治理機制，不是監理沙盒本身。"
+    },
+    "concept": "監理沙盒、受控試驗與合規。",
+    "pitfalls": "保留題目歷史版本脈絡，不用現行法取代草案當時的敘述。",
+    "sources": [
+      {
+        "title": "歐盟 AI Act 第 57 條：AI regulatory sandboxes",
+        "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-57"
+      },
+      {
+        "title": "行政院：人工智慧基本法草案政策說明",
+        "url": "https://www.ey.gov.tw/Page/5A8A0CB5B41DA11E/b6fbf240-2d1a-4252-9f81-28144acb1d64"
+      }
+    ],
+    "caveat": "行政院資料記載草案於 114 年 8 月 28 日通過；題幹「9 月通過」與官方日期不符。"
+  },
+  "beginner-114-4-1-q10": {
+    "reasoning": "治理架構須有可問責的主管、清楚的組織職責及足夠的人員能力，也應瞭解模型運作與風險。對系統持續監控不等於「每日對外公佈」全部狀況，故題目問非明訂措施應選 C。公開資訊仍須顧及個資與資安。",
+    "options": {
+      "A": "A：培訓能提升 AI 管理及風險判斷能力，符合治理要求。",
+      "B": "B：須瞭解方法、用途及運作風險，才能有效監督。",
+      "C": "C：每日公開所有運作狀況不是一般治理規定，亦有機密問題。",
+      "D": "D：主管或委員會負責協調監督，建立責任歸屬。"
+    },
+    "concept": "治理、問責、人員培訓與內部監控。",
+    "pitfalls": "持續監控是內控責任；勿擴張解讀為每日公開報告義務。",
+    "sources": [
+      {
+        "title": "銀行公會：金融機構運用人工智慧技術作業規範（第九條、第十一條）",
+        "url": "https://www.ba.org.tw/memberStandard/DownloadFile?downName=.pdf&intId=249028"
+      }
+    ]
+  },
+  "beginner-114-4-1-q11": {
+    "reasoning": "未提供既定使用者群組標籤，而希望從行為相似性找出自然群組，是典型非監督式分群，故 B。診斷與數值預測通常都有結果目標，可用監督式分類或迴歸；金融資料是否真能預測則是另一回事。",
+    "options": {
+      "A": "A：醫療影像有疾病標記，屬監督式分類。",
+      "B": "B：由行為相似性形成群組，不需已知分群標籤。",
+      "C": "C：有事故發生結果作目標，屬監督式預測。",
+      "D": "D：以未來股價為數值目標，通常是監督式迴歸或序列預測。"
+    },
+    "concept": "有無目標標籤的學習分類。",
+    "pitfalls": "資料是股價或影像不是判準；要看訓練時有無目標。",
+    "sources": [
+      {
+        "title": "scikit-learn：Clustering",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      },
+      {
+        "title": "scikit-learn：Semi-supervised learning",
+        "url": "https://scikit-learn.org/stable/modules/semi_supervised.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q12": {
+    "reasoning": "散佈圖把每筆樣本的一個數值放在 x 軸、另一數值放在 y 軸，可觀察正負關聯、非線性、群集與離群點。身高體重是成對數值，因此 A 最直接；但視覺相關並不證明因果。",
+    "options": {
+      "A": "A：每點表示一組身高與體重，直接觀察兩變數關係。",
+      "B": "B：適合有順序或時間的變化，連線可能暗示不存在的先後。",
+      "C": "C：呈現單一變數各區間頻數，不保留每組配對關係。",
+      "D": "D：常用比較類別數量或彙總值，不是連續配對的首選。"
+    },
+    "concept": "成對數值與散佈圖。",
+    "pitfalls": "相關係數與圖形應一起看；離群點可能改變相關判讀。",
+    "sources": [
+      {
+        "title": "NIST：Scatter Plot（關係與因果限制）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm"
+      }
+    ]
+  },
+  "beginner-114-4-1-q13": {
+    "reasoning": "D 在沒有走勢類別標籤時，依資料相似性找群組，符合非監督式學習。A 是把少量標註與大量未標註資料一起利用的半監督；B 依行動獎懲調整是強化；C 有流失標籤是監督。",
+    "options": {
+      "A": "A：同時利用標註及未標註資料，應稱半監督。",
+      "B": "B：環境回饋獎懲，應屬強化學習而非非監督。",
+      "C": "C：已知流失與否作訓練目標，是監督式分類。",
+      "D": "D：沒有預先指定的群組標籤，依模式分群，配對正確。"
+    },
+    "concept": "監督、非監督、半監督、強化學習。",
+    "pitfalls": "「未事先標註」不足以判斷非監督，還須看是否有獎勵。",
+    "sources": [
+      {
+        "title": "scikit-learn：Semi-supervised learning",
+        "url": "https://scikit-learn.org/stable/modules/semi_supervised.html"
+      },
+      {
+        "title": "scikit-learn：Clustering",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      },
+      {
+        "title": "PyTorch：Reinforcement Learning（DQN）Tutorial",
+        "url": "https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q14": {
+    "reasoning": "預測性分析把過去資料用來推估未觀察或未來結果。C 建構模型預測下一季銷量，可支援庫存規劃。其餘描述歷史分布、尋找已發生問題原因或探索關聯，尚未產生未來目標的預測。",
+    "options": {
+      "A": "A：彙整歷史趨勢及波動，屬描述性分析。",
+      "B": "B：追查促銷失效原因，偏向診斷性分析。",
+      "C": "C：估算未來銷量，直接符合預測性分析。",
+      "D": "D：探索成本與轉換關聯，未必建立未來預測模型。"
+    },
+    "concept": "描述、診斷與預測的目標區別。",
+    "pitfalls": "備貨決策可用預測結果，但預測本身不等於最佳化決策。",
+    "sources": [
+      {
+        "title": "scikit-learn：Cross-validation（時間序列與資料切分）",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      },
+      {
+        "title": "scikit-learn：Linear Models（Lasso、Ridge、Logistic regression）",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q15": {
+    "reasoning": "預設等權 KNN 分類由最近 K 筆樣本多數決。三個鄰居 A、B、A 中，A 票數 2、B 票數 1，因此預測 A。題目未指定距離加權，不能自行引入加權後改寫答案。",
+    "options": {
+      "A": "A：A 取得 2/3 的鄰居票數，為唯一多數類別。",
+      "B": "B：B 只有一票，少於 A 的兩票。",
+      "C": "C：票數 2 比 1 並非各半，不存在本題所稱平手。",
+      "D": "D：距離加權是可選模式，但題目沒有給距離或指定權重。"
+    },
+    "concept": "KNN 多數決及 weights 參數。",
+    "pitfalls": "K 是鄰居數，不是類別數；加權規則須明確指定。",
+    "sources": [
+      {
+        "title": "scikit-learn：Nearest Neighbors（分類投票與距離）",
+        "url": "https://scikit-learn.org/stable/modules/neighbors.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q16": {
+    "reasoning": "普通 RNN 對長序列反向傳播時，梯度會連乘許多轉移項，可能衰減或放大，因而難學長距依賴，B 正確。LSTM、GRU 等門控架構可以改善但不保證完全消除問題。RNN 本來就是為序列資訊設計。",
+    "options": {
+      "A": "A：RNN 可依時間步處理可變長序列，需適當批次與遮罩。",
+      "B": "B：長序列連乘造成梯度消失，長期資訊難以更新。",
+      "C": "C：循環狀態就是捕捉時間依賴，選項否定核心用途。",
+      "D": "D：可輸出連續數值做氣候或時間序列預測。"
+    },
+    "concept": "RNN 梯度傳播與長期依賴。",
+    "pitfalls": "區分普通 RNN 與門控變體，不要斷言所有序列模型都失效。",
+    "sources": [
+      {
+        "title": "Hochreiter、Schmidhuber：Long Short-Term Memory（1997）",
+        "url": "https://www.bioinf.jku.at/publications/older/2604.pdf"
+      }
+    ]
+  },
+  "beginner-114-4-1-q17": {
+    "reasoning": "系統選擇買、持、賣，交易後由盈虧回饋調整策略，具備狀態、行動、獎勵與長期回報，故 A。它不是只學一組固定標籤的輸入輸出關係。實務仍需控制探索風險並以適當時間切分驗證策略。",
+    "options": {
+      "A": "A：以行動獎勵改善策略，符合強化學習的定義。",
+      "B": "B：題目沒有使用標記的正確交易行動作監督目標。",
+      "C": "C：雖無標籤，但存在獎勵與決策互動，不是純分群。",
+      "D": "D：遷移學習指挪用已學知識，題目未說跨任務移轉。"
+    },
+    "concept": "強化學習的長期獎勵與策略。",
+    "pitfalls": "沒有標籤仍可能是強化學習；重點是行動後的回饋。",
+    "sources": [
+      {
+        "title": "PyTorch：Reinforcement Learning（DQN）Tutorial",
+        "url": "https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q18": {
+    "reasoning": "表格式 Q-learning 為每種狀態與行動儲存 Q 值，高維或連續空間難以列舉。DQN 以神經網路近似 Q(s,a)，能共享參數來處理大量狀態，故 C；其訓練常結合經驗回放與目標網路。",
+    "options": {
+      "A": "A：差別在 Q 值表示方法，不在是否用人工作業標籤。",
+      "B": "B：Q 表隨狀態數擴張，無法實用地列舉任意高維狀態。",
+      "C": "C：網路近似行動價值，降低逐狀態建立 Q 表的需求。",
+      "D": "D：DQN 典型作法正是用回放降低相鄰樣本相關。"
+    },
+    "concept": "Q 表與神經網路函數近似。",
+    "pitfalls": "DQN 仍可能不穩定；近似高維狀態不等於無限制可擴展。",
+    "sources": [
+      {
+        "title": "PyTorch：Reinforcement Learning（DQN）Tutorial",
+        "url": "https://docs.pytorch.org/tutorials/intermediate/reinforcement_q_learning.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q19": {
+    "reasoning": "房價為連續數值，MSE=(1/n)Σ(預測價−真實價)²，直接量化迴歸殘差，故 A。平方會放大大誤差；若資料離群嚴重可再比較 MAE 或穩健損失，但不改變本題常見迴歸損失的判斷。",
+    "options": {
+      "A": "A：連續金額的平方預測誤差，適用迴歸。",
+      "B": "B：常用於類別機率與正確標籤的差距。",
+      "C": "C：最大間隔分類的損失，不是房價迴歸首選。",
+      "D": "D：衡量兩個機率分布差異，題目未把房價建成分布目標。"
+    },
+    "concept": "迴歸損失與 MSE 的平方懲罰。",
+    "pitfalls": "MSE 的單位是價格平方；RMSE 才回到原金額單位。",
+    "sources": [
+      {
+        "title": "scikit-learn：Metrics and scoring",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q20": {
+    "reasoning": "邏輯迴歸先計算特徵線性分數 z，再以 sigmoid 得到 0–1 的二元類別機率；依 0.5 門檻決策與題目設定相符，故 A。門檻可依漏報與誤報成本調整，輸出也應檢查機率校準。",
+    "options": {
+      "A": "A：直接建立二元事件機率，符合風險警示流程。",
+      "B": "B：SVM 主要學分類邊界，機率通常另需校準。",
+      "C": "C：樹也可估機率，但題目指向標準的機率式二元模型。",
+      "D": "D：K-means 無監督分群，不能直接利用疾病標籤建模。"
+    },
+    "concept": "邏輯迴歸機率與分類門檻。",
+    "pitfalls": "Logistic Regression 是分類模型，名稱含迴歸不代表預測連續房價。",
+    "sources": [
+      {
+        "title": "scikit-learn：Linear Models（Lasso、Ridge、Logistic regression）",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q21": {
+    "reasoning": "隨機森林結合多棵樹，每棵使用重抽樣資料及隨機特徵子集，降低樹之間的相關性，再整合預測以減少單樹變異，因此 D 最符合題幹的穩定性與泛化要求。這是選項相對比較，不能保證任何資料都勝過其他模型。",
+    "options": {
+      "A": "A：線性模型穩健且可解釋，但不能自然捕捉所有非線性交互。",
+      "B": "B：可處理高維特徵，但參數與尺度選擇仍影響表現。",
+      "C": "C：單樹易對樣本擾動敏感，變異通常較高。",
+      "D": "D：隨機化多樹集成降低單樹的不穩定性。"
+    },
+    "concept": "Bagging、特徵隨機化與變異降低。",
+    "pitfalls": "模型選擇仍須驗證；特徵多不必然表示森林最優。",
+    "sources": [
+      {
+        "title": "scikit-learn：Ensembles（Bagging 與隨機森林）",
+        "url": "https://scikit-learn.org/stable/modules/ensemble.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q22": {
+    "reasoning": "VAE 編碼器估計潛在變數的分布參數，從潛在表示取樣，再由解碼器重建輸入。訓練通常同時最小化重建誤差與潛在分布的 KL 正則項，故 C 是流程的正確概述；不能只當一般分類器。",
+    "options": {
+      "A": "A：解碼器主要重建或生成資料，不是把向量分類。",
+      "B": "B：編碼器估計潛在分布，並非單純轉成可視化圖像。",
+      "C": "C：資料→潛在表示→重建，對應編碼器與解碼器。",
+      "D": "D：異常偵測可為用途，但不是編碼器的核心流程。"
+    },
+    "concept": "VAE 潛在分布、重建及 KL 正則化。",
+    "pitfalls": "VAE 與普通自編碼器差別包括分布建模及取樣。",
+    "sources": [
+      {
+        "title": "Kingma、Welling：Auto-Encoding Variational Bayes",
+        "url": "https://arxiv.org/abs/1312.6114"
+      }
+    ]
+  },
+  "beginner-114-4-1-q23": {
+    "reasoning": "數位部官方列出的 AI 評測項目包括安全性、可解釋性、彈性、公平性、準確性、透明性、當責性、可靠性、隱私與資安。選項前三者可對應正式項目，互動性不是該清單項目，因此 D。",
+    "options": {
+      "A": "A：當責性檢視責任歸屬與行為可追溯，列在正式清單。",
+      "B": "B：可靠性關注不同情境下的穩定表現，列在正式清單。",
+      "C": "C：隱私與資安各為正式評測面向，雖選項合併表述。",
+      "D": "D：互動體驗可另測，但非題目引用清單的項目名稱。"
+    },
+    "concept": "可信任 AI 的十項評測面向。",
+    "pitfalls": "「不在這份清單」不代表該品質面向永遠不能評估。",
+    "sources": [
+      {
+        "title": "數位發展部：AI 評測機制與十項評測指標",
+        "url": "https://moda.gov.tw/press/multimedia/blog/10273"
+      }
+    ]
+  },
+  "beginner-114-4-1-q24": {
+    "reasoning": "更多參數通常增加模型可表示的函數容量；有適量資料、計算與合理訓練時可能改善預測，故 C。這不是線性效能保證，參數、資料及計算須配合；模型更大通常也增加載入權重的記憶體和推論成本。",
+    "options": {
+      "A": "A：效能提升不一定線性，資料不足時存在收益遞減。",
+      "B": "B：更多運算與記憶體存取一般不會自動使推論更快。",
+      "C": "C：容量增加需要資料與計算配合，是最合理的條件敘述。",
+      "D": "D：權重本身需儲存，增加參數會影響記憶體。"
+    },
+    "concept": "模型規模、資料量與計算資源的共同縮放。",
+    "pitfalls": "容量變大不保證測試效果變好，須控制訓練條件比較。",
+    "sources": [
+      {
+        "title": "Kaplan 等：Scaling Laws for Neural Language Models",
+        "url": "https://arxiv.org/abs/2001.08361"
+      }
+    ],
+    "caveat": "本題參數值為假設比較，勿把 20 億、120 億視為實際 GPT-OSS 型號規格。"
+  },
+  "beginner-114-4-1-q25": {
+    "reasoning": "資料去偏的一個直接策略是檢查群體代表性，補充稀少群體或重加權，降低模型被高頻模式主導的風險，因此 C。平衡比例仍不保證公平，還需檢查標籤品質、歷史歧視和不同群體的錯誤率。",
+    "options": {
+      "A": "A：隨機改輸出沒有針對偏見來源，反而傷害正確性。",
+      "B": "B：更大模型可能學得更深的偏見，不會自動修復資料。",
+      "C": "C：調整資料代表性與群體比例，是資料層的去偏措施。",
+      "D": "D：正則化或噪音是模型訓練措施，未直接修補語料代表性。"
+    },
+    "concept": "資料代表性與群體公平。",
+    "pitfalls": "平衡樣本和公平決策不同，需配合分群評測。",
+    "sources": [
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-114-4-1-q26": {
+    "reasoning": "微調會更新既有權重，若新資料強烈主導更新，原先任務的有用表示可能被覆寫，造成原能力下降；這是災難性遺忘，故 D。它與新任務訓練不足、長度限制或完全隨機的回應不同。",
+    "options": {
+      "A": "A：訓練不足是欠收斂，不是舊知識被新更新覆寫。",
+      "B": "B：遺忘通常表現為舊任務下降，並非無法學任何新模式。",
+      "C": "C：上下文長度限制是不同機制，不能定義災難性遺忘。",
+      "D": "D：新資料適應與舊任務能力下降，符合核心現象。"
+    },
+    "concept": "持續學習中的乾擾與舊能力保持。",
+    "pitfalls": "可用舊樣本回放或權重約束緩解，須實測舊任務。",
+    "sources": [
+      {
+        "title": "Kirkpatrick 等：Overcoming catastrophic forgetting",
+        "url": "https://arxiv.org/abs/1612.00796"
+      }
+    ]
+  },
+  "beginner-114-4-1-q27": {
+    "reasoning": "剪枝依重要性移除權重、神經元或結構，減少模型儲存與可能的運算負擔，故 B。非結構化稀疏權重未必在一般硬體加速，仍需稀疏核心或結構化剪枝才可能取得實際速度收益。",
+    "options": {
+      "A": "A：把所有權重縮小仍需相同次數的運算，不是移除參數。",
+      "B": "B：去除低貢獻或冗餘部分，符合剪枝定義。",
+      "C": "C：凍結權重是訓練更新控制，推論參數通常仍保留。",
+      "D": "D：跳過 token 是條件計算或 token pruning，不是本題權重剪枝。"
+    },
+    "concept": "參數剪枝與結構化稀疏。",
+    "pitfalls": "檔案變小與推論變快須分別量測，不能直接畫等號。",
+    "sources": [
+      {
+        "title": "PyTorch：Pruning Tutorial",
+        "url": "https://docs.pytorch.org/tutorials/intermediate/pruning_tutorial.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q28": {
+    "reasoning": "標準密集自注意力對長度 n 的序列計算 n×n 的關聯矩陣，其計算與中間記憶體通常隨 n² 成長，所以 D。長序列的主要瓶頸包括注意力運算及資料搬移；現代最佳化可以減少儲存或改變注意力形式。",
+    "options": {
+      "A": "A：推論生成只使用已學權重，不會每個詞重訓模型。",
+      "B": "B：embedding 查找不是對詞彙表作指數枚舉。",
+      "C": "C：softmax 有成本，但主要規模來源是注意力矩陣及乘法。",
+      "D": "D：token 兩兩互動形成平方規模矩陣，是標準架構的瓶頸。"
+    },
+    "concept": "自注意力的序列長度複雜度。",
+    "pitfalls": "平方成長適用標準密集注意力；稀疏注意力或快取須另分析。",
+    "sources": [
+      {
+        "title": "Vaswani 等：Attention Is All You Need",
+        "url": "https://arxiv.org/abs/1706.03762"
+      }
+    ]
+  },
+  "beginner-114-4-1-q29": {
+    "reasoning": "LIME 在待解釋樣本附近產生擾動資料，取得黑箱的預測，再用局部權重擬合可理解的替代模型，解釋該次決策，故 A。解釋依局部區域與擾動方式而定，不代表模型整體已轉為透明。",
+    "options": {
+      "A": "A：提供單筆局部預測附近的特徵影響解釋。",
+      "B": "B：LIME 不改訓練模型，沒有提升整體準確度的保證。",
+      "C": "C：局部替代模型不能等同全域黑箱完全被取代。",
+      "D": "D：擾動樣本用於解釋，不是生成真實新訓練資料的主要目的。"
+    },
+    "concept": "模型無關的局部替代解釋。",
+    "pitfalls": "局部近似忠實度和解釋穩定性仍須檢查。",
+    "sources": [
+      {
+        "title": "Ribeiro 等：Why Should I Trust You?（LIME）",
+        "url": "https://arxiv.org/abs/1602.04938"
+      }
+    ]
+  },
+  "beginner-114-4-1-q30": {
+    "reasoning": "高風險診斷需要理解模型為何給出結果，才能核對依據、辨識錯誤及負責地使用。XAI 可幫助醫療人員形成適當信任與監督，故 A。可理解不代表結論一定正確，解釋本身也要檢驗忠實度。",
+    "options": {
+      "A": "A：可理解依據支援核對與適當信任，是直接核心價值。",
+      "B": "B：資料管理與成本改善可能有益，但非 XAI 的主要定義。",
+      "C": "C：解釋方法不會自動提高準確度或統計顯著性。",
+      "D": "D：效率可能是間接結果，不能代替決策依據的理解。"
+    },
+    "concept": "可解釋性、可驗證性與適當信任。",
+    "pitfalls": "不要因為有一段流暢解釋就接受診斷；仍須臨床核驗。",
+    "sources": [
+      {
+        "title": "Ribeiro 等：Why Should I Trust You?（LIME）",
+        "url": "https://arxiv.org/abs/1602.04938"
+      },
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-114-4-1-q31": {
+    "reasoning": "反事實解釋描述哪些輸入改變可能使模型改判。然而年齡不可任意降低，收入與職業也有因果和業務限制；建議必須可行、可操作且公平，D 最符合部署挑戰。只求數學上最短距離會產生不可能的建議。",
+    "options": {
+      "A": "A：成本評估可有幫助，但不一定須完整行為預測模型。",
+      "B": "B：聯邦學習不是產生反事實的必要條件。",
+      "C": "C：時間因果圖可用於特殊場景，並非所有反事實必備。",
+      "D": "D：可行性、因果一致及法規約束是建議可落地的關鍵。"
+    },
+    "concept": "可操作反事實與不可變特徵。",
+    "pitfalls": "模型上的改判不保證真實世界因果結果必然改變。",
+    "sources": [
+      {
+        "title": "Wachter 等：Counterfactual Explanations",
+        "url": "https://arxiv.org/abs/1711.00399"
+      },
+      {
+        "title": "NIST AI 100-1：AI RMF 1.0（治理、公平、隱私與驗證）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+      }
+    ]
+  },
+  "beginner-114-4-1-q32": {
+    "reasoning": "有限樣本加偏態時，少數極端值可能主導平均數。增加具代表性的樣本並檢視中位數、分位數，可改善估計穩定性，B 是選項中較合理的實務策略。但若目標就是母體平均數，不能把中位數直接當同一參數的無偏估計。",
+    "options": {
+      "A": "A：完全不檢查分布會忽略有限樣本的不確定性。",
+      "B": "B：增加代表性樣本及考慮穩健中心量，降低極端值影響。",
+      "C": "C：重新排列不改變數值集合，平均數完全相同。",
+      "D": "D：標準差衡量離散，不能代替中心或所有母體參數。"
+    },
+    "concept": "偏態、穩健統計量與估計目標。",
+    "pitfalls": "區分估計偏誤、變異與目標參數；增加樣本不修正有偏抽樣。",
+    "sources": [
+      {
+        "title": "NIST：Measures of Location（平均、中位數與極端值）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm"
+      },
+      {
+        "title": "NIST：Measures of Scale（標準差、IQR 與穩健尺度）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm"
+      }
+    ],
+    "caveat": "原題把「降低偏誤」說得太寬；樣本平均可本來就無偏，而中位數估計的是不同參數。"
+  },
+  "beginner-114-4-1-q33": {
+    "reasoning": "只用正常序列訓練重建模型，讓模型學正常時間模式，再以高重建誤差找偏離，可避免必須大量蒐集故障標籤，因此 D。門檻要用驗證資料訂定，異常若也被良好重建，仍可能漏報。",
+    "options": {
+      "A": "A：直接複製少數異常易過擬合，不會增加真正的新資訊。",
+      "B": "B：差分和縮放有幫助，但未處理極少故障樣本的監督不足。",
+      "C": "C：序列合成可行但須保留時間結構，效果取決於合成品質。",
+      "D": "D：以充足正常資料學重建，再用偏離程度偵測異常。"
+    },
+    "concept": "正常模型、序列重建誤差與異常門檻。",
+    "pitfalls": "高重建誤差也可能是分布漂移，需區分故障與新正常工況。",
+    "sources": [
+      {
+        "title": "TensorFlow：Autoencoder 與異常偵測",
+        "url": "https://www.tensorflow.org/tutorials/generative/autoencoder"
+      },
+      {
+        "title": "scikit-learn：Novelty and Outlier Detection",
+        "url": "https://scikit-learn.org/stable/modules/outlier_detection.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q34": {
+    "reasoning": "三欄若語意都是交易金額，應先確認幣別、含稅與計價範圍，再統一單位、名稱及格式，將真正重複欄位合併，C。未經語義確認直接交給模型，可能讓重複訊息扭曲重要性與解釋。",
+    "options": {
+      "A": "A：只按目標相關篩選無法解決幣別與定義不一致。",
+      "B": "B：保留冗餘不能讓模型自動知道欄位語義是否相同。",
+      "C": "C：先統一語義和表示，再消除重複，直接處理根因。",
+      "D": "D：金額轉 one-hot 會丟失連續資訊，仍未修復語義。"
+    },
+    "concept": "資料字典、單位一致性與語義去重。",
+    "pitfalls": "名字相似不保證定義相同；先核對含稅、匯率及交易層級。",
+    "sources": [
+      {
+        "title": "scikit-learn：Preprocessing data（標準化與類別編碼）",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      },
+      {
+        "title": "scikit-learn：Feature selection（單變量及模型式篩選）",
+        "url": "https://scikit-learn.org/stable/modules/feature_selection.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q35": {
+    "reasoning": "不平衡資料的整體損失多由低價商品樣本決定，模型可能忽略少數高價商品，即使總準確率看似良好，少數類別召回率仍低，D。應檢查每類別指標，必要時用權重、重新取樣或適當門檻。",
+    "options": {
+      "A": "A：未處理不平衡通常偏向多數類別，而非偏向稀有類。",
+      "B": "B：非線性模型也可處理此資料；不平衡不必然造成無法收斂。",
+      "C": "C：題幹沒有強化稀有類別的機制，方向相反。",
+      "D": "D：稀有類別被忽略，正例遭漏判，召回率下降。"
+    },
+    "concept": "類別不平衡與少數類別召回率。",
+    "pitfalls": "高整體準確率可能只是在預測所有樣本為多數類。",
+    "sources": [
+      {
+        "title": "scikit-learn：Metrics and scoring",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      },
+      {
+        "title": "scikit-learn：Ensembles（Bagging 與隨機森林）",
+        "url": "https://scikit-learn.org/stable/modules/ensemble.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q36": {
+    "reasoning": "EDA 先用摘要與圖形理解分布、缺漏、離群與潛在關係。C 觀察流量來源與轉換率，能提出後續分析假說；它不直接假設已知模型或立即作營運決策。正式推論與預測可在探索後進行。",
+    "options": {
+      "A": "A：訓練購買預測模型是監督式建模，不是最直接的探索描述。",
+      "B": "B：分群可用於探索，但立即制定促銷超出本題先探索的範圍。",
+      "C": "C：用圖形尋找關係，符合 EDA 的發現模式目標。",
+      "D": "D：預設假說進行 t 檢定偏正式推論，不是最佳的探索例子。"
+    },
+    "concept": "探索性資料分析與假說形成。",
+    "pitfalls": "探索看到的差異要再驗證，勿直接當統計證明或因果。",
+    "sources": [
+      {
+        "title": "NIST：Exploratory Data Analysis（探索與假說形成）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/eda.htm"
+      }
+    ]
+  },
+  "beginner-114-4-1-q37": {
+    "reasoning": "相鄰交易的相似性使獨立同分布假設不成立。按時間區間保留結構並作時間敏感的取樣與驗證，比完全打散更接近未來部署，B。還需注意比例估計的抽樣權重與時間變動，不能只靠增加重複相關樣本。",
+    "options": {
+      "A": "A：樣本增多但切分方式不變，仍可能有相關性與未來資料外洩。",
+      "B": "B：時間分層保留區段結構，可更合理評估不同時段風險。",
+      "C": "C：打散不消除資料實際相關，反而可能洩漏未來模式。",
+      "D": "D：合併誤差不能修復抽樣偏差或模型時間失配。"
+    },
+    "concept": "時間依賴、抽樣設計與前向驗證。",
+    "pitfalls": "時間分層與前向測試各有目的，須防同一事件跨訓練測試。",
+    "sources": [
+      {
+        "title": "scikit-learn：Cross-validation（時間序列與資料切分）",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q38": {
+    "reasoning": "資料已更新但檢索索引仍舊，根因在索引生命週期。用文件識別碼增量新增、修改及刪除，或建分段索引後原子切換，可減少整庫重建與服務中斷，故 C。也要同步版本、快取和刪除資料。",
+    "options": {
+      "A": "A：調整溫度不會把新文件加入檢索結果。",
+      "B": "B：提高運算效能可縮短更新，但仍保留整庫重建的根因。",
+      "C": "C：只更新受影響文件或分段，兼顧新鮮度與可用性。",
+      "D": "D：FAQ 快取可能更過時，不能代替資料索引更新。"
+    },
+    "concept": "RAG 索引更新、版本與資料新鮮度。",
+    "pitfalls": "索引更新成功後仍須查詢 readback，避免舊快取或漏刪。",
+    "sources": [
+      {
+        "title": "Elasticsearch：Index API（增量新增與更新文件）",
+        "url": "https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-index"
+      }
+    ]
+  },
+  "beginner-114-4-1-q39": {
+    "reasoning": "整體 MAE=平均絕對預測誤差，反映多數樣本的典型偏差；再獨立看重症子群，能避免其少量樣本被整體平均掩蓋。因此 A 同時服務一般病例與高風險病例的需求。不同子群也可檢查誤差分位數及系統性低估。",
+    "options": {
+      "A": "A：整體加重症子群誤差，分別檢查常態與重要少數案例。",
+      "B": "B：排除重症會使其風險完全未被驗證。",
+      "C": "C：縮放目標不是評估方法，也不證明重症預測穩健。",
+      "D": "D：單一 R² 無法指出重症子群的漏估或實際天數誤差。"
+    },
+    "concept": "回歸指標與子群驗證。",
+    "pitfalls": "MAE 不特別放大極端誤差，仍需補充重症的尾端誤差。",
+    "sources": [
+      {
+        "title": "scikit-learn：Metrics and scoring",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q40": {
+    "reasoning": "逐項判斷：1、4、6 為正確基本描述；2 錯在否定可用已標記異常作監督分類；3 混合標註通常是半監督而非完全轉為監督；5 把大量完整標註當絕對必要條件也過度。因此錯誤組合為 2、3、5，選 D。",
+    "options": {
+      "A": "A：3、5 錯，但 6 正確，因此不是完整錯誤組合。",
+      "B": "B：1、4、6 都是合理定義，未列出題目要的錯項。",
+      "C": "C：2 錯，但 4、6 正確，混入正確描述。",
+      "D": "D：正好列出 2、3、5 三個過度或錯誤的敘述。"
+    },
+    "concept": "監督式異常偵測與半監督學習。",
+    "pitfalls": "少量標註仍可有效訓練；有效與否取決於任務和資訊。",
+    "sources": [
+      {
+        "title": "scikit-learn：Semi-supervised learning",
+        "url": "https://scikit-learn.org/stable/modules/semi_supervised.html"
+      },
+      {
+        "title": "scikit-learn：Novelty and Outlier Detection",
+        "url": "https://scikit-learn.org/stable/modules/outlier_detection.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q41": {
+    "reasoning": "交通方式是無自然排序的名目類別。One-hot 為每種方式建一個指示欄，避免「火車=1、飛機=2」引入不合理大小關係，故 D。若類別很多可另比較其他編碼，但本題四種方式很適合 one-hot。",
+    "options": {
+      "A": "A：單一布林只能表示兩種狀態，不足以保留四種交通類別。",
+      "B": "B：序數編碼暗示次序或數值距離，交通方式沒有這種排序。",
+      "C": "C：標準化適用數值尺度，不會修正任意類別程式碼的含義。",
+      "D": "D：分開表示各類別，不強加大小順序。"
+    },
+    "concept": "名目類別與 one-hot 編碼。",
+    "pitfalls": "有序會員等級和無序交通方式應分別判斷，不用同一規則。",
+    "sources": [
+      {
+        "title": "scikit-learn：Preprocessing data（標準化與類別編碼）",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q42": {
+    "reasoning": "聯邦學習讓各院在本地資料上訓練，交換模型更新並聚合成跨院模型，原始病患資料無須集中，故 C。模型更新仍可能洩漏資訊，通常另配合安全聚合、差分隱私與權限管理。",
+    "options": {
+      "A": "A：匿名化可降低直接識別，但本身不提供跨院訓練機制。",
+      "B": "B：差分隱私限制洩漏，但本身不決定分散訓練流程。",
+      "C": "C：資料留在各院、更新跨院聚合，直接滿足兩項需求。",
+      "D": "D：交叉驗證是評估切分，不是資料不外流的跨院訓練。"
+    },
+    "concept": "聯邦學習與資料在地化。",
+    "pitfalls": "「原始資料不傳」不等於「更新完全不洩漏」。",
+    "sources": [
+      {
+        "title": "McMahan 等：Learning from Decentralized Data",
+        "url": "https://arxiv.org/abs/1602.05629"
+      }
+    ]
+  },
+  "beginner-114-4-1-q43": {
+    "reasoning": "不同尺度會使梯度與正則化受到量綱影響。以訓練集平均與標準差做 z=(x−μ)/σ，可讓各數值特徵在可比尺度上優化，故 D。測試與正式資料必須沿用訓練集的 μ、σ，不能重新估計造成失配。",
+    "options": {
+      "A": "A：布林化會丟失績效、時數與年齡的數值細節。",
+      "B": "B：題目不是將有時間序列的趨勢和季節成分拆開。",
+      "C": "C：連續數值 one-hot 會產生大量稀疏類別，非縮放首選。",
+      "D": "D：平衡尺度，改善梯度下降及正則化對各特徵的處理。"
+    },
+    "concept": "數值標準化與優化條件。",
+    "pitfalls": "標準化不保證常態分布，也不保證準確度一定上升。",
+    "sources": [
+      {
+        "title": "scikit-learn：Preprocessing data（標準化與類別編碼）",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q44": {
+    "reasoning": "叢集從樣本的相似性形成群組，而不是比對既有正確類別。C 的顧客分群可發現自然消費群體，適合非監督式學習；另外三者已提供詐欺、疾病或物件標籤，主要是監督分類。",
+    "options": {
+      "A": "A：詐欺標籤是已知的分類目標。",
+      "B": "B：診斷標籤提供輸入與結果的監督對應。",
+      "C": "C：沒有預定群組標籤，依消費特徵找自然群組。",
+      "D": "D：已標記影像物件類別，屬監督式辨識。"
+    },
+    "concept": "分群與預先定義類別的區別。",
+    "pitfalls": "群數與距離需有業務意義；自然群組未必就是可行營銷客群。",
+    "sources": [
+      {
+        "title": "scikit-learn：Clustering",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      }
+    ]
+  },
+  "beginner-114-4-1-q45": {
+    "reasoning": "大致常態的血壓可用 z=(x−μ)/σ 或標準差範圍標出極端值，再查證量測錯誤、病情及研究目的，故 C。離群不是自動等於錯誤；刪除真實的極端病患可能使研究失去高風險族群代表性。",
+    "options": {
+      "A": "A：直接刪除會丟失真實重症個案並引入選擇偏差。",
+      "B": "B：資料已近常態，對數轉換不一定必要且可能改變解釋。",
+      "C": "C：先偵測、再確認來源並依目的處理，較妥善。",
+      "D": "D：改成序號只是重編碼，無法判斷或修復異常。"
+    },
+    "concept": "離群偵測與臨床真實極端值。",
+    "pitfalls": "常見 ±3σ 是啟發式門檻，不能代替資料來源查核。",
+    "sources": [
+      {
+        "title": "NIST：Measures of Scale（標準差、IQR 與穩健尺度）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm"
+      },
+      {
+        "title": "NIST：Measures of Location（平均、中位數與極端值）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm"
+      }
+    ]
+  },
+  "beginner-114-4-1-q46": {
+    "reasoning": "官方選 B：用目標購買結果評估特徵的預測關聯，是監督式的 filter 篩選。不過 C 的模型重要性篩選也會使用目標，技術上同樣是監督式特徵選擇。D 是產生新特徵的降維，A 則未使用 y。",
+    "options": {
+      "A": "A：不參考目標的變異篩選屬非監督型 filter。",
+      "B": "B：依特徵與 y 關聯篩選，符合監督式 filter。",
+      "C": "C：監督模型的重要性篩選也屬監督式，不能說概念錯誤。",
+      "D": "D：PCA 轉成新座標，是特徵擷取而非選取原欄位。"
+    },
+    "concept": "Filter、embedded 特徵選擇與特徵擷取。",
+    "pitfalls": "所有用到 y 的篩選應在訓練折內執行，避免資料外洩。",
+    "sources": [
+      {
+        "title": "scikit-learn：Feature selection（單變量及模型式篩選）",
+        "url": "https://scikit-learn.org/stable/modules/feature_selection.html"
+      }
+    ],
+    "caveat": "本題有歧義：B 和 C 都是監督式特徵選擇；保留官方 B，同時指出 C 並非技術錯誤。"
+  },
+  "beginner-114-4-1-q47": {
+    "reasoning": "ReLU 在正值區的導數為 1，較不像 sigmoid 在飽和區使梯度接近零，故 B 是選項中改善隱藏層梯度傳遞的典型選擇。它不能單獨保證防止爆炸，仍需合理初始化、正規化或梯度裁切。",
+    "options": {
+      "A": "A：資料增強改善資料多樣性，不直接修正網路梯度傳播。",
+      "B": "B：正值區不飽和，可改善部分梯度消失問題。",
+      "C": "C：減少樣本可能加重泛化問題，不是梯度穩定措施。",
+      "D": "D：縮放有助優化，但對所有分類目標標準化不是通則。"
+    },
+    "concept": "啟動函數與梯度消失。",
+    "pitfalls": "ReLU 仍可能有死亡神經元，且不能自動防止梯度爆炸。",
+    "sources": [
+      {
+        "title": "scikit-learn：Neural network models（MLP、activation）",
+        "url": "https://scikit-learn.org/stable/modules/neural_networks_supervised.html"
+      },
+      {
+        "title": "Hochreiter、Schmidhuber：Long Short-Term Memory（1997）",
+        "url": "https://www.bioinf.jku.at/publications/older/2604.pdf"
+      }
+    ],
+    "caveat": "題幹把消失與爆炸一起歸給 ReLU 過於概括；本題 B 是相對最合適答案。"
+  },
+  "beginner-114-4-1-q48": {
+    "reasoning": "直方圖把連續數值分箱並顯示頻數或密度，可以觀察年齡的集中、偏態、多峰與尾端，因此 A。它會犧牲單筆精確值，分箱寬度也會影響看到的形狀，宜試不同分箱並搭配摘要統計。",
+    "options": {
+      "A": "A：顧客年齡是單一連續變數，適合看分布形狀。",
+      "B": "B：月份銷售的季節變化宜用時間折線或分組比較。",
+      "C": "C：追蹤營收成長需要保留時間順序。",
+      "D": "D：價格與銷量是兩個變數，散佈圖更適合。"
+    },
+    "concept": "直方圖的分箱、密度與分布。",
+    "pitfalls": "分箱改變外觀不代表母體分布真的改變。",
+    "sources": [
+      {
+        "title": "NIST：Histogram（分箱與分布）",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33e.htm"
+      }
+    ]
+  },
+  "beginner-114-4-1-q49": {
+    "reasoning": "安全與可信任評測會問輸出是否真實、是否歧視特定群體、能否被惡意利用。資料複雜性描述資料或任務的結構，並非本題所列使用風險指標，因此 A。事實錯誤在高風險用途也可能造成安全傷害。",
+    "options": {
+      "A": "A：資料複雜度可影響建模難度，並非此處安全風險指標。",
+      "B": "B：不實回答可能誤導使用者，需檢查正確性。",
+      "C": "C：偏見與歧視會使不同群體受不公平影響。",
+      "D": "D：惡意使用與濫用是模型安全評測的直接議題。"
+    },
+    "concept": "LLM 正確性、公平與濫用風險。",
+    "pitfalls": "安全性與可靠性的指標可能交疊，不能把它們當互斥集合。",
+    "sources": [
+      {
+        "title": "NIST AI 600-1：Generative AI Profile（Confabulation、Privacy、Bias）",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+      }
+    ]
+  },
+  "beginner-114-4-1-q50": {
+    "reasoning": "批次推論在已訓練權重上處理大量請求，重點是吞吐、延遲、記憶體、資料分配及硬體排程。A 的語料涵蓋與標註品質主要在資料準備及訓練階段處理，所以是本題「通常不屬推論主要難題」的答案。",
+    "options": {
+      "A": "A：是訓練資料品質議題，推論執行本身不能補回缺少的訓練知識。",
+      "B": "B：批次變大可能增加等待，需平衡吞吐與延遲。",
+      "C": "C：大量輸入會佔記憶體與傳輸資源，需流量管理。",
+      "D": "D：叢集排程影響加速器利用率，是大量推論的營運問題。"
+    },
+    "concept": "訓練資料品質與推論資源管理。",
+    "pitfalls": "批次吞吐高不一定代表單筆回應快；兩個指標應分開量測。",
+    "sources": [
+      {
+        "title": "scikit-learn：Computational Performance（Latency、Throughput、Batch）",
+        "url": "https://scikit-learn.org/stable/computing/computational_performance.html"
+      }
+    ]
+  }
+}

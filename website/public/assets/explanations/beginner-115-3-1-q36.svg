@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <rect width="1200" height="1600" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1520" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">第 36 題｜概念圖解</text>
+  <rect x="80" y="158" width="310" height="54" rx="27" fill="#fff0e9"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#a4421a">標準答案 C</text>
+  <text x="80" y="270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="600" fill="#35404b">排列特徵重要性：看打亂一項資料後，模型表現變差多少。</text>
+  <rect x="80" y="315" width="1040" height="380" rx="24" fill="#f5f7f9"/>
+  <text x="120" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="700" fill="#17212b">怎麼做</text>
+  <circle cx="145" cy="445" r="23" fill="#dceaf5"/><text x="145" y="453" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="700" fill="#244865">1</text>
+  <text x="190" y="453" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">先用已訓練好的模型，記下原本的預測誤差。</text>
+  <circle cx="145" cy="515" r="23" fill="#f5b17d"/><text x="145" y="523" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="700" fill="#5a2c11">2</text>
+  <text x="190" y="523" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">把某一個特徵欄位的數值順序打亂，其他資料不動。</text>
+  <circle cx="145" cy="585" r="23" fill="#dceaf5"/><text x="145" y="593" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" font-weight="700" fill="#244865">3</text>
+  <text x="190" y="593" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">用同一個模型再預測，比較誤差增加多少。</text>
+  <rect x="120" y="625" width="960" height="44" rx="12" fill="#fff0e9"/>
+  <text x="600" y="655" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="700" fill="#a4421a">誤差增加越多 → 模型越依賴這個特徵 → 特徵越重要</text>
+  <text x="80" y="765" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="700" fill="#17212b">生活比喻</text>
+  <text x="80" y="820" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">把每位客戶的一項資料（例如某個財務欄位）隨機換給其他人，</text>
+  <text x="80" y="860" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">再用原本的評分模型重算。若判斷錯很多，代表模型原本很依賴這項資料。</text>
+  <text x="80" y="945" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="700" fill="#17212b">其他選項錯在哪裡</text>
+  <text x="90" y="1010" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">A　線性相關係數不是此方法；它不直接檢查模型打亂欄位後的表現變化。</text>
+  <text x="90" y="1080" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">B　誤差沒變，表示模型可能不太依賴這項特徵，重要性通常較低。</text>
+  <text x="90" y="1150" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">D　不用重新訓練；固定已訓練模型，打亂資料後重新評估即可。</text>
+  <rect x="80" y="1230" width="1040" height="210" rx="24" fill="#eef4fb"/>
+  <text x="120" y="1290" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#174c85">名詞拆解</text>
+  <text x="120" y="1340" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">特徵＝模型輸入的一欄資料；排列／打亂＝把這欄的值重新洗牌。</text>
+  <text x="120" y="1385" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">預測誤差＝預測結果和真實結果差多少。看「打亂後增加多少」就是重點。</text>
+  <text x="600" y="1500" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="700" fill="#17212b">答案 C：打亂後誤差增加越多，特徵越重要。</text>
+</svg>

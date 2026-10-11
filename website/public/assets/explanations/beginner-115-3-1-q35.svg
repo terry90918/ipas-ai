@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1740" viewBox="0 0 1200 1740">
+  <rect width="1200" height="1740" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1660" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">第 35 題｜概念圖解</text>
+  <rect x="80" y="158" width="195" height="54" rx="27" fill="#e7f5ec"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#18713e">正確答案 C</text>
+  <text x="80" y="270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="600" fill="#35404b">可解釋人工智慧（XAI）幫助人理解模型為什麼這樣判斷。</text>
+  <rect x="80" y="315" width="500" height="470" rx="24" fill="#eef4fb"/>
+  <rect x="620" y="315" width="500" height="470" rx="24" fill="#fff3e9"/>
+  <text x="115" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="30" font-weight="700" fill="#174c85">全局解釋</text>
+  <text x="115" y="425" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">看模型在大量資料中的整體規律。</text>
+  <text x="125" y="495" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">• 哪些特徵通常影響判斷較大？</text>
+  <text x="125" y="540" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">• 模型整體傾向依據什麼分類？</text>
+  <line x1="115" y1="585" x2="545" y2="585" stroke="#cbd8e6" stroke-width="2"/>
+  <text x="115" y="635" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#35404b">生活比喻</text>
+  <text x="115" y="680" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">像看整班的評分規則：老師通常看</text>
+  <text x="115" y="718" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">哪些項目給分，而非只看一位同學。</text>
+  <text x="655" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="30" font-weight="700" fill="#a34b13">局部解釋</text>
+  <text x="655" y="425" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">看單一資料為什麼得到這個結果。</text>
+  <text x="665" y="495" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">• 為何這一張影像被判定有瑕疵？</text>
+  <text x="665" y="540" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">• 哪些局部特徵影響這次判斷？</text>
+  <line x1="655" y1="585" x2="1085" y2="585" stroke="#ecd3c1" stroke-width="2"/>
+  <text x="655" y="635" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#35404b">生活比喻</text>
+  <text x="655" y="680" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">像問老師：為什麼這一題被扣分？</text>
+  <rect x="80" y="825" width="1040" height="112" rx="22" fill="#17212b"/>
+  <text x="600" y="875" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="600" fill="#ffffff">題幹說「大量影像」「整體規律」「通常影響較大」</text>
+  <text x="600" y="914" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="26" font-weight="700" fill="#ffffff">→ 全局解釋，選 C</text>
+  <text x="80" y="1010" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="700" fill="#17212b">其他選項錯在哪裡</text>
+  <text x="90" y="1075" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">A　泛化能力與過適配談的是模型表現，不是解釋方式。</text>
+  <text x="145" y="1117" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#52606d">泛化＝能處理沒看過的新資料；過適配＝太像背熟練習題，換題就失準。</text>
+  <text x="90" y="1180" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">B　是在解釋單一影像的預測，題目要看大量影像的整體規律。</text>
+  <text x="90" y="1245" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">D　是把模型改得更簡單；題目問的是如何說明模型整體怎麼判斷。</text>
+  <rect x="80" y="1320" width="1040" height="260" rx="22" fill="#f5f7f9"/>
+  <text x="115" y="1380" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#17212b">快速分辨</text>
+  <text x="115" y="1440" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">XAI：讓人看懂 AI 的判斷依據。</text>
+  <text x="115" y="1490" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">全局＝整批資料的規律；局部＝某一筆資料的原因。</text>
+  <text x="115" y="1540" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">本題講整體傾向，所以是全局解釋。</text>
+</svg>

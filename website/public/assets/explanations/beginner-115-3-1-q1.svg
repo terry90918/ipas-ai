@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1560" viewBox="0 0 1200 1560">
+  <rect width="1200" height="1560" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1480" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">題庫第 1 題｜概念圖解</text>
+  <rect x="80" y="158" width="195" height="54" rx="27" fill="#e7f5ec"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#18713e">正確答案 A</text>
+  <text x="80" y="270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="600" fill="#35404b">監督式學習：給模型「例子＋正確答案」，讓它學會對應規則。</text>
+  <rect x="80" y="315" width="1040" height="400" rx="24" fill="#f5f7f9"/>
+  <text x="120" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#17212b">這題的訓練資料</text>
+  <rect x="120" y="410" width="310" height="105" rx="18" fill="#eef4fb"/>
+  <text x="275" y="452" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">設備運作資料</text>
+  <text x="275" y="488" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" fill="#52606d">感測值、運轉狀況</text>
+  <text x="465" y="475" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="34" font-weight="700" fill="#a34b13">＋</text>
+  <rect x="500" y="410" width="310" height="105" rx="18" fill="#fff3e9"/>
+  <text x="655" y="452" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">工程師的人工標註</text>
+  <text x="655" y="488" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" fill="#8c471d">正常／故障</text>
+  <text x="850" y="475" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="34" font-weight="700" fill="#a34b13">→</text>
+  <rect x="890" y="410" width="190" height="105" rx="18" fill="#e7f5ec"/>
+  <text x="985" y="452" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">學會分類</text>
+  <text x="985" y="488" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" fill="#18713e">預測新設備</text>
+  <text x="120" y="585" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="700" fill="#174c85">生活比喻</text>
+  <text x="120" y="635" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">像老師拿出許多機器狀況照片，旁邊都附上「正常」或「故障」答案。</text>
+  <text x="120" y="675" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">學生看過例子後，才能學會判斷一台新機器可能是哪種狀況。</text>
+  <text x="80" y="800" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="700" fill="#17212b">其他方法為什麼不適合</text>
+  <text x="90" y="865" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">B　非監督式學習：資料沒有答案標籤，讓模型自行找群組或結構。</text>
+  <text x="90" y="935" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">C　強化學習：模型採取行動，依獎勵或懲罰調整策略；題目沒有這種互動。</text>
+  <text x="90" y="1005" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" font-weight="600" fill="#24313d">D　半監督式學習：少量資料有標籤、大量資料沒標籤；題目已逐筆標註。</text>
+  <rect x="80" y="1080" width="1040" height="290" rx="24" fill="#eef4fb"/>
+  <text x="120" y="1145" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#174c85">一眼判斷</text>
+  <text x="120" y="1205" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#24313d">有標註：每筆資料都有正確類別或答案。</text>
+  <text x="120" y="1260" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#24313d">分類任務：要預測「正常」還是「故障」。</text>
+  <text x="120" y="1325" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#17212b">有標籤的例子＋要預測類別 → 監督式學習。</text>
+</svg>

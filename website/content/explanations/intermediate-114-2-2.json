@@ -1,0 +1,896 @@
+{
+  "intermediate-114-2-2-q1": {
+    "reasoning": "Z=(x−μ)/σ，表示離平均值幾個標準差。Z=2即x=μ+2σ，方向為高於平均，因此D；若平均100、標準差10，原值就是120，不是2。是否異常還要看分佈與指定門檻。",
+    "options": {
+      "A": "Z是相對位置，不是原始數值。",
+      "B": "低於平均兩標準差應是Z=−2。",
+      "C": "未給門檻與分佈，不能僅憑2斷定異常。",
+      "D": "正確；高於平均兩個標準差。"
+    },
+    "concept": "標準分數無單位，可比較不同尺度的相對位置。",
+    "pitfalls": "標準化不會自動使任意分佈變成常態。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q2": {
+    "reasoning": "選取df['總銷售額']會取得Series，再呼叫describe()同時計算count、mean、std、min、25%、50%、75%及max，符合題目要求多個描述量，故B。通常會忽略缺值。",
+    "options": {
+      "A": "sum()只返回加總，不能提供標準差等統計。",
+      "B": "正確；describe()提供數值欄位的描述統計。",
+      "C": "sort_values()排序值，不總結其分佈。",
+      "D": "Series沒有題中所用的標準stats()方法。"
+    },
+    "concept": "描述統計區分集中趨勢、離散程度與位置。",
+    "pitfalls": "describe的50%是中位數，mean才是平均。",
+    "sources": [
+      {
+        "title": "pandas：Series.describe",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.describe.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q3": {
+    "reasoning": "圖中峰值約在40，左側長尾伸至−20，右側尾較短至60，是左偏分佈；第三中心矩通常為負，因此A。偏態符號看尾巴方向，不能看峰在圖的左邊還是右邊。",
+    "options": {
+      "A": "正確；左尾較長對應負偏態。",
+      "B": "正偏態應為右尾較長，與圖形不符。",
+      "C": "零偏態通常對應對稱，圖形明顯不對稱。",
+      "D": "有原始數值即可算偏態；圖形可判斷可能符號。"
+    },
+    "concept": "偏態衡量分佈左右不對稱，由三次離差反映方向。",
+    "pitfalls": "平均數常被長尾拉動；不能只以眾數位置判定。",
+    "sources": [
+      {
+        "title": "NIST：偏態與峰態",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q4": {
+    "reasoning": "CDF定義為F(x)=P(X≤x)。對於有密度f的連續變數，\nF(x)=∫從−∞到x f(t)dt。\n它累積左側機率質量，故B；整個積分到+∞才等於1。",
+    "options": {
+      "A": "平均值是∫xf(x)dx，不是CDF。",
+      "B": "正確；在連續密度情境下積分得到累積機率。",
+      "C": "離散變數須加總機率質量PMF，不能直接稱PDF離散和。",
+      "D": "標準差是離散程度，不是累積機率。"
+    },
+    "concept": "CDF適用於連續及離散變數，值介於0與1且單調不減。",
+    "pitfalls": "連續PDF的單點高度不是該點機率。",
+    "sources": [
+      {
+        "title": "NIST：卜瓦松分佈",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda366j.htm"
+      },
+      {
+        "title": "SciPy：連續常態分布CDF",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html"
+      }
+    ],
+    "caveat": "B針對有PDF的連續分佈；最一般定義是P(X≤x)，離散分佈以PMF加總。"
+  },
+  "intermediate-114-2-2-q5": {
+    "reasoning": "無序類別若編碼為紅=0、藍=1、綠=2，依數值距離或線性係數學習的模型可能認為綠比紅「更大」，而這些數僅是代號，因此B是常見風險。應依模型採用獨熱或明確類別處理。",
+    "options": {
+      "A": "缺值可預處理或使用專用類別，並非整數編碼的核心風險。",
+      "B": "正確；任意整數可能帶入不存在的順序或距離。",
+      "C": "未知新類別確需處理，但並非題目主要比較。",
+      "D": "每欄只儲存一個數，通常比獨熱省空間。"
+    },
+    "concept": "編碼數值的計算意義應符合類別本身的語義。",
+    "pitfalls": "特徵編碼與目標標籤編碼用途不同，不能混用慣例。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q6": {
+    "reasoning": "標準化通常做z=(x−μ)/σ，只調整平均與尺度，結果可負且沒有固定上下界。C把它與Min-Max對映0到1混為一談，故為錯誤項；其他選項正確描述編碼與分箱的取捨。",
+    "options": {
+      "A": "獨熱適用於無序類，但類別多時增加維數，敘述正確。",
+      "B": "任意整數可能產生虛假順序，敘述正確。",
+      "C": "錯誤；均值0與標準差1不代表取值在0到1。",
+      "D": "分箱可便於解釋，也可能捨棄細節，敘述正確。"
+    },
+    "concept": "StandardScaler與MinMaxScaler的目標不同。",
+    "pitfalls": "標準化後的極端值仍可能遠離0。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q7": {
+    "reasoning": "交易把多項更新視為單一單位：轉賬時扣款與入賬必須全部完成，某一步失敗則回滾已做變更，避免只有扣款沒有收款。因此原子性選C。它描述交易結果不可部分生效。",
+    "options": {
+      "A": "資料型態由欄位定義，與原子交易不同。",
+      "B": "批次執行不等於失敗時全體回滾。",
+      "C": "正確；全做或全不做的保證。",
+      "D": "多節點同步屬複製或分散協調，不是原子性的定義。"
+    },
+    "concept": "ACID分別指原子性、一致性、隔離性、永續性。",
+    "pitfalls": "交易可含多步驟，「不可分割」指對外生效語義。",
+    "sources": [
+      {
+        "title": "PostgreSQL：交易",
+        "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q8": {
+    "reasoning": "把兩既有變數組合成新比值，可表達每次瀏覽產生的銷售效率；這增加一個有業務意義的特徵而非刪選舊欄位，因此B為特徵衍生。實際計算要處理瀏覽次數為0與統計時間範圍不一致。",
+    "options": {
+      "A": "選擇只保留部分既有變數，不創造此比率。",
+      "B": "正確；用原欄位關係計算新的預測訊號。",
+      "C": "轉換通常指對單特徵縮放、對數等；本題強調組合衍生。",
+      "D": "分箱是連續數值分為區間，不是除法。"
+    },
+    "concept": "特徵工程應把業務假設轉為可在預測時獲得的變數。",
+    "pitfalls": "分母為0不能直接相除，且未來銷售不得用於預測過去。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q9": {
+    "reasoning": "平均、標準差及極值容易被離群點牽動；RobustScaler用中位數及IQR衡量中心與尺度，因而較不受少數極端值影響，選C。它縮放資料，但並不會自動刪掉異常點。",
+    "options": {
+      "A": "最小最大值會被離群值拉開，使多數樣本擠在狹小範圍。",
+      "B": "均值與標準差也受極端值影響。",
+      "C": "正確；以穩健統計量縮放。",
+      "D": "分箱改變資料粒度，不是此處最直接的穩健縮放方法。"
+    },
+    "concept": "IQR=Q3−Q1，集中描述中間50%樣本跨度。",
+    "pitfalls": "穩健縮放仍須檢查IQR為0及真實異常的業務意義。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q10": {
+    "reasoning": "異常偵測尋找偏離通常分佈或行為的樣本；金融交易流中金額、地點或頻率突然偏離個人基線，正是C的情境。是否詐騙還需後續證據，異常分數不是最終違法判斷。",
+    "options": {
+      "A": "這是需求或庫存事件預測，通常有明確目標。",
+      "B": "違約預測多為有標註的監督分類。",
+      "C": "正確；找出與正常交易型態顯著不同的記錄。",
+      "D": "這是時間序列預測未來數量。"
+    },
+    "concept": "異常可能是稀有正常行為，也可能是錯誤或攻擊。",
+    "pitfalls": "別把低頻自動等同惡意，須評估誤報成本。",
+    "sources": [
+      {
+        "title": "scikit-learn：分群與DBSCAN",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q11": {
+    "reasoning": "大量IoT裝置持續產生資料，需要可水平擴充套件的接收儲存及流式處理，對視窗內異常即時判斷。C結合大資料平臺與即時分析，同時滿足量與速度，其他方案缺實時處理或自動規模。",
+    "options": {
+      "A": "單靠傳統儲存與圖形展示未建立高吞吐實時判斷。",
+      "B": "批次與備份只能延後分析。",
+      "C": "正確；分散處理流資料並觸發低延遲分析。",
+      "D": "手動檔案無法處理上萬裝置的連續事件。"
+    },
+    "concept": "實時系統要區分吞吐量、端到端延遲與資料完整性。",
+    "pitfalls": "「大資料」名稱不保證毫秒響應，仍需實際延遲測試。",
+    "sources": [
+      {
+        "title": "Spark：Structured Streaming",
+        "url": "https://spark.apache.org/docs/latest/streaming/index.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q12": {
+    "reasoning": "隨機過取樣只是重複抽取既有少數類，增加訓練中的出現頻率卻沒有新增獨立資訊。模型可能記住這些重複樣本而無法泛化，A是典型風險；必須在訓練折內部過取樣。",
+    "options": {
+      "A": "正確；重複樣本容易強化記憶性擬合。",
+      "B": "計算變多可能較慢，但不是最主要的統計風險。",
+      "C": "過取樣會增加而不是減少總筆數。",
+      "D": "複製樣本不會因此產生欄位缺失。"
+    },
+    "concept": "類別平衡與獨立樣本資訊量是不同概念。",
+    "pitfalls": "先過取樣再切驗證集會讓重複記錄跨集合洩漏。",
+    "sources": [
+      {
+        "title": "imbalanced-learn：過取樣與SMOTE",
+        "url": "https://imbalanced-learn.org/stable/over_sampling.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q13": {
+    "reasoning": "同態加密允許伺服器針對密文執行指定數學操作，解密結果對應明文上的運算，伺服器不必持有解金鑰匙，所以D。它不同於傳輸或靜態加密，在計算階段仍保護內容。",
+    "options": {
+      "A": "匿名代號是去識別或假名化，不是密文可運算。",
+      "B": "標準化改變尺度，不提供密碼學保密。",
+      "C": "異常偵測分析資料偏離，不是加密性質。",
+      "D": "正確；在密文上運算再由授權者解密結果。"
+    },
+    "concept": "可支援哪些運算與精度取決於加密方案及引數。",
+    "pitfalls": "同態加密有計算成本，複雜模型需改寫成支援的運算。",
+    "sources": [
+      {
+        "title": "Microsoft SEAL：同態加密",
+        "url": "https://github.com/microsoft/SEAL"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q14": {
+    "reasoning": "A與B各5筆，所以pA=pB=0.5。\nGini=1−(0.5²+0.5²)=0.5。\n二分類最大Gini=1−1/2=0.5。\n正規化後0.5/0.5=1，因此D。注意題目不是問原始吉尼不純度。",
+    "options": {
+      "A": "0表示只有一個類別的純集合，與5比5不符。",
+      "B": "0.42不是本題原始或正規化結果。",
+      "C": "0.84也不符合給定比例的計算。",
+      "D": "正確；達到二類最均勻分佈的最大不純度。"
+    },
+    "concept": "K類別正規化通常以1−1/K為分母。",
+    "pitfalls": "原始Gini是0.5，不能漏看「正規化」。",
+    "sources": [
+      {
+        "title": "scikit-learn：決策樹不純度",
+        "url": "https://scikit-learn.org/stable/modules/tree.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q15": {
+    "reasoning": "題目計數的是固定一分鐘內獨立到達事件，且速率恆定，符合Poisson。每小時平均20通換成λ=20/60=1/3通／分鐘；P(N=k)=e^(−1/3)(1/3)^k/k!，所以C。",
+    "options": {
+      "A": "均勻分佈假定各可能計數等機率，不符合到達機制。",
+      "B": "指數分佈描述兩次來電間等待時間，而非來電次數。",
+      "C": "正確；固定期間的獨立事件計數。",
+      "D": "常態是連續分佈，小λ計數不能直接視為常態。"
+    },
+    "concept": "Poisson平均與變異數都等於λ。",
+    "pitfalls": "先把發生率與計數視窗的時間單位統一。",
+    "sources": [
+      {
+        "title": "NIST：卜瓦松分佈",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda366j.htm"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q16": {
+    "reasoning": "按給定數值計算：\nZ=(3200−2000)/400=1200/400=3。\n規則是絕對Z大於或等於3，邊界值3亦包含，所以標記異常，選A。這是指定規則下的結論，不等於已證明詐騙。",
+    "options": {
+      "A": "正確；算得3且達到含等號的門檻。",
+      "B": "2.5是算術錯誤，也不能稱符合公司規則。",
+      "C": "2既不符合計算，也不能推出標準差估太高。",
+      "D": "1.5不符合1200÷400。"
+    },
+    "concept": "異常旗標是依標準化分數與規則判定。",
+    "pitfalls": "注意≥與>的區別；門檻邊界不能遺漏。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q17": {
+    "reasoning": "任意整數編碼會限制數值樹只能用「編碼≤閾值」切分，可能把原本無關類別強制放在連續區間。B提醒這種編碼語義的風險；本題會員等級本身若確有順序，可依業務核實後使用有序編碼。",
+    "options": {
+      "A": "獨熱會增加欄位數，不能保證較省記憶體。",
+      "B": "按官方正確；應檢查整數順序是否有真實意義。",
+      "C": "目標編碼會洩漏或過擬合，不會自動消除風險。",
+      "D": "三個類別沒必要先PCA，且原文字須先適當編碼。"
+    },
+    "concept": "樹對數值尺度不敏感，但類別編碼會改變可用切分集合。",
+    "pitfalls": "等級可能真有序；不能把所有標籤編碼一概判錯。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ],
+    "caveat": "本題「一般、白金、黑卡」可具有真實等級順序，B的誤判風險需以任意編碼為前提。"
+  },
+  "intermediate-114-2-2-q18": {
+    "reasoning": "關鍵證據是某節點失敗後沒有部分更新；這說明交易作為整體提交或回滾，正是Atomicity。Consistency強調完成交易符合約束，Isolation強調併發可見性，Durability強調已提交結果儲存，故A最直接。",
+    "options": {
+      "A": "正確；全體更新一併成功或全部復原。",
+      "B": "一致性相關，但不能單獨表達失敗時不得部分生效。",
+      "C": "隔離性處理不同交易間干擾，不是此次失敗回滾的主旨。",
+      "D": "永續性只針對已經成功提交的結果。"
+    },
+    "concept": "分散交易仍須在多個參與者間協調原子提交。",
+    "pitfalls": "別因為文字寫「狀態一致」就忽略題幹「無部分更新」。",
+    "sources": [
+      {
+        "title": "PostgreSQL：交易",
+        "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q19": {
+    "reasoning": "邊緣節點靠近感測器可先作快速判定，流處理聚合連續事件，雲端資料湖儲存原始或完整記錄供訓練；C組合最接近即時、保留與擴充套件三目標。實務應把即時警報與雲端存檔分成並行路徑。",
+    "options": {
+      "A": "批次特徵工程難滿足毫秒級響應。",
+      "B": "MQTT利於接收，但倉儲與儀表板路徑未說明即時邊緣推論。",
+      "C": "正確的最佳候選；邊緣加流式與雲端儲存。",
+      "D": "快取與報表沒有足夠實時分析及完整存檔設計。"
+    },
+    "concept": "熱路徑負責及時動作，冷路徑儲存完整歷史作訓練。",
+    "pitfalls": "不能先等雲端存檔成功才進行毫秒級本地警報。",
+    "sources": [
+      {
+        "title": "Spark：Structured Streaming",
+        "url": "https://spark.apache.org/docs/latest/streaming/index.html"
+      }
+    ],
+    "caveat": "C的圖列出雲端資料湖後推論；真正毫秒響應仍需在邊緣或流處理端先判斷。"
+  },
+  "intermediate-114-2-2-q20": {
+    "reasoning": "要求雲端不解密還執行模型運算，必須使用支援密文運算的技術。HE使解密後的輸出對應明文計算，所以D；需選合適方案、把模型轉換為支援的運算元並衡量效能。",
+    "options": {
+      "A": "匿名化降低身份連結，仍把可分析數值以明文交給雲端。",
+      "B": "hash不可逆且不保留一般算術關係，無法據此正常推論。",
+      "C": "本地化是限制地點，未實現雲端密文計算。",
+      "D": "正確；伺服器在密文上計算，鑰匙由授權方保有。"
+    },
+    "concept": "保密的計算階段不同於僅儲存或傳輸加密。",
+    "pitfalls": "部分近似同態方案結果有數值誤差，不宜宣稱逐位完全相等。",
+    "sources": [
+      {
+        "title": "Microsoft SEAL：同態加密",
+        "url": "https://github.com/microsoft/SEAL"
+      }
+    ],
+    "caveat": "D的「一致」應理解為方案支援精度內的對應，CKKS等近似運算不保證精確相等。"
+  },
+  "intermediate-114-2-2-q21": {
+    "reasoning": "資料密度強調有限圖面承載有用資訊。B在一致尺度下整合趨勢並清晰標記，能同時比較區域及產品線；但線條過多造成重疊時，仍應採用小多圖等佈局，不能只追求線數量。",
+    "options": {
+      "A": "小多圖亦可有高資料密度，只是題目偏好單一整合圖。",
+      "B": "按題意正確；共享尺度與清楚標註使多系列可比較。",
+      "C": "拿掉所有標籤會失去辨讀所需資訊。",
+      "D": "表格有精確值但不利快速觀察多系列趨勢。"
+    },
+    "concept": "資訊密度與可讀性應同時顧及，單位面積多不代表更有效。",
+    "pitfalls": "密度高若變成糾纏折線，主管反而難讀取。",
+    "sources": [
+      {
+        "title": "Edward Tufte：資料視覺化著作",
+        "url": "https://www.edwardtufte.com/tufte/books_vdqi"
+      }
+    ],
+    "caveat": "Tufte並非一概主張所有趨勢疊在一圖；A的小多圖也可能更符合可比較性。"
+  },
+  "intermediate-114-2-2-q22": {
+    "reasoning": "相關矩陣以每對股票的相關係數記錄方向與強度，熱力圖用一致色階呈現−1到1，可一次比較全部組合，因此D。每日報酬率應先按相同日期對齊，而不是直接比較股價高低。",
+    "options": {
+      "A": "直方圖顯示個別邊際分佈，無法看股票配對共變。",
+      "B": "散佈圖適合一對，四股全部組合會需多圖。",
+      "C": "雙軸容易造成視覺相關幻覺，且題目要報酬率關聯。",
+      "D": "正確；矩陣涵蓋所有股票配對並以顏色表示強弱。"
+    },
+    "concept": "相關係數是標準化共變異數。",
+    "pitfalls": "歷史相關性會變化，也不等於因果關係。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q23": {
+    "reasoning": "p=0.08大於α=0.05，無法拒絕平均100萬的虛無假設；95%區間[95,108]包含100萬，與雙側檢定結論一致，因此C。未拒絕不代表證明完全沒有策略效果。",
+    "options": {
+      "A": "0.08並不小於0.05，比較錯誤。",
+      "B": "改α=0.10時0.08<0.10，會達到顯著。",
+      "C": "正確；給定區間仍包含虛無假設值。",
+      "D": "區間寬度也依樣本變異與樣本數決定。"
+    },
+    "concept": "雙側顯著性檢定與同水準信賴區間有對應關係。",
+    "pitfalls": "不能把p值當虛無假設為真的機率。",
+    "sources": [
+      {
+        "title": "SciPy：單樣本t檢定",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_1samp.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q24": {
+    "reasoning": "多種格式可先儲存在資料湖，再用Spark或Ray將清理、解析及特徵抽取分散執行，並統一管線規則與產物，A最能兼顧規模與一致性。還須維持schema、質量驗證與資料來源記錄。",
+    "options": {
+      "A": "正確；資料湖儲存多來源內容，分散預處理再串接可重複的訓練管線，兼顧規模與一致性。",
+      "B": "單節點可處理較小規模，但沒有分散式處理多來源大資料的擴展優勢。",
+      "C": "向量化不能代替原始格式清理，資料庫索引也不是直接餵入語言模型訓練的通用方案。",
+      "D": "生成式自動清理可能改寫事實或產生幻覺，需額外驗證。"
+    },
+    "concept": "資料湖儲存原始多格式，處理管線賦予結構與可用性。",
+    "pitfalls": "建立資料湖不自動保證質量，仍要驗證去重、標籤與許可權。",
+    "sources": [
+      {
+        "title": "Spark：Structured Streaming",
+        "url": "https://spark.apache.org/docs/latest/streaming/index.html"
+      },
+      {
+        "title": "pandas：json_normalize",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q25": {
+    "reasoning": "高度右偏使線性軸被大額消費拉長，多數一般客戶擠在狹小區間。對數軸壓縮極大值並展開較低金額間的相對倍率差異，能同時比較消費層級，故官方選A。所有值須為正或另處理零值。",
+    "options": {
+      "A": "是最佳候選，但「放大高金額」不準確；對數軸主要壓縮高金額跨度。",
+      "B": "刪掉高消費客戶可能丟失關鍵客群。",
+      "C": "等寬分箱容易讓多數落入首箱，長尾箱又很稀疏。",
+      "D": "時間折線未回答消費金額分層分佈。"
+    },
+    "concept": "對數刻度將乘法比例轉成加法距離。",
+    "pitfalls": "看對數圖要按倍率解釋，不按等距絕對金額解釋。",
+    "sources": [
+      {
+        "title": "NIST：偏態與峰態",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm"
+      }
+    ],
+    "caveat": "A對對數刻度效果的措辭有誤；保留官方答案並指出實際是壓縮長尾、改善相對差異可見性。"
+  },
+  "intermediate-114-2-2-q26": {
+    "reasoning": "Support=P(A且B)=0.12，Confidence=P(B∣A)=0.5，Lift=0.5/P(B)=1.8，因此P(B)≈0.278。看科幻者觀看英雄片的機率高於總體基線，C最合理；不能推斷觀看先後或因果。",
+    "options": {
+      "A": "12%是否有價值要看規模、利潤及推薦目的，不能一概否定。",
+      "B": "Lift>1表示正向關聯，比獨立基線更常共同發生。",
+      "C": "正確；條件機率50%且提升度高於1。",
+      "D": "12%共同發生不代表互斥，互斥的交集應為0。"
+    },
+    "concept": "Lift把信賴度與後件本身的常見程度比較。",
+    "pitfalls": "關聯規則不自動證明接著觀看，更不證明推薦會造成觀看。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      },
+      {
+        "title": "mlxtend：關聯規則指標",
+        "url": "https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/association_rules/"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q27": {
+    "reasoning": "精確分位數可能需大量排序、傳輸與儲存；近似摘要以受控排名誤差換取速度及空間，可對億筆資料快速估中位數或高分位，因此D。誤差通常是分位排名，不必等於金額誤差。",
+    "options": {
+      "A": "完全精確違背近似方法以效率換誤差的目的。",
+      "B": "常見方法是統計摘要演算法，無須訓練預測模型。",
+      "C": "摘要方法也可用於串流，非只能結構化批次。",
+      "D": "正確；在容忍誤差內快速獲得分位位置。"
+    },
+    "concept": "分位摘要可用有限記憶體近似大規模分佈。",
+    "pitfalls": "尾部金額變化巨大時，微小排名誤差也可能有大數值差。",
+    "sources": [
+      {
+        "title": "Spark：approxQuantile",
+        "url": "https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.DataFrame.approxQuantile.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q28": {
+    "reasoning": "高維空間中點距可能集中到相近數值，低維經驗的ε不足以覆蓋足夠鄰居，核心點無法達到MinPts而全變噪聲。A最符合>500維的提示；須檢查距離分佈、尺度並考慮降維。",
+    "options": {
+      "A": "正確；高維距離可能集中，使原有ε鄰域閾值無法形成足夠核心點。",
+      "B": "距離函式不適合也可能造成問題，但題幹主要強調超過五百維的距離特性。",
+      "C": "MinPts太小通常更容易形成核心點，而不是把所有點都變為噪聲。",
+      "D": "一般標準化只改變尺度，不會自動讓特徵消失，不能以此概括全噪聲的成因。"
+    },
+    "concept": "DBSCAN用區域性鄰域定義密度，對高維距離與尺度很敏感。",
+    "pitfalls": "全噪聲不證明全是異常，可能只是引數不適配。",
+    "sources": [
+      {
+        "title": "scikit-learn：分群與DBSCAN",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q29": {
+    "reasoning": "PCA找最大變異方向，不理解臺幣、次數與年齡的業務單位。未縮放時大尺度金額容易貢獻最大變異；先按訓練資料標準化，使各特徵尺度可比較，再PCA，所以D。",
+    "options": {
+      "A": "若目標是跨型別比較，單位造成的主導不能當作真實重要性。",
+      "B": "選特徵不保證消除留下變數間的尺度差。",
+      "C": "刪除金額可能失去關鍵資訊，不必為平衡而丟棄。",
+      "D": "正確；縮放後降低單位量級支配的影響。"
+    },
+    "concept": "協方差矩陣PCA對尺度敏感；標準化接近以相關矩陣分析。",
+    "pitfalls": "數值量級不直接等於變異，仍要檢查實際標準差。",
+    "sources": [
+      {
+        "title": "scikit-learn：主成分分析",
+        "url": "https://scikit-learn.org/stable/modules/decomposition.html"
+      },
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q30": {
+    "reasoning": "Pearson r=Cov(X,Y)/(σXσY)，在−1到1之間，正負表示方向、絕對值表示線性關係強度，不隨計量單位改變。題幹已有明顯線性且無離群值，故C。",
+    "options": {
+      "A": "RMSE需要預測值與真值，衡量誤差而非關聯。",
+      "B": "共變異數方向有意義，但大小受單位與尺度影響。",
+      "C": "正確；標準化的線性共變動指標。",
+      "D": "MAE也是預測誤差，不是關聯強度。"
+    },
+    "concept": "相關係數只總結線性關係。",
+    "pitfalls": "高r不證明廣告導致銷售，也可能有季節與預算分配混雜。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q31": {
+    "reasoning": "獨立同機率點選總數為Binomial(5000,0.4)。\nnp=2000，n(1−p)=3000，皆遠大於5。\n可近似Normal(μ=2000,σ²=1200)，σ≈34.64，B給出比「n大」更完整的條件。",
+    "options": {
+      "A": "本例結果可行，但只看樣本數忽略p極接近0或1的風險。",
+      "B": "正確的經驗判據；兩邊期望計數均須足夠大。",
+      "C": "不要求p恰為0.5，0.4在此樣本量亦適用。",
+      "D": "大樣本且機率適當時可以近似。"
+    },
+    "concept": "連續近似離散計數時可採用±0.5連續性修正。",
+    "pitfalls": "5是經驗門檻，精度要求高或尾部機率仍應驗證。",
+    "sources": [
+      {
+        "title": "NIST：二項分佈",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda366i.htm"
+      }
+    ],
+    "caveat": "B的「只有」過強，5或10皆為經驗法則，不是普遍必要充分條件。"
+  },
+  "intermediate-114-2-2-q32": {
+    "reasoning": "訓練前減少直接個人識別資訊，並限制假名對照表訪問，輸出端再審查敏感內容，A形成輸入與輸出雙重控制，最具實際可行性。假名化資料仍可重新連結個人，須持續依授權及目的管理。",
+    "options": {
+      "A": "正確；來源去識別配合輸出稽核降低洩漏。",
+      "B": "微調只能降低某些行為，無法保證不會記憶或吐露個人資料。",
+      "C": "HE可保護計算內容，但不等於模型輸出無個人資訊。",
+      "D": "只隱藏姓名遺漏電話、地址、交易及間接識別線索。"
+    },
+    "concept": "匿名化與假名化的再識別風險不同。",
+    "pitfalls": "不能把換代號視為完全匿名，也不能宣稱單一措施保證合規。",
+    "sources": [
+      {
+        "title": "Microsoft SEAL：同態加密",
+        "url": "https://github.com/microsoft/SEAL"
+      },
+      {
+        "title": "Explaining and Harnessing Adversarial Examples",
+        "url": "https://arxiv.org/abs/1412.6572"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q33": {
+    "reasoning": "分位數迴歸直接估計Y在給定X下的特定分位，不需先假定常態誤差。關注低報酬尾部可用如5%分位描述嚴重損失門檻，因此D比只用均值標準差適合偏態與極端風險。",
+    "options": {
+      "A": "以常態殘差為基礎仍沿用題目要避免的假設。",
+      "B": "前兩階摘要不能充分表達偏態和尾部形狀。",
+      "C": "裁掉極端值會移除真正要評估的風險。",
+      "D": "正確；以尾部分位為目標訓練。"
+    },
+    "concept": "pinball loss對正負誤差施加依分位數而異的權重。",
+    "pitfalls": "尾部樣本少時不確定性大，需檢查校準與樣本外風險。",
+    "sources": [
+      {
+        "title": "scikit-learn：QuantileRegressor",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.QuantileRegressor.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q34": {
+    "reasoning": "Property Graph可把使用者與貼文作節點，以LIKES邊連線，時間及裝置存成該次關係的屬性，查詢時直接篩選邊屬性，B最簡潔。若同一事件需連多種實體或多次點贊歷史，也可再把事件實體化。",
+    "options": {
+      "A": "只連使用者缺貼文關係；事件節點雖可行但此設計不完整。",
+      "B": "正確；關係承載互動屬性並連線兩端實體。",
+      "C": "存使用者節點混淆不同貼文的每次互動。",
+      "D": "另存關係表可行但偏離圖模型的直接關係查詢。"
+    },
+    "concept": "屬性圖的節點與邊都能擁有鍵值屬性。",
+    "pitfalls": "重複互動是否需獨立關係或事件節點，應依實際基數決定。",
+    "sources": [
+      {
+        "title": "Neo4j：Property Graph概念",
+        "url": "https://neo4j.com/docs/getting-started/appendix/graphdb-concepts/"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q35": {
+    "reasoning": "RDF以主詞、謂詞、受詞陳述事實，並以IRI明確實體與屬性身份，可與RDFS或OWL的詞彙及規則結合做語義整合和推理，故B。儲存三元組本身不自動擁有所有知識推理能力。",
+    "options": {
+      "A": "把全部資訊塞屬性未定義共享語義與關係謂詞。",
+      "B": "正確；標準三元組與語義詞彙支援跨來源連結。",
+      "C": "標籤式檔案連結缺少明確可互通的語義結構。",
+      "D": "索引可加速查詢，但不直接提供本體與語義推理。"
+    },
+    "concept": "RDF圖是三元組集合，可用SPARQL查詢。",
+    "pitfalls": "RDF是表示基礎，推理規則與效率仍須另行設計。",
+    "sources": [
+      {
+        "title": "W3C：RDF 1.1資料模型",
+        "url": "https://www.w3.org/TR/rdf11-concepts/"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q36": {
+    "reasoning": "Y右偏且誤差尺度隨X增加，可嘗試Box–Cox冪次轉換，選擇λ穩定變異並減輕偏態；λ=0對應log(Y)，常能壓縮大值，所以B。轉換後仍要診斷殘差，不能只檢查Y分佈。",
+    "options": {
+      "A": "只標準化X不直接改善Y的異方差。",
+      "B": "正確；對正值響應作冪次變換是候選策略。",
+      "C": "一階差分用於時序趨勢等問題，本題沒給時間結構。",
+      "D": "刪高變異樣本可能造成選擇偏差與資訊損失。"
+    },
+    "concept": "線性模型相關假設主要針對條件均值與殘差，不要求Y本身常態。",
+    "pitfalls": "Box–Cox要求正值；有零或負值須另選方法。",
+    "sources": [
+      {
+        "title": "SciPy：Box–Cox轉換",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html"
+      }
+    ],
+    "caveat": "轉換隻是改善候選，不保證所有模型假設成立；應檢查條件殘差而非僅Y分佈。"
+  },
+  "intermediate-114-2-2-q37": {
+    "reasoning": "SMOTE在少數類鄰居之間插值合成樣本，比複製既有病例能增加區域性變化，故官方選C。應在訓練折內進行，並確認插值病例合理、類別不重疊；醫療情境仍須嚴格獨立驗證。",
+    "options": {
+      "A": "重複樣本可能讓模型記住少數病例。",
+      "B": "欠取樣丟掉多數類資訊，少資料時風險較高。",
+      "C": "正確的最佳候選；合成區域性少數類變化。",
+      "D": "調閾值可增加召回，但通常同時增加誤報，不新增訓練訊號。"
+    },
+    "concept": "合成平衡方法改變訓練分佈，評估仍應保留真實流行率。",
+    "pitfalls": "SMOTE不能保證避免過擬合，也不能代替真實臨床資料。",
+    "sources": [
+      {
+        "title": "imbalanced-learn：過取樣與SMOTE",
+        "url": "https://imbalanced-learn.org/stable/over_sampling.html"
+      }
+    ],
+    "caveat": "C不是保證；稀少、離散或重疊病例可能不適合插值，需與閾值及類別權重一起比較。"
+  },
+  "intermediate-114-2-2-q38": {
+    "reasoning": "比較兩條獨立生產線「良品比例」通常可用雙比例Z檢定，選B。合併p=(95+97)/200=0.96，SE=√[0.96×0.04×(1/100+1/100)]≈0.0277，Z=(0.97−0.95)/SE≈0.722；雙側p約0.47。",
+    "options": {
+      "A": "平均數t檢定不是這類二元比例的標準首選。",
+      "B": "正確的教科書答案；檢定兩個獨立比例差。",
+      "C": "2×2卡方檢定也可比較比例，常與雙側Z關係密切。",
+      "D": "ANOVA主要比較數值均值，不是本題首選。"
+    },
+    "concept": "顯著性取決於差異與標準誤，不只看97%比95%高。",
+    "pitfalls": "預期失敗計數各約4，常態近似偏弱，可考慮Fisher精確檢定。",
+    "sources": [
+      {
+        "title": "statsmodels：雙比例Z檢定",
+        "url": "https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.proportions_ztest.html"
+      }
+    ],
+    "caveat": "C也可用於二元列聯表；本例失敗數少，Z與卡方近似條件需特別檢查。"
+  },
+  "intermediate-114-2-2-q39": {
+    "reasoning": "分層K折按良惡性比例分配樣本，讓每折約80%良性、20%惡性，減少切分造成的類別比例波動，D最直接。仍須用召回、F1或適合成本的指標，且同患者記錄應整組分配。",
+    "options": {
+      "A": "減K不保證每折比例一致。",
+      "B": "Bootstrap可能改變比例，亦需額外分層設計。",
+      "C": "提高測試良性比例會改變評估分佈，更易掩蓋惡性漏檢。",
+      "D": "正確；按類別分層建立各折。"
+    },
+    "concept": "分層控制抽樣組成，不能修正原本的模型偏誤。",
+    "pitfalls": "醫學資料須防同病患多記錄跨折；單純分層不解決此洩漏。",
+    "sources": [
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q40": {
+    "reasoning": "圖中for i=1到N，每次第i筆當測試、其餘N−1筆訓練，然後平均N次評分，正是Leave-One-Out。每筆恰被單獨留出一次，所以B；它可視為K=N的特殊K折。",
+    "options": {
+      "A": "Hold-out只做一次固定訓練／測試切分。",
+      "B": "正確；每輪只留一個樣本驗證，共訓練N次。",
+      "C": "一般K折每次留N/K筆；圖中特別為一筆留出。",
+      "D": "Bootstrap有放回抽樣，不是逐個確定性留出。"
+    },
+    "concept": "LOOCV充分使用訓練資料，但計算成本通常較高。",
+    "pitfalls": "各輪訓練集高度重疊，不保證比普通K折低方差。",
+    "sources": [
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q41": {
+    "reasoning": "圖先隨機選擇X箇中心，再迴圈把各點分給最近中心，並以該群均值更新中心，直到中心不動。最近中心硬指派加均值更新是K-means的核心，因此A；這裡圖中的X扮演群數K。",
+    "options": {
+      "A": "正確；Lloyd迭代的指派與中心更新步驟。",
+      "B": "GMM通常估軟歸屬機率及協方差，使用EM而非此硬分配。",
+      "C": "階層法逐步合併或分裂群，不以此均值迭代。",
+      "D": "DBSCAN依密度鄰域及核心點，不預設均值中心。"
+    },
+    "concept": "K-means最小化群內點到中心的平方距離和。",
+    "pitfalls": "初始化會影響區域性最優，需考慮多次起點或K-means++。",
+    "sources": [
+      {
+        "title": "scikit-learn：分群與DBSCAN",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q42": {
+    "reasoning": "Poisson λ=5表示每小時平均5個，不是上限，事件數可高於5。PMF(5)只算恰5個，CDF(10)算不超過10個。C準確列出獨立與固定發生率的建模條件，故正確。",
+    "options": {
+      "A": "平均值不是最大值，支援集為0,1,2,…。",
+      "B": "PMF(5)是P(N=5)，不是P(N<5)。",
+      "C": "正確；獨立事件與穩定平均率符合Poisson過程假設。",
+      "D": "CDF(10,5)是P(N≤10)，P(N≥10)為1−CDF(9,5)。"
+    },
+    "concept": "PMF是單點質量，CDF是累計左尾。",
+    "pitfalls": "算右尾要注意含等號，別直接用1−CDF(10)。",
+    "sources": [
+      {
+        "title": "NIST：卜瓦松分佈",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda366j.htm"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q43": {
+    "reasoning": "傳統NumPy整數不能表示NaN，因此整數年份有缺值時常被提升為float64；CSV包含2006.0這樣的數字也可能被推斷為浮點。A與D都合理，所以答案B。數字字串正常讀入通常可推斷為整數，並非轉換錯誤必定變float。",
+    "options": {
+      "A": "原因B無據、C錯誤，pandas並非全部數字都讀float。",
+      "B": "正確；NaN與帶小數格式均可能產生float64。",
+      "C": "多加原因B；字串轉換失敗通常不因此自動變成有效浮點。",
+      "D": "原因D合理，但原因C錯誤；pandas會依欄位內容推斷數值型態。"
+    },
+    "concept": "CSV型態推斷依內容與讀取引數，不是CSV本身有強型態。",
+    "pitfalls": "可顯式指定nullable整數，但要檢查非整數值與非法字串。",
+    "sources": [
+      {
+        "title": "pandas：可空整數型態",
+        "url": "https://pandas.pydata.org/docs/user_guide/integer_na.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q44": {
+    "reasoning": "pandas的'Int64'是可空整數擴充型別，使用<NA>保留未知年份，不必把缺失偽裝成0或1。因此D可在維持語意下轉整數；前提是非缺失值確實為整數可表示的數。",
+    "options": {
+      "A": "普通int無法保留NaN，通常拋轉換錯誤。",
+      "B": "填0雖能轉換，但虛構年份會汙染趨勢。",
+      "C": "填1同樣捏造不存在的年份。",
+      "D": "正確；大寫I的Int64支援整數與缺值。"
+    },
+    "concept": "Int64與小寫int64在缺值表示能力上不同。",
+    "pitfalls": "若年份有2006.5，不能僅強轉掩蓋髒資料。",
+    "sources": [
+      {
+        "title": "pandas：可空整數型態",
+        "url": "https://pandas.pydata.org/docs/user_guide/integer_na.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q45": {
+    "reasoning": "groupby('Platform')先分平臺，取Global_Sales後sum彙總各遊戲的全球銷量，再plot(kind='bar')比較平臺總量，A完整實現。計量單位仍為百萬份；題目說「銷售額」與資料實際銷量要區分。",
+    "options": {
+      "A": "正確；按平臺對全球銷量加總並畫長條。",
+      "B": "count數的是非缺失記錄，得到遊戲數。",
+      "C": "value_counts也是平臺記錄數，不是銷量總和。",
+      "D": "mean是平均每款遊戲銷量，不是總量。"
+    },
+    "concept": "聚合函式決定回答的是數量、平均或總量。",
+    "pitfalls": "Global_Sales是銷量而非營業收入，不可當作金額。",
+    "sources": [
+      {
+        "title": "pandas：Series.describe",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.describe.html"
+      },
+      {
+        "title": "pandas：groupby聚合",
+        "url": "https://pandas.pydata.org/docs/user_guide/groupby.html"
+      }
+    ],
+    "caveat": "原題用「銷售總額」，資料定義為百萬份銷量，應以總銷量解讀。"
+  },
+  "intermediate-114-2-2-q46": {
+    "reasoning": "melt把四個區域欄轉為variable與value的長表，barplot以variable分組並estimator=sum，使每根柱表示該區總銷量，故C。預設estimator通常為mean，指定sum是關鍵；若要百分比還需除以四區總和。",
+    "options": {
+      "A": "countplot算記錄數，不彙總數值銷量。",
+      "B": "lineplot語法與目標都不適合區域總和。",
+      "C": "正確；寬轉長後用sum聚合區域銷量。",
+      "D": "histplot顯示銷量分佈，不表示區域總額。"
+    },
+    "concept": "長格式可把多欄觀測轉為類別＋數值的統一圖形輸入。",
+    "pitfalls": "總額柱可比較比例，但柱值不會自動變百分比。",
+    "sources": [
+      {
+        "title": "pandas：melt",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html"
+      },
+      {
+        "title": "seaborn：barplot",
+        "url": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+      }
+    ],
+    "caveat": "C輸出總銷量而非顯式正規化比例；真正比例需再除總和，保留官方最佳選項。"
+  },
+  "intermediate-114-2-2-q47": {
+    "reasoning": "nlargest(5,'NA_Sales')選擇北美銷量最高的五筆，barplot以Name與NA_Sales繪柱，B符合排名與圖形要求。head(5)只取原始前五筆，不保證為北美前五。若同遊戲跨平臺多行，需先決定排名單位。",
+    "options": {
+      "A": "沒先按NA_Sales排序，可能是全球排名或原始順序。",
+      "B": "正確；按北美值取前五再畫類別長條。",
+      "C": "雖然資料選對，折線暗示連續性，不符合長條要求。",
+      "D": "countplot不接受題意的數值銷量y來作柱高。"
+    },
+    "concept": "前N名必須按目標量排序，而非信任現有索引。",
+    "pitfalls": "同名記錄預設barplot會聚合，跨平臺排行需明確去重或加總。",
+    "sources": [
+      {
+        "title": "pandas：DataFrame.nlargest",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.nlargest.html"
+      },
+      {
+        "title": "seaborn：barplot",
+        "url": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q48": {
+    "reasoning": "圖中describe的youtube列25%是89.250，故D；sales的16.827位於mean，而50%中位數是15.48。facebook的11.94在25%，75%為43.68。count中199只代表facebook有一缺值，不是資料共199筆。",
+    "options": {
+      "A": "表共200筆；facebook非缺值199不能當總列數。",
+      "B": "16.827是平均，中位數為15.48。",
+      "C": "11.94是Q1，Q3實際43.68。",
+      "D": "正確；25%對應第一四分位89.25。"
+    },
+    "concept": "describe按欄位排除缺值計算count及分位。",
+    "pitfalls": "先看列標籤再讀數字，不把mean與50%混淆。",
+    "sources": [
+      {
+        "title": "pandas：Series.describe",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.describe.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q49": {
+    "reasoning": "df.isnull()是df.isna()的別名，皆返回相同形狀布林遮罩；沿欄位sum把True當1，得到各欄缺值數量。原陳述A與C正確，對應選項C。isNaN與isnan不是此DataFrame標準方法。",
+    "options": {
+      "A": "原陳述D的df.isnan()不存在，不能單選。",
+      "B": "B及D錯誤，只有原陳述C有效。",
+      "C": "正確；原陳述A、C是等價的pandas方法。",
+      "D": "原陳述B的大小寫方法不存在。"
+    },
+    "concept": "布林遮罩加總是逐欄缺值計數的常見寫法。",
+    "pitfalls": "空字串與無窮值預設不屬於NA，須按資料規則處理。",
+    "sources": [
+      {
+        "title": "pandas：isna與isnull",
+        "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isna.html"
+      }
+    ]
+  },
+  "intermediate-114-2-2-q50": {
+    "reasoning": "sklearn.fit次序是(X,y)，coef_只含3個特徵斜率，截距在intercept_。statsmodels.OLS次序是(y,X2)，圖中const=3.5561且newspaper的p=0.914不顯著。因此原陳述B與F正確，對應選項B。",
+    "options": {
+      "A": "多選了C；coef_不含截距。",
+      "B": "正確；fit(X,y)及截距3.5561。",
+      "C": "A顛倒fit引數、C誤認截距、D顛倒OLS引數。",
+      "D": "E錯誤，newspaper的p大於0.05。"
+    },
+    "concept": "sklearn與statsmodels引數次序不同，需核對介面契約。",
+    "pitfalls": "整體F檢定顯著不代表每一個解釋變數都顯著。",
+    "sources": [
+      {
+        "title": "scikit-learn：線性模型與正則化",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1620" viewBox="0 0 1200 1620">
+  <rect width="1200" height="1620" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1540" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">題庫第 42 題｜概念圖解</text>
+  <rect x="80" y="158" width="195" height="54" rx="27" fill="#e7f5ec"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#18713e">正確答案 A</text>
+  <text x="80" y="270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="600" fill="#35404b">RLHF：用人類偏好教模型「哪種回答比較好」。</text>
+  <rect x="80" y="315" width="1040" height="430" rx="24" fill="#f5f7f9"/>
+  <text x="120" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="24" font-weight="700" fill="#17212b">核心流程</text>
+  <rect x="120" y="410" width="270" height="115" rx="18" fill="#eef4fb"/>
+  <text x="255" y="452" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">人類比較回答</text>
+  <text x="255" y="490" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" fill="#52606d">選出較偏好的回覆</text>
+  <text x="430" y="478" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="31" font-weight="700" fill="#a34b13">→</text>
+  <rect x="470" y="410" width="270" height="115" rx="18" fill="#fff3e9"/>
+  <text x="605" y="452" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">訓練獎勵模型</text>
+  <text x="605" y="490" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" fill="#8c471d">學會預測人類偏好</text>
+  <text x="780" y="478" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="31" font-weight="700" fill="#a34b13">→</text>
+  <rect x="820" y="410" width="260" height="115" rx="18" fill="#e7f5ec"/>
+  <text x="950" y="452" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#24313d">優化聊天機器人</text>
+  <text x="950" y="490" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="19" fill="#18713e">朝較高獎勵調整</text>
+  <text x="120" y="600" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="700" fill="#174c85">名詞拆解</text>
+  <text x="120" y="645" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">獎勵模型：像評審，根據人類偏好替回答打分；它不是聊天機器人本身。</text>
+  <text x="120" y="690" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="20" fill="#35404b">強化優化：再調整聊天模型，讓它更常產生高分、符合偏好的回答。</text>
+  <text x="80" y="820" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="700" fill="#17212b">生活比喻</text>
+  <text x="80" y="875" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">老師先比較兩份客服回答，選出更有幫助的一份；評審學會怎麼打分，</text>
+  <text x="80" y="915" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">再用分數訓練聊天機器人，讓它以後更常給出老師偏好的回答。</text>
+  <text x="80" y="1000" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="27" font-weight="700" fill="#17212b">其他選項差在哪裡</text>
+  <text x="90" y="1065" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="600" fill="#24313d">B　更多網路文字重新預訓練，是增加語言知識，不是利用偏好評比。</text>
+  <text x="90" y="1135" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="600" fill="#24313d">C　系統提示是給模型的指示，可改回答風格，但不會訓練獎勵模型。</text>
+  <text x="90" y="1205" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" font-weight="600" fill="#24313d">D　SFT 用標準問答示範讓模型模仿；RLHF 核心是偏好比較與獎勵訊號。</text>
+  <rect x="80" y="1280" width="1040" height="180" rx="24" fill="#eef4fb"/>
+  <text x="120" y="1340" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="700" fill="#174c85">記憶順序</text>
+  <text x="120" y="1395" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#24313d">人類選偏好 → 獎勵模型學評分 → 用評分調整聊天模型。</text>
+</svg>

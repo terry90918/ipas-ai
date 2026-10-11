@@ -1,0 +1,927 @@
+{
+  "intermediate-114-2-3-q1": {
+    "reasoning": "交叉驗證將資料分成多組，輪流以未參與該次訓練的部分評估，觀察樣本外誤差與切分間波動，B最直接檢查泛化。銷售月份有時間順序，實務要用過去訓練、未來驗證的時間切分。",
+    "options": {
+      "A": "F檢定比較變異或模型假設，不能直接取代樣本外評估。",
+      "B": "正確；反覆以保留資料檢查預測效能。",
+      "C": "配對t檢定可比較兩模型的誤差，仍需先建立獨立評估資料。",
+      "D": "卡方通常檢驗類別關係，不直接評估銷售預測泛化。"
+    },
+    "concept": "評估切分需符合部署時可取得資料的順序。",
+    "pitfalls": "隨機K折可能把未來月份洩漏給過去，誇大表現。",
+    "sources": [
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q2": {
+    "reasoning": "L1在原損失加上λΣ絕對權重，零點的尖角使最佳解可能恰有若干係數為0，因而產生稀疏模型並篩掉部分特徵，所以C。λ越大懲罰越強，但過大也會欠擬合。",
+    "options": {
+      "A": "正則化限制有效自由度，不是增加引數數目。",
+      "B": "穩定梯度不算L1的主要獨特效果。",
+      "C": "正確；部分係數可被壓到精確的0。",
+      "D": "學習率控制更新步長，與L1懲罰是不同設定。"
+    },
+    "concept": "L1產生稀疏性，L2通常只收縮而不精確歸零。",
+    "pitfalls": "相關特徵之間的零／非零選擇可能不穩定。",
+    "sources": [
+      {
+        "title": "scikit-learn：線性模型與正則化",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q3": {
+    "reasoning": "非凸目標可能有多個區域性低點，梯度式更新從不同初始值出發，可收斂到不同盆地而非全域最低點，因此C最符合題幹「多個極值」。鞍點及平坦區域也可能影響訓練。",
+    "options": {
+      "A": "梯度消失是梯度趨近0的現象，不是多個極值必然造成。",
+      "B": "資料少是統計條件，不是非凸幾何的定義。",
+      "C": "正確；停在區域性最小而非已證明全域最優。",
+      "D": "過擬合是泛化問題，不能僅由非凸目標推出。"
+    },
+    "concept": "最佳化誤差與統計泛化誤差要分別診斷。",
+    "pitfalls": "訓練損失低不證明已找到全域解，也不證明測試表現好。",
+    "sources": [
+      {
+        "title": "scikit-learn：MLP",
+        "url": "https://scikit-learn.org/stable/modules/neural_networks_supervised.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q4": {
+    "reasoning": "該點既不滿足鄰域密度成為核心點，又未落在任何核心點鄰域，無法成為邊界點；在DBSCAN中因此歸為噪聲，選B。若以後發現它與核心點密度可達才會歸入群集。",
+    "options": {
+      "A": "鄰近點不是此演算法的正式最終三類之一。",
+      "B": "正確；既非核心也非可歸屬的邊界。",
+      "C": "邊界點須在某核心點ε鄰域，題幹已排除。",
+      "D": "潛在點不是標準DBSCAN分類術語。"
+    },
+    "concept": "核心、邊界、噪聲的區別取決於鄰居數與密度可達性。",
+    "pitfalls": "噪聲標籤依據引數，不等於業務上必然異常。",
+    "sources": [
+      {
+        "title": "scikit-learn：分群與DBSCAN",
+        "url": "https://scikit-learn.org/stable/modules/clustering.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q5": {
+    "reasoning": "第一層卷積用小核掃描影像，在相同權重下響應邊緣、方向或紋理等區域性模式，為後續更高階特徵提供輸入，A正確。該層學習到何種模式依訓練資料與目標決定。",
+    "options": {
+      "A": "正確；區域性濾波自動提取空間特徵。",
+      "B": "stride可降取樣，但卷積不必縮小空間維度。",
+      "C": "增加引數不是卷積層目的；引數共享常減少所需引數。",
+      "D": "最終分類通常由後面的聚合與輸出層完成。"
+    },
+    "concept": "卷積利用區域性感知與權重共享保留空間結構。",
+    "pitfalls": "第一層不會直接理解完整物件語義，常先學習低層模式。",
+    "sources": [
+      {
+        "title": "PyTorch：Conv2d",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q6": {
+    "reasoning": "全連線需連線大量畫素與神經元；卷積只連線區域性區域，並在不同位置重複同一濾波器，使引數量不隨空間位置成倍增加。C直接解釋影像模型的效率優勢，而非只因可以自動提特徵。",
+    "options": {
+      "A": "標準CNN不自動保證旋轉與尺度不變，需要增強或結構設計。",
+      "B": "自動特徵學習也存在全連線網路，非兩者效率差異的核心。",
+      "C": "正確；區域性連結與共享引數減少儲存與計算負擔。",
+      "D": "CNN仍使用ReLU等非線性，不是捨棄啟用。"
+    },
+    "concept": "卷積核引數量為k高×k寬×輸入通道×輸出通道加偏置。",
+    "pitfalls": "引數少與FLOPs少不是總能等同，還要看空間重複次數。",
+    "sources": [
+      {
+        "title": "PyTorch：Conv2d",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q7": {
+    "reasoning": "電力需求是按時間排列的數值，過去用電、氣溫與週期可影響未來七日。LSTM用門控記憶狀態保留與遺忘時間訊號，A最契合序列建模；仍須與季節基線等比較，不保證一定最佳。",
+    "options": {
+      "A": "正確；以歷史時間關係預測未來序列。",
+      "B": "靜態影像物件通常優先CNN或視覺Transformer。",
+      "C": "相似顧客無標籤分群通常用聚類方法。",
+      "D": "壓縮高維資料更直接用PCA或自編碼器。"
+    },
+    "concept": "LSTM的輸入、遺忘、輸出門控制時序記憶。",
+    "pitfalls": "時間驗證不能隨機打亂未來與過去。",
+    "sources": [
+      {
+        "title": "PyTorch：LSTM",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.LSTM.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q8": {
+    "reasoning": "資訊增益比較分裂前熵與分裂後加權熵，選取最能降低類別不確定性的特徵與切點。決策樹逐層重複此程式形成規則，故D；不是直接根據權重絕對值篩選。",
+    "options": {
+      "A": "L1依懲罰將係數歸零，不以熵減少為主要選擇標準。",
+      "B": "神經網路透過梯度學習特徵，非這類貪婪熵分裂。",
+      "C": "核模型利用相似度與邊界，不遞迴建此樹規則。",
+      "D": "正確；資訊增益用於挑選決策樹分裂。"
+    },
+    "concept": "IG=H父節點−Σ子節點權重×H子節點。",
+    "pitfalls": "資訊增益可能偏愛高基數欄位，要檢查分裂準則與約束。",
+    "sources": [
+      {
+        "title": "scikit-learn：決策樹",
+        "url": "https://scikit-learn.org/stable/modules/tree.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q9": {
+    "reasoning": "KNN距離與SVM核或正則化會受尺度影響；金額取值數萬、次數取值個位時，金額可支配距離。先標準化或合適縮放使尺度可比較，所以A關鍵，縮放引數應只從訓練集估計。",
+    "options": {
+      "A": "正確；避免大數值範圍特徵主導幾何距離。",
+      "B": "離散化可能損失資訊，不是距離模型必要條件。",
+      "C": "補值在有缺失時必要，但不能替代尺度處理。",
+      "D": "平衡樣本解決類別數量，不解決特徵距離。"
+    },
+    "concept": "預處理必須與模型幾何及部署資料一致。",
+    "pitfalls": "距離特徵等尺度不代表等重要，還需業務與驗證檢查。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q10": {
+    "reasoning": "AutoML可自動比較演算法、超引數及部分預處理，幫助缺工程師的營銷團隊快速建立流失模型基線，因此C最能體現開發效率價值。資料品質、目標定義與最終業務評估仍需人工負責。",
+    "options": {
+      "A": "成熟團隊亦可使用，但沒有C所強調的資源缺口。",
+      "B": "穩定模型小幅維護未必需廣泛自動搜尋。",
+      "C": "正確；快速比較多個候選模型與設定。",
+      "D": "高度客制細節可能超出AutoML預定義搜尋範圍。"
+    },
+    "concept": "AutoML自動化搜尋，不自動決定正確的業務問題。",
+    "pitfalls": "不能以自動排名最高就直接上線，要查洩漏、成本與公平性。",
+    "sources": [
+      {
+        "title": "auto-sklearn：自動模型選擇與調參",
+        "url": "https://automl.github.io/auto-sklearn/master/"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q11": {
+    "reasoning": "高維網格列舉各軸所有組合，容易把預算重複花在不重要引數上；隨機搜尋在相同次數下常探索更多關鍵引數取值，因此D。優勢依問題及分佈設定而變，不保證每次都勝出。",
+    "options": {
+      "A": "隨機搜尋只選引數候選，不必產生全新架構。",
+      "B": "訓練資料大小不是搜尋方式決定的。",
+      "C": "驗證被反覆利用仍有選擇過擬合風險。",
+      "D": "正確；有限預算下較容易覆蓋高維候選空間。"
+    },
+    "concept": "隨機搜尋與網格搜尋都需獨立可靠的評分程式。",
+    "pitfalls": "隨機取樣分佈須合理，例如尺度引數常使用對數分佈。",
+    "sources": [
+      {
+        "title": "scikit-learn：超引數搜尋",
+        "url": "https://scikit-learn.org/stable/modules/grid_search.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q12": {
+    "reasoning": "學習率η決定權重更新θ新=θ舊−η∇L。過大會跨過低點或震盪，過小則進展緩慢，調整C可直接改善收斂；還可搭配衰減與合適最佳化器。快速收斂本身並不等於過擬合。",
+    "options": {
+      "A": "神經元輸出由輸入與引數計算，不是事前設定的超引數。",
+      "B": "梯度是依資料與損失計算出的量，不直接作為固定超引數。",
+      "C": "正確；控制每一步引數更新的尺度。",
+      "D": "訓練後權重屬於已學習引數，不是超引數。"
+    },
+    "concept": "超引數控制學習過程，引數是學習產生的模型內容。",
+    "pitfalls": "驗證曲線才幫助判斷過擬合，不能僅憑訓練速度判斷。",
+    "sources": [
+      {
+        "title": "PyTorch：Adam",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.optim.Adam.html"
+      },
+      {
+        "title": "scikit-learn：MLP",
+        "url": "https://scikit-learn.org/stable/modules/neural_networks_supervised.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q13": {
+    "reasoning": "若標註者依個人主觀認定把某些群體或表達判成不同類別，標籤本身帶入系統性偏誤，模型會學習錯誤目標，B最符合一般資料治理語境。應建立標準、複核分歧及量測標註一致性。",
+    "options": {
+      "A": "資料多並不自動造成標註偏見。",
+      "B": "正確；人為主觀標準可系統性扭曲標籤。",
+      "C": "結構設計不當可能限制模型，但不等於標籤來源偏差。",
+      "D": "特徵數多可能過擬合，不直接導致標註主觀性。"
+    },
+    "concept": "訓練標籤是監督訊號，品質與公平性會影響模型輸出。",
+    "pitfalls": "序列模型文獻的「label bias problem」另有技術定義。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ],
+    "caveat": "此題把Label Bias用於標註偏見；在區域性正規化序列模型中該術語還有不同的正式定義。"
+  },
+  "intermediate-114-2-3-q14": {
+    "reasoning": "腫瘤預測可能影響進一步檢查與治療，醫師需要理解依據、侷限及失敗模式以判斷是否採信，C的臨床決策情境最需要可解釋性。解釋不能替代外部驗證、安全性或醫師專業判斷。",
+    "options": {
+      "A": "購物推播解釋有價值，但直接人身傷害風險較低。",
+      "B": "廣告出價也需審計，但不是此組中風險最高情境。",
+      "C": "正確；高影響醫療決策需理解證據與適用邊界。",
+      "D": "流失優惠比臨床診斷通常有較低的身體風險。"
+    },
+    "concept": "可解釋性與透明度幫助責任分工及錯誤檢查。",
+    "pitfalls": "看起來合理的熱圖不證明模型真的採用因果醫學線索。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q15": {
+    "reasoning": "R²=1−SSE/SST，表示相對僅預測樣本均值的基線，模型減少多少平方殘差。0.85即在該評估資料上解釋85%的響應變異，因此B；不是分類正確率或信心機率。",
+    "options": {
+      "A": "連續迴歸的R²不能當作分類準確率。",
+      "B": "正確；相對均值基線解釋響應變異的比例。",
+      "C": "剩餘15%是變異比例，不是各預測值都差15%。",
+      "D": "R²不是置信水準，也不表示模型正確的機率。"
+    },
+    "concept": "R²依資料與基線變化，樣本外甚至可為負。",
+    "pitfalls": "高R²不保證因果關係、低誤差絕對值或跨時間泛化。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      },
+      {
+        "title": "scikit-learn：R²",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q16": {
+    "reasoning": "代入調和平均：\nF1=2×0.8×0.6/(0.8+0.6)=0.96/1.4≈0.685714。\n四捨五入到三位小數為0.686，選A；直接平均(0.8+0.6)/2=0.7是算術平均而非F1。",
+    "options": {
+      "A": "正確；計算結果四捨五入後0.686。",
+      "B": "0.700是算術平均，未使用調和平均公式。",
+      "C": "0.720不等於給定數值的F1結果。",
+      "D": "0.750也不是本題正確的調和平均。"
+    },
+    "concept": "F1會受到精確率與召回率中較低者的約束。",
+    "pitfalls": "不要把簡單平均誤認為F1。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q17": {
+    "reasoning": "Adam同時追蹤梯度的一階指數移動平均m與平方梯度的二階平均v；一階項發揮動量作用，因此官方選B。它還有偏差校正與逐引數步長調整，區別於只累積平方梯度的Adagrad。",
+    "options": {
+      "A": "SGD+Momentum當然也使用動量，但選項顯式外加Momentum而題幹偏好「內建」。",
+      "B": "正確；Adam預設機制包含梯度一階動量。",
+      "C": "常見RMSProp核心是平方梯度平均，動量可另設。",
+      "D": "Adagrad累積平方梯度，標準形式沒有一階動量。"
+    },
+    "concept": "Adam融合動量估計與自適應梯度尺度。",
+    "pitfalls": "不能宣稱SGD+Momentum不含動量，A並非技術上錯誤。",
+    "sources": [
+      {
+        "title": "PyTorch：Adam",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.optim.Adam.html"
+      }
+    ],
+    "caveat": "A名稱已明確含動量；B是命題「內建」偏好的答案，而非唯一使用動量者。"
+  },
+  "intermediate-114-2-3-q18": {
+    "reasoning": "XGBoost在提升樹目標中加入樹複雜度與葉權重懲罰，並提供稀疏／缺失值預設方向及並行化分裂計算。A同時概括模型正則化與工程效率改進，其他選項改變了架構或混用神經網路技術。",
+    "options": {
+      "A": "正確；損失加正則化並最佳化稀疏處理與訓練執行。",
+      "B": "XGBoost提升樹不是直接換成隨機森林，雖另有RF模式。",
+      "C": "典型弱學習器仍為樹，不改成神經網路。",
+      "D": "BatchNorm不是樹提升的核心機制。"
+    },
+    "concept": "Boosting逐輪補足殘差／梯度，正則化約束每輪複雜度。",
+    "pitfalls": "並行的是樹構建的部分工作，不是所有提升輪次完全獨立。",
+    "sources": [
+      {
+        "title": "XGBoost：Boosted Trees",
+        "url": "https://xgboost.readthedocs.io/en/stable/tutorials/model.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q19": {
+    "reasoning": "3%陽性時，全部預測陰性也有97%Accuracy，卻漏掉所有病例。若以Accuracy為主要評價會獎勵這種失敗策略，C最不適合提升少數類偵測；應關注召回、PR指標與臨床成本。",
+    "options": {
+      "A": "SMOTE可擴充少數類區域性樣本，須在訓練折內驗證。",
+      "B": "類別權重提高錯分少數類的代價，可調整學習偏好。",
+      "C": "正確的排除項；整體正確率掩蓋少數類漏診。",
+      "D": "欠取樣可平衡，但會丟棄多數類資訊，應謹慎比較。"
+    },
+    "concept": "不平衡分類評價需對應實際錯誤成本。",
+    "pitfalls": "97%Accuracy不代表臨床可用，也不等於97%陽性被找出。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      },
+      {
+        "title": "imbalanced-learn：過取樣與SMOTE",
+        "url": "https://imbalanced-learn.org/stable/over_sampling.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q20": {
+    "reasoning": "互動項如價格×滿意度讓一個變數的作用隨另一個變數變化；線性模型加入該項後可以學習聯合效應，故C。應同時保留合理主效應，並根據驗證判斷互動是否有用。",
+    "options": {
+      "A": "單變數平方是自身非線性項，不是不同特徵間互動。",
+      "B": "對數改變各特徵尺度，未直接建立跨變數組合。",
+      "C": "正確；乘積或交叉編碼體現聯合關係。",
+      "D": "標準化只平移縮放，不生成互動作用。"
+    },
+    "concept": "主效應與互動效應是不同的模型表達。",
+    "pitfalls": "互動增加維數與過擬合風險，不能無限窮舉組合。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q21": {
+    "reasoning": "多頭注意力以多組不同Q、K、V投影平行計算，讓各頭在不同表示子空間學習關聯，再拼接整合。它可同時關注發音與語義等不同訊號，C正確，但不能保證每個頭自動對應人可命名的功能。",
+    "options": {
+      "A": "多頭通常包含多組投影，不以減少引數為主要優點。",
+      "B": "可並行執行但加速不必然是多頭相對單頭的核心。",
+      "C": "正確；不同子空間共同表達多樣關連。",
+      "D": "梯度問題受多種結構影響，多頭不是直接的保證。"
+    },
+    "concept": "多頭增強可同時表達的注意力模式。",
+    "pitfalls": "不同頭可能重複學習相似訊號，需實際分析而非想當然。",
+    "sources": [
+      {
+        "title": "Attention Is All You Need",
+        "url": "https://arxiv.org/abs/1706.03762"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q22": {
+    "reasoning": "貝氏定理將先驗P(購買)與行為在購買類別下的似然P(行為∣購買)結合，再除證據P(行為)，得到觀察行為後的後驗P(購買∣行為)。B最符合題幹條件機率推論。",
+    "options": {
+      "A": "自動分群是無監督任務，不是貝氏分類的必要步驟。",
+      "B": "正確；以觀測行為更新類別後驗機率。",
+      "C": "銷售金額迴歸目標與購買／不購買分類不同。",
+      "D": "強化學習依行動與獎勵更新策略，不是此貝氏公式。"
+    },
+    "concept": "後驗∝先驗×似然；Naive Bayes再加特徵條件獨立假設。",
+    "pitfalls": "P(行為∣購買)與P(購買∣行為)不可對調。",
+    "sources": [
+      {
+        "title": "scikit-learn：貝氏定理與Naive Bayes",
+        "url": "https://scikit-learn.org/stable/modules/naive_bayes.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q23": {
+    "reasoning": "從日照、雲量與溫度的聯合機率模型反覆隨機抽樣，把每組情境輸入發電計算，再統計輸出的分位與分佈，就是Monte Carlo，選A。變數相關性要保留，否則模擬風險可能不真實。",
+    "options": {
+      "A": "正確；用大量隨機情境近似結果機率分佈。",
+      "B": "K-means把點分群，不負責模擬不確定輸出分佈。",
+      "C": "SVR主要做預測函式，隨機情境取樣不屬於其定義。",
+      "D": "特徵選擇決定輸入集合，不執行機率模擬。"
+    },
+    "concept": "抽樣誤差通常隨樣本數增加而減少，但依模型正確性而定。",
+    "pitfalls": "樣本多無法修正錯誤的氣候分佈或獨立假設。",
+    "sources": [
+      {
+        "title": "SciPy：Monte Carlo抽樣近似",
+        "url": "https://docs.scipy.org/doc/scipy/tutorial/stats/resampling.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q24": {
+    "reasoning": "極大殘差可能來自離群或高影響樣本；高價區系統彎曲說明線性條件均值未捕捉非線性。C對兩現象給出最直接診斷線索，需檢查資料、變換及非線性項，不能只據殘差圖宣稱過擬合。",
+    "options": {
+      "A": "過擬合要比較訓練與樣本外表現，本圖沒有足夠證據。",
+      "B": "特徵不足也可能，但圖形更直接支援異常／非線性。",
+      "C": "正確；殘差有極端點且留下系統性模式。",
+      "D": "圖已非隨機，無從證明所有假設都滿足。"
+    },
+    "concept": "殘差應圍繞0而無可預測結構，異常點還要看槓桿值。",
+    "pitfalls": "響應本身非線性不等於只能換深度模型，可先查漏掉的合理項。",
+    "sources": [
+      {
+        "title": "scikit-learn：線性模型與正則化",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q25": {
+    "reasoning": "傳統邏輯迴歸評分卡常包含變數篩選、共線性檢查、分箱及WOE／IV分析，部署後也監測穩定性。生成式表徵學習不是此傳統標準流程的通常必要步驟，所以問「不是」選A。",
+    "options": {
+      "A": "正確的排除項；生成式學習不屬於傳統評分卡核心。",
+      "B": "篩選及共線性有助係數穩定與可解釋性。",
+      "C": "分箱與IV常用於評估區隔能力及可解釋性。",
+      "D": "PSI可監控資料／評分分佈穩定，屬於常見驗證或監控。"
+    },
+    "concept": "評分卡流程重視可解釋、穩定與可重複的變數處理。",
+    "pitfalls": "IV或PSI沒有通用合規保證，閾值必須結合情境與驗證。",
+    "sources": [
+      {
+        "title": "scikit-learn：線性模型與正則化",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      },
+      {
+        "title": "Evidently：監控指標",
+        "url": "https://docs.evidentlyai.com/metrics/all_metrics"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q26": {
+    "reasoning": "L1/L2限制權重，Dropout降低過度依賴個別神經元，早停限制訓練持續擬合噪聲。擴大輸入特徵通常增加表達自由度而非降低複雜度，因此D是排除項，仍可能依好特徵改善效能。",
+    "options": {
+      "A": "正則化屬於對有效複雜度的約束。",
+      "B": "Dropout隨機遮蔽單位，限制共適應而作正則化。",
+      "C": "早停在驗證不再改善時限制進一步擬合。",
+      "D": "正確；增加特徵不是約束學習能力的策略。"
+    },
+    "concept": "防過擬合方法不都減少實際引數數目，而可限制有效自由度。",
+    "pitfalls": "有用新特徵可以改善泛化，但不能稱作降低複雜度。",
+    "sources": [
+      {
+        "title": "scikit-learn：線性模型與正則化",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      },
+      {
+        "title": "PyTorch：Dropout",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Dropout.html"
+      },
+      {
+        "title": "Keras：EarlyStopping",
+        "url": "https://keras.io/api/callbacks/early_stopping/"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q27": {
+    "reasoning": "連續多層線性轉換仍能合併成單一線性轉換，無法靠深度表示複雜非線性邊界。ReLU=max(0,x)引入分段非線性，並使正區梯度不飽和，D最合適；仍要管理負區神經元死亡風險。",
+    "options": {
+      "A": "只有線性啟用時再加層仍是線性組合。",
+      "B": "灰階減通道不直接解除模型線性限制。",
+      "C": "Sigmoid能引入非線性，但隱藏層易飽和，D通常更直接。",
+      "D": "正確；ReLU提供非線性表達與較簡潔梯度。"
+    },
+    "concept": "網路表達能力依線性層之間的非線性而產生。",
+    "pitfalls": "C不是毫無作用，只是此題中ReLU為較適合的隱藏層選擇。",
+    "sources": [
+      {
+        "title": "PyTorch：ReLU",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.ReLU.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q28": {
+    "reasoning": "訓練只取購買三次以上的活躍會員，排除了新註冊與低消費族群；上線卻預測全體，樣本覆蓋與目標人群不一致，因此C是取樣偏差。需補充代表性樣本並分別驗證群體表現。",
+    "options": {
+      "A": "高忠誠特徵可能有預測力，題乾沒說它錯誤或洩漏。",
+      "B": "沒有人工標籤偏見證據，不能臆測B。",
+      "C": "正確；訓練選擇規則排除實際服務物件。",
+      "D": "調參無法彌補完全未見的新會員資料分佈。"
+    },
+    "concept": "選擇偏差來自納入樣本機制與部署總體不同。",
+    "pitfalls": "隨機切分這批活躍樣本仍會保留同樣覆蓋缺口。",
+    "sources": [
+      {
+        "title": "NIST：AI Risk Management Framework",
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+      },
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q29": {
+    "reasoning": "固定歷史驗證集越來越不代表當前工況，需按時間向前滾動，以較近期資料驗證過去視窗訓練的模型，D最能檢驗長期適應。還應監測漂移並在明確條件下更新訓練資料。",
+    "options": {
+      "A": "正則化減少擬合噪聲，卻不能讓陳舊驗證集代表現況。",
+      "B": "不留驗證且早停沒有可靠監控依據，無法評估泛化。",
+      "C": "簡化可降低容量，但未處理時間分佈變化。",
+      "D": "正確；時間驗證保留先後並檢查各時期表現。"
+    },
+    "concept": "滾動視窗反映非平穩環境下實際訓練與預測關係。",
+    "pitfalls": "不能隨機打亂各時間段；跨視窗重疊也需檢查標籤延遲。",
+    "sources": [
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      },
+      {
+        "title": "Evidently：監控指標",
+        "url": "https://docs.evidentlyai.com/metrics/all_metrics"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q30": {
+    "reasoning": "從英文轉西語會改變詞彙與語境，原情緒特徵可能無法被識別，造成漏檢或誤報，F1下降；C是最合理的語言轉移解釋。但只知道F1兩數，無法單獨確認Recall下降。",
+    "options": {
+      "A": "換micro可能掩蓋小類問題，不能解除語言不適配。",
+      "B": "未說在西語訓練，也與「評估偏高」及下降不吻合。",
+      "C": "按官方正確；跨語失配可能降低情緒召回。",
+      "D": "MSE不是替代情感分類F1的合適診斷。"
+    },
+    "concept": "領域／語言轉移會改變特徵與目標表現。",
+    "pitfalls": "必須檢視各類Precision、Recall及混淆矩陣，才知道下降機制。",
+    "sources": [
+      {
+        "title": "Hugging Face：文字分類與情感分析",
+        "url": "https://huggingface.co/docs/transformers/tasks/sequence_classification"
+      },
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ],
+    "caveat": "F1降低可能由Precision、Recall或兩者改變，C的Recall歸因須額外實測。"
+  },
+  "intermediate-114-2-3-q31": {
+    "reasoning": "驗證損失有噪聲，不應一輪上升就停止。設patience允許連續多輪未達min_delta的改善後才停，並恢復驗證最優權重，B在抗短期波動與防過擬合間取平衡；引數仍須經合理驗證設定。",
+    "options": {
+      "A": "訓練損失最低可能已過擬合，不是泛化最佳標準。",
+      "B": "正確；監控驗證並用耐心值容忍暫時震盪。",
+      "C": "測試集參與早停會洩漏最終評估資訊。",
+      "D": "全合併失去樣本外監控，無法以驗證表現選訓練終點。"
+    },
+    "concept": "早停依驗證指標選擇訓練輪次，等同模型選擇的一部分。",
+    "pitfalls": "停止時權重不必是最佳，須注意restore_best_weights。",
+    "sources": [
+      {
+        "title": "Keras：EarlyStopping",
+        "url": "https://keras.io/api/callbacks/early_stopping/"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q32": {
+    "reasoning": "想自動篩除弱貢獻特徵，需要讓部分係數精確為0。LASSO的L1懲罰能產生這種稀疏選擇，因此D；Ridge只收縮常保留所有特徵。相關特徵下選擇可能不穩定，須用重複驗證檢視。",
+    "options": {
+      "A": "早停控制回合，通常不直接將某特徵完全刪除。",
+      "B": "手動移除共線性後Ridge可以穩定，但不算指定自動稀疏選擇。",
+      "C": "L2通常留下非零係數，不滿足自動篩選目的。",
+      "D": "正確；L1產生零係數並約束模型複雜度。"
+    },
+    "concept": "正則化強度決定稀疏與欠擬合的取捨。",
+    "pitfalls": "零係數不證明該變數毫無業務意義，尤其與其他特徵相關時。",
+    "sources": [
+      {
+        "title": "scikit-learn：線性模型與正則化",
+        "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q33": {
+    "reasoning": "逐對客戶比較會有n(n−1)/2個不重複配對；若每對特徵維度固定，比較數隨n²成長。n加倍約需四倍工作，因此B；若維度d也變化，成本應更完整寫O(n²d)。",
+    "options": {
+      "A": "一一遍歷為O(n)，不足以覆蓋全部配對。",
+      "B": "正確；雙重遍歷或全配對產生平方量級。",
+      "C": "固定成本不可能列舉隨n增加的組合。",
+      "D": "對數常見於平衡樹查詢，不是全配對數量。"
+    },
+    "concept": "大O忽略常數與低階項，描述規模增長趨勢。",
+    "pitfalls": "不重複比較仍只有減常數，複雜度不會降成線性。",
+    "sources": [
+      {
+        "title": "NumPy：dot",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.dot.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q34": {
+    "reasoning": "官方選D，意圖結合留一法的資料利用率與分層的類比一致性；但一次測試只有一筆，陽性比例只能0%或100%，不可能保持不到8%。學習時須記官方答案，同時理解此方法稱呼不成立，實務應採用分層K折。",
+    "options": {
+      "A": "5折若未分層可能類別比例波動，配合StratifiedKFold更合理。",
+      "B": "LOOCV每輪訓練149筆，但單樣本測試無法分層。",
+      "C": "隨機切分不保證少數類比例與穩定性。",
+      "D": "官方答案；「分層留一」無法實現題乾的每折比例條件。"
+    },
+    "concept": "分層需要驗證折容納足夠各類樣本，折數受少數類數量約束。",
+    "pitfalls": "不能因為官方選項名稱存在就把它當標準庫支援的演算法。",
+    "sources": [
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      }
+    ],
+    "caveat": "命題有實質錯誤：標準LOOCV不存在保持類別比例的單樣本分層，D不能達成要求。"
+  },
+  "intermediate-114-2-3-q35": {
+    "reasoning": "總變異=6+3+1=10。\n第一成分6/10=60%，前兩成分(6+3)/10=90%。\n一維不足80%，二維達到，因此A最合理；捨棄第三成分會損失10%總變異，仍須評估任務是否受影響。",
+    "options": {
+      "A": "正確；二維滿足至少80%的保留門檻。",
+      "B": "60%不足門檻，且不能由比例推出保證避免過擬合。",
+      "C": "第二成分30%說明應保留第二，不是必須第三。",
+      "D": "特徵值6、3、1並不均衡，最大為最小六倍。"
+    },
+    "concept": "解釋變異比由特徵值除總特徵值計算。",
+    "pitfalls": "保留90%輸入變異不保證保留90%預測能力。",
+    "sources": [
+      {
+        "title": "scikit-learn：主成分分析",
+        "url": "https://scikit-learn.org/stable/modules/decomposition.html"
+      }
+    ],
+    "caveat": "A「安全」僅就變異門檻成立，並非無損或預測品質保證。"
+  },
+  "intermediate-114-2-3-q36": {
+    "reasoning": "同態加密允許對密文進行可支援的運算，結果由持鑰方解密，平臺無需暴露原始交易明文，因此D。多機構訓練需把損失與更新設計為方案可執行的計算，並管好金鑰與輸出許可權。",
+    "options": {
+      "A": "加入噪聲保護統計輸出對應差分隱私，不是HE定義。",
+      "B": "各銀行不應隨意交換私鑰，安全通道不能消除共享後的風險。",
+      "C": "壓縮不保證密文更小或計算更快，與核心性質不同。",
+      "D": "正確；密文可計算是同態能力。"
+    },
+    "concept": "密文計算保護內容，仍須檢查參與者與輸出洩漏。",
+    "pitfalls": "複雜非線性可能需要近似或互動協議，不能當即插即用。",
+    "sources": [
+      {
+        "title": "Microsoft SEAL：同態加密",
+        "url": "https://github.com/microsoft/SEAL"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q37": {
+    "reasoning": "官方B以HE負責不解密運算、非對稱用於認證／交換、對稱用於高效率傳輸加密、hash作完整性基礎。它覆蓋題意主要功能，但要防重放仍須nonce、序號或時間戳加認證，單純四技術清單不夠。",
+    "options": {
+      "A": "缺HE，不能保證平臺在密文上執行一般模型運算。",
+      "B": "官方正確；需將這些原語組成經過認證的具體協議。",
+      "C": "包含HE與簽章，也可構成可行設計，差分隱私是額外輸出保護。",
+      "D": "MPC亦可參與安全計算，能否滿足要求依協議而定。"
+    },
+    "concept": "安全需求要對映到保密、認證、完整性、新鮮性等屬性。",
+    "pitfalls": "裸hash可被重算，簽章也不自動防止重放舊訊息。",
+    "sources": [
+      {
+        "title": "Microsoft SEAL：同態加密",
+        "url": "https://github.com/microsoft/SEAL"
+      },
+      {
+        "title": "NIST：Digital Signature Standard",
+        "url": "https://www.nist.gov/publications/digital-signature-standard-dss-1"
+      }
+    ],
+    "caveat": "本題B非唯一可行清單且不自帶防重放；C或D配正確協議也可能滿足，需明確認證與nonce機制。"
+  },
+  "intermediate-114-2-3-q38": {
+    "reasoning": "程式先做(y_true−y_pred)²，再sum後除以樣本數，完全對應平均平方誤差MSE，因此B。例如誤差1與3，MSE=(1+9)/2=5；若再開根號才是RMSE≈2.236。",
+    "options": {
+      "A": "MAE應平均絕對誤差，圖中是平方。",
+      "B": "正確；平方差加總除樣本數。",
+      "C": "RMSE還需對MSE開平方根，程式碼沒有。",
+      "D": "R²需比較SSE與真實值總變異，程式碼沒有基線。"
+    },
+    "concept": "平方誤差特別放大較大的預測偏差。",
+    "pitfalls": "輸出單位是目標單位的平方，不能直接解釋為原單位誤差。",
+    "sources": [
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q39": {
+    "reasoning": "訓練時以Bernoulli(p)產生0／1遮罩，x乘遮罩讓部分單位歸零，再除p維持期望輸出；推論直接返回x，這是inverted dropout，故C。此程式碼的p表示保留機率，與PyTorch Dropout的丟棄機率定義相反。",
+    "options": {
+      "A": "L1是在損失加入權重絕對值懲罰，無此隨機遮罩。",
+      "B": "L2是在損失加入權重平方懲罰，無此隨機遮罩。",
+      "C": "正確；隨機遮蔽啟用並在訓練階段補償尺度。",
+      "D": "BatchNorm估計均值方差並縮放，不隨機置零。"
+    },
+    "concept": "inverted dropout使推論不需再乘保留機率。",
+    "pitfalls": "必須0<p≤1；把p誤當丟棄率會改變實際遮罩強度。",
+    "sources": [
+      {
+        "title": "PyTorch：Dropout",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Dropout.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q40": {
+    "reasoning": "v1=[1,2,3]、v2=[4,5,6]，\n內積=1×4+2×5+3×6=4+10+18=32，選C。\n星號是逐元素乘，結果[4,10,18]；inv算反矩陣，eig算特徵分解，與其他選項不同。",
+    "options": {
+      "A": "inv求反矩陣，行列式應使用det。",
+      "B": "[5,7,9]是加法結果；乘法為[4,10,18]。",
+      "C": "正確；一維dot給32，圖中環境整數為int64。",
+      "D": "eig給特徵值及特徵向量，不是反矩陣。"
+    },
+    "concept": "NumPy星號與dot對一維陣列的操作不同。",
+    "pitfalls": "np.int64的確切型別依平臺／dtype，數學結果32不變。",
+    "sources": [
+      {
+        "title": "NumPy：dot",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.dot.html"
+      },
+      {
+        "title": "NumPy：矩陣反矩陣",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.inv.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q41": {
+    "reasoning": "條件機率P(A∣B)=P(A且B)/P(B)，模擬中由同時滿足次數除B次數估計，所以D。公平骰子B={4,5,6}，A且B={4,6}，理論值2/3，Monte Carlo次數足夠時應接近。",
+    "options": {
+      "A": "兩事件次數乘積不是條件樣本空間大小。",
+      "B": "次數相加重複計數且不對應條件機率分母。",
+      "C": "除A次數得到P(B∣A)，方向顛倒。",
+      "D": "正確；只在B發生的樣本中計算A的比例。"
+    },
+    "concept": "條件機率限制樣本空間到已知條件事件。",
+    "pitfalls": "B.sum為0時不可除；抽樣次數有限會有隨機誤差。",
+    "sources": [
+      {
+        "title": "SciPy：Monte Carlo抽樣近似",
+        "url": "https://docs.scipy.org/doc/scipy/tutorial/stats/resampling.html"
+      },
+      {
+        "title": "scikit-learn：貝氏定理",
+        "url": "https://scikit-learn.org/stable/modules/naive_bayes.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q42": {
+    "reasoning": "第一全連線層有512×7×7=25088輸入，4096輸出，引數=25088×4096+4096=102,764,544，已遠超過卷積層合計。再加其餘FC，故全連線層B最多。",
+    "options": {
+      "A": "卷積引數共享，合計約14.7M，低於FC總量。",
+      "B": "正確；大輸入維與4096神經元形成大量連線。",
+      "C": "ReLU只是逐元素函式，本模型無學習引數。",
+      "D": "池化沒有可學習權重，本表引數為0。"
+    },
+    "concept": "全連線引數=輸入數×輸出數＋輸出偏置數。",
+    "pitfalls": "引數多不一定FLOPs最多；卷積會在每個空間位置重用權重。",
+    "sources": [
+      {
+        "title": "Torchvision：VGG16",
+        "url": "https://docs.pytorch.org/vision/main/models/generated/torchvision.models.vgg16.html"
+      },
+      {
+        "title": "PyTorch：Linear",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q43": {
+    "reasoning": "卷積每組核引數在大量空間位置反覆使用，計算約為H×W×Cin×Cout×核面積（乘加計法可再乘2）。VGG16早層特徵圖大、多層卷積，因此A的FLOPs總體最高，儘管引數多數在FC。",
+    "options": {
+      "A": "正確；空間重複使用使卷積計算量遠大於其引數數。",
+      "B": "FC引數多，但每次輸入每權重通常用一次。",
+      "C": "ReLU逐元素比較成本較低，無卷積乘加。",
+      "D": "池化只做區域最大或平均，通常低於卷積。"
+    },
+    "concept": "儲存引數量、運算量與啟用記憶體須分別量測。",
+    "pitfalls": "不同報告對一次乘加算1或2 FLOPs，比較須統一口徑。",
+    "sources": [
+      {
+        "title": "PyTorch：Conv2d",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+      },
+      {
+        "title": "Torchvision：VGG16",
+        "url": "https://docs.pytorch.org/vision/main/models/generated/torchvision.models.vgg16.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q44": {
+    "reasoning": "VGG16命名計有13個卷積加3個FC可學習層，總參數列列138,357,544，故D。AdaptiveAvgPool把4×4轉為7×7，FC實際輸入25088；其引數含4096偏置。摘要記憶體也沒含完整訓練狀態。",
+    "options": {
+      "A": "錯用池化前4×4；自適應池化後為512×7×7。",
+      "B": "102,764,544=25088×4096+4096，包含bias。",
+      "C": "摘要不保證涵蓋最佳化器狀態、梯度、工作區及batch需求。",
+      "D": "正確；13 conv＋3 FC，約138.36M引數。"
+    },
+    "concept": "Adaptive pooling明確固定輸出形狀，引數摘要依執行輸入而算。",
+    "pitfalls": "MB摘要不是訓練視訊記憶體上限，不能據此承諾1GB可訓。",
+    "sources": [
+      {
+        "title": "Torchvision：VGG16",
+        "url": "https://docs.pytorch.org/vision/main/models/generated/torchvision.models.vgg16.html"
+      },
+      {
+        "title": "PyTorch：Linear",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q45": {
+    "reasoning": "B只遍歷model.features.parameters()設requires_grad=False，凍結卷積；原classifier仍可訓練，並將末層換成4096→10。因此滿足「僅訓練classifier」。A先凍結所有舊引數只讓新末層訓練，與整個classifier可訓練不同。",
+    "options": {
+      "A": "凍結全部舊引數後只新末層可訓，舊FC也被凍結。",
+      "B": "正確；凍結features，classifier保留梯度。",
+      "C": "凍結classifier卻保留卷積可訓，方向相反。",
+      "D": "為Module加requires_grad屬性不會遞迴改所有Parameter。"
+    },
+    "concept": "凍結需設定Parameter.requires_grad，最佳化器也應只接可訓練引數。",
+    "pitfalls": "eval()改變Dropout等模式，不是凍結引數的替代指令。",
+    "sources": [
+      {
+        "title": "PyTorch：影像遷移學習",
+        "url": "https://docs.pytorch.org/tutorials/beginner/transfer_learning_tutorial.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q46": {
+    "reasoning": "PCA()預設保留全部成分，transform再inverse_transform只是完整正交變換來回，噪聲也一起恢復。需修改標為B的pca=PCA()，設較少n_components保留主要方向再重建，答案B。",
+    "options": {
+      "A": "import類的程式碼A正確，無需為降噪修改。",
+      "B": "正確；模型建立處指定截斷成分數。",
+      "C": "fit(noisy)學習主要方向，是必要步驟非錯誤。",
+      "D": "transform(noisy)取得成分表示，降維數依B設定決定。"
+    },
+    "concept": "截斷PCA透過捨去小變異方向實現近似重建。",
+    "pitfalls": "若噪聲也佔主要方向，降維不能保證完全去噪，須驗證成分數。",
+    "sources": [
+      {
+        "title": "scikit-learn：主成分分析",
+        "url": "https://scikit-learn.org/stable/modules/decomposition.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q47": {
+    "reasoning": "程式A使用StratifiedKFold與accuracy，C用cv=5與accuracy，分類器的整數cv預設分層，兩者可輸出準確率，故B。B與D的scoring='f1'預設針對二分類；digits有十類，需f1_macro等且那也不是準確率。",
+    "options": {
+      "A": "包含用f1的B、D，不符合十類準確率任務。",
+      "B": "正確；原程式A與C都以accuracy評分。",
+      "C": "包含原B的二元f1設定，同時漏掉有效的C。",
+      "D": "包含原D的二元f1設定，同時漏掉有效的A。"
+    },
+    "concept": "cross_val_score會複製模型並在每折訓練，通常不用預先fit。",
+    "pitfalls": "換f1_macro可執行但指標仍是F1，不能稱accuracy。",
+    "sources": [
+      {
+        "title": "scikit-learn：交叉驗證",
+        "url": "https://scikit-learn.org/stable/modules/cross_validation.html"
+      },
+      {
+        "title": "scikit-learn：模型評估指標",
+        "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q48": {
+    "reasoning": "扣各欄均值使訓練特徵平均0，除標準差使非恆定欄標準差1，能改善最佳化數值尺度，因此官方組合A、D對應選C。B把1說成0、C誤稱0到1、E誤稱篩選、F會縮成一列標準差，均不對。",
+    "options": {
+      "A": "B與C錯誤；標準差應1且值不限定0到1。",
+      "B": "E錯誤；標準化沒有刪除或選擇欄位。",
+      "C": "按官方正確；A中心化，D概括改善訓練穩定性。",
+      "D": "C、F錯誤；一列統計量不能替代樣本矩陣。"
+    },
+    "concept": "測試應使用訓練集均值標準差，不能各自重新定義座標。",
+    "pitfalls": "圖程式碼各自標準化X_test不妥；也要處理零標準差。",
+    "sources": [
+      {
+        "title": "scikit-learn：資料前處理",
+        "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+      }
+    ],
+    "caveat": "D「防止梯度爆炸或消失」過強，標準化僅有助；圖中測試獨立縮放須改用訓練統計量。"
+  },
+  "intermediate-114-2-3-q49": {
+    "reasoning": "輸入取0:9共9特徵，第一Dense(10)引數=9×10+10=100；第二Dense(10)=10×10+10=110；輸出Dense(1)=10×1+1=11。因此空格1=100、2=110，選C。",
+    "options": {
+      "A": "圖式1/(1+e^(−x))是sigmoid，不是ReLU=max(0,x)。",
+      "B": "第一、第二層引數次序顛倒，9輸入層應100。",
+      "C": "正確；權重加每輸出神經元的偏置。",
+      "D": "單sigmoid常用於二元或多標籤；互斥多類常用softmax。"
+    },
+    "concept": "Dense層預設use_bias=True，引數需把偏置算入。",
+    "pitfalls": "不能漏看九個輸入，或把None的batch維計成引數。",
+    "sources": [
+      {
+        "title": "Keras：Dense",
+        "url": "https://keras.io/api/layers/core_layers/dense/"
+      },
+      {
+        "title": "PyTorch：ReLU",
+        "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.ReLU.html"
+      }
+    ]
+  },
+  "intermediate-114-2-3-q50": {
+    "reasoning": "圖例訓練為藍實線、驗證為紅虛線，所以格式b-與r--，原陳述A、D正確對應C。訓練損失最後約0.40，驗證約0.45並波動；圖形不支援驗證下降更明顯的E。",
+    "options": {
+      "A": "B、C把顏色互換，與圖例不符。",
+      "B": "同時包含A與C對同一空格互相沖突。",
+      "C": "正確；b為藍、r為紅、-實線、--虛線。",
+      "D": "C顏色錯誤，E的趨勢判斷也不符圖。"
+    },
+    "concept": "訓練與驗證損失差距可輔助識別泛化風險，但需獨立測試。",
+    "pitfalls": "圖中evaluate(X_train)只是訓練評分，不能當測試集驗收。",
+    "sources": [
+      {
+        "title": "Matplotlib：plot格式字串",
+        "url": "https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html"
+      }
+    ]
+  }
+}

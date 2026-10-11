@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1540" viewBox="0 0 1200 1540">
+  <rect width="1200" height="1540" fill="#f4f6f8"/>
+  <rect x="40" y="40" width="1120" height="1460" rx="36" fill="#ffffff"/>
+  <text x="80" y="125" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="38" font-weight="700" fill="#17212b">第 34 題｜概念圖解</text>
+  <rect x="80" y="158" width="195" height="54" rx="27" fill="#e7f5ec"/>
+  <text x="108" y="194" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="25" font-weight="600" fill="#18713e">正確答案 A</text>
+  <text x="80" y="270" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="29" font-weight="600" fill="#35404b">判斷關鍵：看 AI 最後是在「辨別」還是「創造」</text>
+  <rect x="80" y="315" width="500" height="470" rx="24" fill="#eef4fb"/>
+  <rect x="620" y="315" width="500" height="470" rx="24" fill="#fff3e9"/>
+  <text x="115" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="30" font-weight="700" fill="#174c85">鑑別式 AI｜辨別與預測</text>
+  <text x="115" y="430" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#24313d">從既有資料判斷類別或結果。</text>
+  <text x="125" y="500" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">乙　合約條款 → 高風險／不合規</text>
+  <text x="125" y="552" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">丙　市場資料 → 上漲／下跌</text>
+  <line x1="115" y1="590" x2="545" y2="590" stroke="#cbd8e6" stroke-width="2"/>
+  <text x="115" y="640" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#35404b">生活比喻</text>
+  <text x="115" y="685" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#24313d">像質檢員把商品分成合格或不合格。</text>
+  <text x="655" y="375" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="30" font-weight="700" fill="#a34b13">生成式 AI｜產生新內容</text>
+  <text x="655" y="430" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#24313d">依學到的模式，寫出新的內容。</text>
+  <text x="665" y="500" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">甲　客訴案例 → 情境對話劇本</text>
+  <text x="665" y="552" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">丁　產品說明 → 五種新宣傳文案</text>
+  <line x1="655" y1="590" x2="1085" y2="590" stroke="#ecd3c1" stroke-width="2"/>
+  <text x="655" y="640" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="21" fill="#35404b">生活比喻</text>
+  <text x="655" y="685" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#24313d">像編劇或文案寫手，創作一份新稿。</text>
+  <rect x="80" y="825" width="1040" height="100" rx="22" fill="#17212b"/>
+  <text x="600" y="890" text-anchor="middle" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="30" font-weight="700" fill="#ffffff">鑑別式＝辨認現有資料　｜　生成式＝產出新內容</text>
+  <text x="80" y="1000" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="28" font-weight="700" fill="#17212b">其他選項錯在哪裡</text>
+  <text x="90" y="1065" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">B</text>
+  <text x="145" y="1065" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#35404b">把兩類全部顛倒：甲、丁會創作內容；乙、丙在做判斷。</text>
+  <text x="90" y="1130" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">C</text>
+  <text x="145" y="1130" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#35404b">丁產生新文案，不是鑑別；丙只預測漲跌，不是生成內容。</text>
+  <text x="90" y="1195" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="600" fill="#24313d">D</text>
+  <text x="145" y="1195" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" fill="#35404b">乙是在標示風險類別；甲是在寫出新劇本，分類放反了。</text>
+  <rect x="80" y="1260" width="1040" height="170" rx="22" fill="#f5f7f9"/>
+  <text x="115" y="1320" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="23" font-weight="700" fill="#17212b">記憶方法</text>
+  <text x="115" y="1370" font-family="PingFang TC, Noto Sans TC, sans-serif" font-size="22" fill="#35404b">先看輸出：標籤、類別、方向 → 鑑別式；劇本、文案、摘要 → 生成式。</text>
+</svg>
