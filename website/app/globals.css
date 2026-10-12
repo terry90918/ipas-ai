@@ -190,7 +190,7 @@ button:disabled { cursor: not-allowed; }
 .answer-option [data-slot=radio-group-item] { margin-top: 5px; }
 .answer-option.selected { border-color: #609b7e; background: #eff6ed; box-shadow: 0 0 0 1px #609b7e; }
 .option-key { display: grid; place-items: center; background: #edf0e8; font-weight: 600; font-size: 11px; width: 25px; height: 25px; border-radius: 5px; flex-shrink: 0; }
-.option-text { flex: 1; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 16px; line-height: 1.85; }
+.option-text { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: break-word; word-break: normal; font-size: 16px; line-height: 1.85; }
 .option-result { display: flex; align-items: center; gap: 4px; font-size: 10px; line-height: 25px; white-space: nowrap; }
 .answer-correct { background: #eff7ed; border-color: #a5c5a0; color: #285f43; cursor: default; }
 .answer-incorrect { background: #fdf2ec; border-color: #e5bfa8; color: #9f4d35; cursor: default; }
@@ -249,6 +249,12 @@ button:disabled { cursor: not-allowed; }
 
 .answer-caveat { margin-bottom: 1.5rem; padding: 1rem 1.25rem; border-left: 3px solid #b57a27; border-radius: 0.5rem; background: #fff7e8; color: #694715; line-height: 1.8; white-space: pre-wrap; }
 .answer-caveat p { margin-top: 0.5rem; }
+
+@media (max-width: 760px) {
+  .answer-option { display: grid; grid-template-columns: 18px 25px minmax(0, 1fr); align-items: start; }
+  .answer-option .option-text { grid-column: 1 / -1; min-width: 0; }
+  .answer-option .option-result { grid-column: 1 / -1; margin-left: 0; }
+}
 
 html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); scrollbar-width: thin; }
 * { scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); scrollbar-width: thin; }
