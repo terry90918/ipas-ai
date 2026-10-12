@@ -48,7 +48,7 @@ Sans for Traditional Chinese headings, questions and controls. Headings use size
 
 ## Layout
 
-Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. No top header. Desktop sidebar begins with plain text “iPAS 自習室” and “AI 應用規劃師”, without a logo, personal-space badge or logout action. At 760px the same sidebar places its text identity above a horizontal navigation row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Document scrolling owns the page. Original exam page images are omitted from the question card; supplementary explanation diagrams remain inline, and the exam PDF stays linked from the answer references.
+Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. No top header. Desktop sidebar begins with plain text “iPAS 自習室” and “AI 應用規劃師”, without a logo, personal-space badge or logout action. At 760px the same sidebar places its text identity above a horizontal navigation row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Document scrolling owns the page. Original exam page images are omitted from the question card; a compact PDF link stays available before answering for visual references, and supplementary explanation diagrams remain inline.
 
 ## Elevation & Depth
 
