@@ -336,6 +336,7 @@ html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: v
  .sidebar-brand { padding-left: 8px; }
 }
 
+.study-app.is-practicing { min-height: 100dvh; }
 .is-practicing .app-grid { height: 100dvh; min-height: 0; }
 .screen-practice { display: flex; flex-direction: column; min-height: 0; height: 100%; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
 .practice-reading { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-gutter: stable; scroll-padding-block: 16px; padding: 4px 6px 4px 4px; }

@@ -50,6 +50,23 @@ test('preserves mathematical, numbered, code and tabular blocks', () => {
   ]) assert.equal(displayOptionText(value), value);
 });
 
+test('normalizes prose around embedded lists, equations, tables and fenced code', () => {
+  for (const block of [
+    'A：第一個條件\nB：第二個條件',
+    'x = 2\ny = x² + 1',
+    '----------------\nLayer (type) Output Shape Param #\nConv2d-1 [-1, 64, 150, 150] 1,792',
+    '```python\nprint(1)\nprint(2)\n```',
+  ]) {
+    assert.equal(displayOptionText(`前面的資料載\n入說明。\n${block}\n請回\n答問題。`), `前面的資料載入說明。\n${block}\n請回答問題。`);
+  }
+  const questions = JSON.parse(readFileSync(new URL('../content/questions.json', import.meta.url), 'utf8'));
+  const question = questions.find(q => q.id === 'intermediate-114-2-2-q50');
+  const value = displayOptionText(question.stem);
+  assert(value.includes('資料載入與處理'));
+  assert(value.includes('\nA：'));
+  assert(value.includes('\nF：'));
+});
+
 test('display normalization preserves all non-whitespace content in the full question bank', () => {
   const questions = JSON.parse(readFileSync(new URL('../content/questions.json', import.meta.url), 'utf8'));
   for (const question of questions) {

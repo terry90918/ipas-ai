@@ -3,22 +3,31 @@ import type { Exam, Filters, PracticeState } from '@/lib/types';
 export function displayOptionText(value: string) {
   const lines = value.split(/\r?\n/);
   if (lines.length === 1) return value;
-  const structured = lines.some(line =>
-    /^\s{2,}\S/.test(line) ||
-    /^(?:import|from|export|const|let|var|def|class|return|for|if|while)\b/.test(line.trim()) ||
-    /\b(?:train_test_split|LogisticRegression|torch|param)\b/.test(line),
-  ) || lines.some(line =>
-    /^\s*(?:```|[-=]{3,}|[-•]\s|[A-Z][：:]|\(?\d+[.)、]|（\d+）)/.test(line) ||
-    /^\s*[A-Za-zα-ωΑ-Ω][\wα-ωΑ-Ω()[\]|^²³₀-₉]*\s*[=<>≤≥≈]/.test(line),
-  );
-  if (structured) return value;
-  return value.split(/(\r?\n[ \t]*\r?\n)/).map((block, blockIndex) => blockIndex % 2 ? block : block.split(/\r?\n/).reduce((result, line, index) => {
-    const current = line.trim();
+  const newline = value.includes('\r\n') ? '\r\n' : '\n';
+  let fenced = false;
+  const blocks = lines.map(line => {
+    const delimiter = /^\s*```/.test(line);
+    const preserve = fenced || delimiter ||
+      /^\s{2,}\S/.test(line) ||
+      /^(?:import|from|export|const|let|var|def|class|return|for|if|while)\b/.test(line.trim()) ||
+      /\b(?:train_test_split|LogisticRegression|torch|params?)\b/i.test(line) ||
+      /^\s*(?:[-=]{3,}|[-•]\s|[A-Z][：:]|\(?\d+[.)、]|（\d+）)/.test(line) ||
+      /^\s*[A-Za-zα-ωΑ-Ω][\wα-ωΑ-Ω.()[\]|^²³₀-₉]*\s*[=<>≤≥≈]/.test(line) ||
+      /^\S+\s+\[[^\]]+\]/.test(line) ||
+      /^\s*[A-Za-z][\w /(),-]*:\s*[-\d]/.test(line) ||
+      /\S[ \t]{2,}\S/.test(line);
+    if (delimiter) fenced = !fenced;
+    return { line, preserve };
+  });
+  return blocks.reduce((result, block, index) => {
+    const current = block.preserve ? block.line : block.line.trim();
     if (index === 0) return current;
-    const previous = result.at(-1) ?? '';
-    const separator = /^[A-Za-z0-9(]/.test(current) && /[A-Za-z0-9),.!?;:]$/.test(previous) ? ' ' : '';
+    const previous = blocks[index - 1];
+    const separator = block.preserve || previous.preserve || !current || !previous.line.trim()
+      ? newline
+      : /^[A-Za-z0-9(]/.test(current) && /[A-Za-z0-9),.!?;:]$/.test(result.at(-1) ?? '') ? ' ' : '';
     return result + separator + current;
-  }, '')).join('');
+  }, '');
 }
 
 export type AnswerDraft = { sessionId: string; questionId: string; choice: string };
