@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDownToLine, ArrowLeft, ArrowRight, BookOpen, Check, CircleCheck, CircleHelp, ExternalLink, GraduationCap, LayoutDashboard, LoaderCircle, LogOut, RotateCcw, Sparkles, Target, X } from 'lucide-react';
+import { ArrowDownToLine, ArrowLeft, ArrowRight, BicepsFlexed, BookOpen, Check, CircleCheck, CircleHelp, ExternalLink, GraduationCap, LayoutDashboard, LoaderCircle, LogOut, RotateCcw, Sparkles, Target, X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -158,7 +158,7 @@ export function Practice() {
           <Button variant={screen === 'home' ? 'secondary' : 'ghost'} className="nav-button" onClick={() => { setScreen('home'); setError(''); }}><LayoutDashboard />練習總覽</Button>
           <Button variant={screen === 'practice' ? 'secondary' : 'ghost'} className="nav-button" disabled={!active || busy} onClick={() => active && viewQuestion(resumeIndex(active))}><BookOpen />{active && !active.completed ? '繼續本輪練習' : '本輪答題回顧'}{active && !active.completed && <span className="ml-auto text-xs">{answered}/{active.items.length}</span>}</Button>
           <Button variant="ghost" className="nav-button" disabled={!state || busy || !state.stats.wrong || Boolean(active && !active.completed && active.mode !== 'wrong')} onClick={() => start('wrong')}><RotateCcw />錯題複習{state && <span className="ml-auto text-xs">{state.stats.wrong}</span>}</Button>
-          <div className="sidebar-note"><span className="note-icon"><Sparkles size={18} /></span><p>每回合五題</p><span>提交後查看完整解析。<br />答錯的題目可再次練習。</span></div>
+          <div className="sidebar-note"><span className="note-icon"><BicepsFlexed size={18} /></span><p>每回合五題</p><span>提交後查看完整解析。<br />答錯的題目可再次練習。</span></div>
           <div className="sidebar-bottom"><span className="status-dot" />{state ? '進度連結你的登入帳號' : '登入後保存學習進度'}</div>
         </aside>
 
