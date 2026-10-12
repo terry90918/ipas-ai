@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { displayOptionText, filterExams, filterOptions, resumeIndex, paperUrl, reconcileAnswerView } from './practice-helpers.ts';
+import { readFileSync } from 'node:fs';
+import { displayOptionText, draftChoice, filterExams, filterOptions, resumeIndex, paperUrl, reconcileAnswerView } from './practice-helpers.ts';
 
 const exams = [
   { id: 'a', level: '初級', subject: '概論', year: 114, session: 1 },
@@ -33,7 +34,49 @@ test('joins PDF line wraps in prose options but preserves code formatting', () =
   assert.equal(displayOptionText('Select one,\nthen continue.'), 'Select one, then continue.');
 });
 
+test('normalizes question prose while preserving paragraph boundaries', () => {
+  assert.equal(displayOptionText('Self-Attention 的核心功\n能為何？'), 'Self-Attention 的核心功能為何？');
+  assert.equal(displayOptionText('共用情境的第一\n段。\n\n這一題的問\n題。'), '共用情境的第一段。\n\n這一題的問題。');
+  assert.equal(displayOptionText('Question text\r\ncontinues.\r\n\r\nNext paragraph.'), 'Question text continues.\r\n\r\nNext paragraph.');
+});
+
+test('preserves mathematical, numbered, code and tabular blocks', () => {
+  for (const value of [
+    '請計算：\nx = 2\ny = x² + 1',
+    '作法如下：\n(1) 清理資料\n(2) 訓練模型',
+    '敘述如下：\nA：第一個條件\nB：第二個條件',
+    '模型架構：\n----------------\nLayer (type) Output Shape Param #\nConv2d-1 [-1, 64, 150, 150] 1,792',
+    '```python\nprint(1)\n```',
+  ]) assert.equal(displayOptionText(value), value);
+});
+
+test('display normalization preserves all non-whitespace content in the full question bank', () => {
+  const questions = JSON.parse(readFileSync(new URL('../content/questions.json', import.meta.url), 'utf8'));
+  for (const question of questions) {
+    for (const value of [question.stem, ...Object.values(question.options)]) {
+      assert.equal(displayOptionText(value).replace(/\s/g, ''), value.replace(/\s/g, ''), question.id);
+    }
+  }
+});
+
 const round = (id, grades = [null, null, null], completed = false) => ({ id, mode: 'practice', completed, items: grades.map((grade, index) => ({ question: { id: `q${index}` }, grade })) });
+
+test('an unsent choice follows its question through overview and saved-question review', () => {
+  const active = round('same', [{ choice: 'A' }, null, null]);
+  const draft = { sessionId: 'same', questionId: 'q1', choice: 'C' };
+  assert.equal(draftChoice(active, 1, draft), 'C');
+  assert.equal(draftChoice(active, 0, draft), '');
+  assert.equal(draftChoice(active, 1, draft), 'C');
+});
+
+test('a draft never becomes a saved answer or leaks into another round or question', () => {
+  const draft = { sessionId: 'same', questionId: 'q1', choice: 'C' };
+  assert.equal(draftChoice(null, 1, draft), '');
+  assert.equal(draftChoice(round('new'), 1, draft), '');
+  assert.equal(draftChoice(round('same'), 2, draft), '');
+  assert.equal(draftChoice(round('same', [null, { choice: 'A' }]), 1, draft), '');
+  assert.equal(draftChoice(round('same'), 1, null), '');
+});
 
 for (const status of [200, 409]) {
   test(`${status} response for an old round resets the draft and resumes the new round`, () => {

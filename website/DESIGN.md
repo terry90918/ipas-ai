@@ -25,7 +25,7 @@ components:
   primary-action:
     height: "48px"
   question-step:
-    height: "64px"
+    height: "56px"
 ---
 
 # iPAS 自習室
@@ -44,15 +44,15 @@ Runtime CSS remains canonical: `app/globals.css` owns values; `@theme inline` ma
 
 ## Typography
 
-Sans for Traditional Chinese headings, questions and controls. Headings use size and weight for hierarchy; question text is 21px desktop / 18px narrow, option and explanation text 16px desktop / 15px narrow. Mono is limited to scores and numbered question steps. Preserve all question line breaks and mixed-script content.
+Sans for Traditional Chinese headings, questions and controls. Headings use size and weight for hierarchy; question text is 21px desktop / 18px narrow, option and explanation text 16px desktop / 15px narrow. Mono is limited to scores and numbered question steps. Join PDF soft wraps in prose while preserving blank paragraphs, structured lists, code, tables and standalone equations. Preserve mixed-script content.
 
 ## Layout
 
-Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. No top header. Desktop sidebar begins with plain text “iPAS 自習室” and “AI 應用規劃師”, without a logo, personal-space badge or logout action. At 760px the same sidebar places its text identity above a horizontal navigation row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Document scrolling owns the page. Original exam page images are omitted from the question card. Questions that depend on a chart or shared context provide compact links to answer-free question crops; supplementary explanation diagrams remain inline, and the full PDF link stays in the answer references.
+Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. No top header. Desktop sidebar begins with plain text “iPAS 自習室” and “AI 應用規劃師”, without a logo, personal-space badge or logout action. At 761–1280px the sidebar is 164px wide, navigation remains labeled, and practice hides the repeated five-question note. At 760px the same sidebar places its text identity above a horizontal navigation row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Home and summary use document scrolling. Practice uses a viewport-bounded main panel: the question and explanation region owns scrolling, with a separate bottom action row. No global body scroll lock. Original exam page images are omitted from the question card. Questions that depend on a chart or shared context provide compact links to answer-free question crops; supplementary explanation diagrams remain inline, and the full PDF link stays in the answer references.
 
 ## Elevation & Depth
 
-Flat cards use borders. Only sticky action surfaces receive a subtle shadow to separate them from scrolling text. Error feedback remains inline, not transient.
+Flat cards use borders. Only the persistent practice action surface receives a subtle shadow to separate them from scrolling text. Error feedback remains inline, not transient.
 
 ## Shapes
 
@@ -69,7 +69,7 @@ Existing 12px containers and 8px controls remain the baseline. Question navigati
 | Typography | `--font-sans`, `--font-mono` | prose and data |
 | Scrollbar | `--scrollbar-*` global baseline | all owned scroll regions |
 
-Reuse shared Button, NativeSelect, RadioGroup, Progress and Dialog. The browser owns select popups; Radix owns radio keyboard semantics and modal focus. Selected answers retain distinct outlines. Busy and saved controls cannot activate; labels and icons expose state. Primary answer buttons reserve at least 148px × 48px while saving. The next-question action precedes detailed explanations and remains sticky while reading. Scroll padding and margins reserve 100px above focus targets.
+Reuse shared Button, NativeSelect, RadioGroup, Progress and Dialog. The browser owns select popups; Radix owns radio keyboard semantics and modal focus. Selected answers retain distinct outlines. Busy and saved controls cannot activate; labels and icons expose state. Primary answer buttons reserve at least 148px × 48px while saving. Submit and next-question actions share one separate bottom surface outside the scrollable reading region, with the same button position and at least 148px × 48px on tablets. It occupies its own layout row and cannot overlap reading content. Scroll padding and margins reserve 100px around focus targets. Common actions and native select triggers are at least 48px tall; secondary text is at least 12px. Portrait and landscape practice layouts preserve the same single reading scroller; overview and summary restore document scrolling.
 
 Lucide line icons accompany text. Motion is limited to short state transitions; reduced-motion disables smooth motion. Global visible scrollbars include standard and WebKit styling and forced-colors fallback.
 
