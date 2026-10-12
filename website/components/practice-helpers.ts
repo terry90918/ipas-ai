@@ -5,13 +5,17 @@ export function displayOptionText(value: string) {
   if (lines.length === 1) return value;
   const newline = value.includes('\r\n') ? '\r\n' : '\n';
   let fenced = false;
+  let prompt = false;
   const blocks = lines.map(line => {
     const delimiter = /^\s*```/.test(line);
-    const preserve = fenced || delimiter ||
+    const section = /^\s*\[[^\]]+\]\s*$/.test(line);
+    if (section && !fenced) prompt = /^\s*\[System Prompt\]\s*$/i.test(line);
+    const preserve = fenced || delimiter || section || prompt ||
       /^\s{2,}\S/.test(line) ||
       /^(?:import|from|export|const|let|var|def|class|return|for|if|while)\b/.test(line.trim()) ||
       /\b(?:train_test_split|LogisticRegression|torch|params?)\b/i.test(line) ||
-      /^\s*(?:[-=]{3,}|[-•]\s|[A-Z][：:]|\(?\d+[.)、]|（\d+）)/.test(line) ||
+      /^\s*(?:[-=]{3,}|•|-\s|[A-Z][：:]|\(?\d+[.)、]|（\d+）)/.test(line) ||
+      /^\s*(?:Thought|Action|Answer)[：:]/i.test(line) ||
       /^\s*[A-Za-zα-ωΑ-Ω][\wα-ωΑ-Ω.()[\]|^²³₀-₉]*\s*[=<>≤≥≈]/.test(line) ||
       /^\S+\s+\[[^\]]+\]/.test(line) ||
       /^\s*[A-Za-z][\w /(),-]*:\s*[-\d]/.test(line) ||
