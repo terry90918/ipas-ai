@@ -48,7 +48,7 @@ Sans for Traditional Chinese headings, questions and controls. Headings use size
 
 ## Layout
 
-Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. No top header. Desktop sidebar begins with plain text “iPAS 自習室” and “AI 應用規劃師”, without a logo, personal-space badge or logout action. At 761–1280px the sidebar is 164px wide, navigation remains labeled, and practice hides the repeated five-question note. At 760px the same sidebar places its text identity above a horizontal navigation row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Home and summary use document scrolling. Practice uses a viewport-bounded main panel: the question and explanation region owns scrolling, with a separate bottom action row. No global body scroll lock. Original exam page images are omitted from the question card. Questions that depend on a chart or shared context provide compact links to answer-free question crops; supplementary explanation diagrams remain inline, and the full PDF link stays in the answer references.
+Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. No top header. Desktop sidebar begins with plain text “iPAS 自習室” and “AI 應用規劃師”, without a logo, personal-space badge or logout action. At 761–1280px the sidebar is 164px wide, navigation remains labeled, and practice hides the repeated five-question note. At 760px the same sidebar places its text identity above a horizontal navigation row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Home and summary use document scrolling. Practice uses a viewport-bounded main panel: the question and explanation region owns scrolling, with a separate bottom action row. No global body scroll lock. Original exam page images are omitted from the question card. Questions that depend on a chart or shared context provide compact buttons that open answer-free question crops in a Radix image-preview dialog; supplementary explanation diagrams remain inline, and the full PDF link stays in the answer references.
 
 ## Elevation & Depth
 
@@ -80,3 +80,5 @@ Lucide line icons accompany text. Motion is limited to short state transitions; 
 - Keep action labels consistent across home, practice, summary and review.
 - Do not replace native/Radix behavior with screen-local widgets.
 - Do not change selection, grading, owner isolation or retry semantics for visual effect.
+
+Image previews preserve the current answer draft, contain image scrolling within the viewport, return focus to the trigger on close, and provide loading and retry states. Preview and close controls are at least 48px. Supplementary diagrams use the same preview; external sources and PDFs remain links.
