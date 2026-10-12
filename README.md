@@ -6,6 +6,8 @@ A Traditional Chinese study app for Taiwan's iPAS AI Application Planner certifi
 
 ![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A5%2022.13-41733B) ![Next.js](https://img.shields.io/badge/Next.js-16-111111) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6) ![Questions](https://img.shields.io/badge/%E9%A1%8C%E5%BA%AB-700%20%E9%A1%8C-526C59)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-526C59)](LICENSE)
+
 [網站](https://ipas-practice.terrytychen.chatgpt.site) · [開發文件](website/README.md) · [問題回報](https://github.com/terry90918/ipas-ai/issues/new/choose) · [貢獻指南](CONTRIBUTING.md)
 
 網站目前為私人自習環境，僅限擁有者登入。公開 repository 提供原始碼與文件；網站的存取權限另行管理。
@@ -123,6 +125,6 @@ docs/                        產品設計與實作紀錄
 
 ## 授權與來源
 
-程式碼目前尚未指定開源授權，授權選項待維護者確認。
+本專案自行開發的程式碼與自行撰寫的文件採 [MIT License](LICENSE)。使用、修改或再散布時，請保留授權與著作權聲明。
 
-歷屆試題、公告答案、PDF 與衍生原題圖片的權利屬於各原權利人，未取得另行授權；不納入本專案程式碼授權。第三方程式碼與素材遵循各自授權，例如 [shadcn 樣式授權](website/vendor/shadcn-tailwind-4.13.0.LICENSE.md)。引用或再散布題目與素材前，請自行確認使用權限。
+歷屆試題、公告答案、PDF、結構化題庫與衍生原題圖片的權利屬於各原權利人，未取得另行授權；不納入本專案 MIT 授權。第三方程式碼與素材遵循各自授權，例如 [shadcn 樣式授權](website/vendor/shadcn-tailwind-4.13.0.LICENSE.md)。引用或再散布題目與素材前，請自行確認使用權限。
