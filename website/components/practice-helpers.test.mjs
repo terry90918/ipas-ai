@@ -76,6 +76,22 @@ test('display normalization preserves all non-whitespace content in the full que
   }
 });
 
+test('compact bullets and prompt sections keep their structure while surrounding prose reflows', () => {
+  const value = '工具的說\n明如下。\n•web_search(query)\n•calculator(expression)\n提示說\n明。\n[System Prompt]\n先查詢資料。\n每次使用一個工具。\n[Agent Output]\nThought: 搜尋資料。\nAction: web_search\nAnswer: 已取得資料。\n\n後面的段\n落。';
+  const expected = '工具的說明如下。\n•web_search(query)\n•calculator(expression)\n提示說明。\n[System Prompt]\n先查詢資料。\n每次使用一個工具。\n[Agent Output]\nThought: 搜尋資料。\nAction: web_search\nAnswer: 已取得資料。\n\n後面的段落。';
+  assert.equal(displayOptionText(value), expected);
+  assert.equal(displayOptionText('```text\n[System Prompt]\n內容\n```\n後面的段\n落。'), '```text\n[System Prompt]\n內容\n```\n後面的段落。');
+});
+
+test('the ReAct question keeps its real tool list, system instructions and output fields', () => {
+  const questions = JSON.parse(readFileSync(new URL('../content/questions.json', import.meta.url), 'utf8'));
+  const question = questions.find(q => q.id === 'intermediate-115-1-1-q16');
+  const result = displayOptionText(question.stem);
+  assert(result.includes('\n•web_search(query)：回傳搜尋結果摘要\n•get_webpage(url)：回傳網頁內文\n•calculator(expression)：回傳計算結果\n•get_current_date()：回傳今日日期\n'));
+  assert(result.includes('\n[System Prompt]\n你是一個資料查詢助理。\n每次只能使用一個工具。\n當你知道答案時，直接輸出最終答案。\n'));
+  assert(result.includes('\n[第一輪 Agent 輸出]\nThought: 我已經知道台灣電動車市場的概況，不需要搜尋，可以直接回答。\nAction: 無\nAnswer: 台灣最大充電站營運商是 XX 公司，共有 500 個充電樁。'));
+});
+
 const round = (id, grades = [null, null, null], completed = false) => ({ id, mode: 'practice', completed, items: grades.map((grade, index) => ({ question: { id: `q${index}` }, grade })) });
 
 test('an unsent choice follows its question through overview and saved-question review', () => {
