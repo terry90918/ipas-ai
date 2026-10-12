@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDownToLine, ArrowLeft, ArrowRight, BicepsFlexed, BookOpen, Check, CircleCheck, CircleHelp, ExternalLink, GraduationCap, LayoutDashboard, LoaderCircle, LogOut, RotateCcw, Sparkles, Target, X } from 'lucide-react';
+import { ArrowDownToLine, ArrowLeft, ArrowRight, BicepsFlexed, BookOpen, Check, CircleCheck, CircleHelp, ExternalLink, GraduationCap, LayoutDashboard, LoaderCircle, RotateCcw, Sparkles, Target, X } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -141,20 +141,9 @@ export function Practice() {
   return (
     <div className="study-app">
       <a className="skip-link" href="#main-content">跳至主要內容</a>
-      <header className="app-header">
-        <Link className="brand" href="/" aria-label="iPAS 自習室首頁">
-          <span className="brand-icon"><BookOpen size={21} strokeWidth={1.8} /></span>
-          <span>iPAS <span className="font-normal">自習室</span><span className="brand-subtitle">AI 應用規劃師</span></span>
-        </Link>
-        <div className="header-actions">
-          <Badge variant="outline" className="hidden sm:inline-flex"><span className="status-dot" />個人學習空間</Badge>
-          {state && <Button variant="ghost" size="sm" asChild><a href="/signout-with-chatgpt?return_to=%2F" target="_top"><LogOut />登出</a></Button>}
-        </div>
-      </header>
-
       <div className="app-grid">
         <aside className="sidebar" aria-label="學習導覽">
-          <p className="eyebrow sidebar-caption">我的自習室</p>
+          <Link className="sidebar-brand" href="/" aria-label="iPAS 自習室首頁"><span className="sidebar-title">iPAS 自習室</span><span className="sidebar-subtitle">AI 應用規劃師</span></Link>
           <Button variant={screen === 'home' ? 'secondary' : 'ghost'} className="nav-button" onClick={() => { setScreen('home'); setError(''); }}><LayoutDashboard />練習總覽</Button>
           <Button variant={screen === 'practice' ? 'secondary' : 'ghost'} className="nav-button" disabled={!active || busy} onClick={() => active && viewQuestion(resumeIndex(active))}><BookOpen />{active && !active.completed ? '繼續本輪練習' : '本輪答題回顧'}{active && !active.completed && <span className="ml-auto text-xs">{answered}/{active.items.length}</span>}</Button>
           <Button variant="ghost" className="nav-button" disabled={!state || busy || !state.stats.wrong || Boolean(active && !active.completed && active.mode !== 'wrong')} onClick={() => start('wrong')}><RotateCcw />錯題複習{state && <span className="ml-auto text-xs">{state.stats.wrong}</span>}</Button>
