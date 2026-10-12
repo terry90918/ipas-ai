@@ -1,0 +1,27 @@
+name: 功能建議
+description: 提出具體使用情境與改善目標
+title: "[建議] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解決的問題
+      description: "描述目前操作的困難與使用情境。"
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建議做法
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 如何確認改善有效
+      description: "提供預期行為、裝置、畫面尺寸或可驗證的結果。"
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 其他可行做法

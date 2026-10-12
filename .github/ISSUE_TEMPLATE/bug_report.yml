@@ -1,0 +1,48 @@
+name: 問題與題庫勘誤
+description: 回報介面、流程、資料或題目解析問題
+title: "[問題] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "安全問題請到 Security → Advisories 私下回報。請勿附上個人練習紀錄、金鑰或 token。"
+  - type: dropdown
+    id: category
+    attributes:
+      label: 問題類型
+      options:
+        - 題目或解析
+        - 介面與平板操作
+        - 練習流程與進度
+        - 開發或部署
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 重現步驟或題目位置
+      description: "介面問題列出操作步驟；題庫問題附上完整題目 ID、試卷與頁碼。"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 預期結果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 實際結果與判斷依據
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 裝置與環境
+      description: "請提供裝置、瀏覽器版本、橫向／直向、畫面尺寸或相關 commit。"
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 補充證據
+      description: "可提供已移除個人資料的畫面或來源連結。"

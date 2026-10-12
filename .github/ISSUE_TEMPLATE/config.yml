@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 私人安全回報
+    url: https://github.com/terry90918/ipas-ai/security/advisories
+    about: "使用 Report a vulnerability 私下回報安全問題。"

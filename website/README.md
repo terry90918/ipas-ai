@@ -2,6 +2,8 @@
 
 Next.js App Router + shadcn/ui。私人 Sites 網站，ChatGPT 登入，Supabase 保存練習紀錄。
 
+產品介紹、題庫範圍與快速開始見 [根目錄 README](../README.md)。此頁補充開發、資料庫與發布方式；貢獻與安全回報分別見 [CONTRIBUTING](../CONTRIBUTING.md) 與 [SECURITY](../.github/SECURITY.md)。
+
 ## 功能
 
 - 14 份試卷、700 題，完整原題圖與逐題解析。
@@ -43,7 +45,82 @@ npm run build:sites
 
 `tests/database.sql` 在交易內驗證作答、錯題、匯入與隔離，結束時 rollback。`tests/concurrency.py` 僅對名為 `ipas-practice-test` 的獨立 Docker PostgreSQL 測試容器執行，建立與清除自身的測試紀錄，不能指向正式資料庫。
 
-本地 UI QA 可使用獨立 PostgreSQL/PostgREST 配置，再以 Next.js 正式建置啟動於 127.0.0.1:3302，執行 `node scripts/local-preview.mjs`。3303 代理只使用固定本地測試身分，不代表真正的 ChatGPT 登入驗證，亦不參與正式部署。
+### 完整本地預覽
+
+需要已啟動的 Docker，以及 Node.js。以下命令在 `website/` 執行，建立獨立的 PostgreSQL 17 與 PostgREST 13.0.7 測試環境。容器名稱與網路名稱必須尚未被使用；已有相同名稱時，先確認該環境的用途，不要覆蓋既有資料。
+
+第一個終端機先建立資料庫與角色：
+
+```sh
+docker network create ipas-practice-qa
+docker run -d --name ipas-practice-test --network ipas-practice-qa \
+  -e POSTGRES_PASSWORD=ipas-local-qa postgres:17
+until docker exec ipas-practice-test pg_isready -U postgres; do sleep 1; done
+docker exec -i ipas-practice-test psql -U postgres -v ON_ERROR_STOP=1 <<'SQL'
+create role anon nologin;
+create role authenticated nologin;
+create role service_role nologin bypassrls;
+create role authenticator login noinherit password 'ipas-local-qa';
+grant anon, service_role to authenticator;
+grant usage on schema public to anon, authenticated, service_role;
+SQL
+docker exec -i ipas-practice-test psql -U postgres -v ON_ERROR_STOP=1 \
+  < supabase/migrations/20261011165044_ipas_practice.sql
+node scripts/seed-catalog.mjs | \
+  docker exec -i ipas-practice-test psql -U postgres -v ON_ERROR_STOP=1
+```
+
+在同一個終端機產生僅供本次測試使用、24 小時後到期的 JWT，並啟動 REST 與 Next.js。這些環境變數會覆寫本地 `.env.local`，不使用正式 Supabase 專案：
+
+```sh
+export IPAS_QA_JWT_SECRET="$(node -e 'process.stdout.write(require("node:crypto").randomBytes(32).toString("hex"))')"
+export SUPABASE_SECRET_KEY="$(node <<'NODE'
+const { createHmac } = require('node:crypto');
+const encode = value => Buffer.from(JSON.stringify(value)).toString('base64url');
+const body = [encode({ alg: 'HS256', typ: 'JWT' }), encode({ role: 'service_role', exp: Math.floor(Date.now() / 1000) + 86400 })].join('.');
+process.stdout.write(`${body}.${createHmac('sha256', process.env.IPAS_QA_JWT_SECRET).update(body).digest('base64url')}`);
+NODE
+)"
+export SUPABASE_URL=http://127.0.0.1:3303
+export LEGACY_PRACTICE_JSON=
+docker run -d --name ipas-practice-rest --network ipas-practice-qa \
+  -p 127.0.0.1:55474:3000 \
+  -e PGRST_DB_URI=postgres://authenticator:ipas-local-qa@ipas-practice-test:5432/postgres \
+  -e PGRST_DB_SCHEMAS=public -e PGRST_DB_ANON_ROLE=anon \
+  -e PGRST_JWT_SECRET="$IPAS_QA_JWT_SECRET" postgrest/postgrest:v13.0.7
+npm run build
+npm run start -- --port 3302
+```
+
+第二個終端機也切換到 `website/`，啟動登入代理：
+
+```sh
+node scripts/local-preview.mjs
+```
+
+開啟 `http://127.0.0.1:3303`，即可用固定的 `local-qa` 測試身分開始五題練習、提交作答及重新載入進度。3302 是 Next.js，55474 是本地 REST，3303 同時代理網站與 `/rest/v1/`，三者的埠號需與現有代理一致。這個代理只綁定 `127.0.0.1`，不代表真正的 ChatGPT 登入驗證，亦不參與正式部署。
+
+JWT 到期或關閉第一個終端機後，需要重新產生測試設定；重新產生 secret 時也要重建本地 REST 容器。測試金鑰與上述本地資料庫密碼不可用於正式環境。
+
+### 執行資料庫檢查與清理
+
+`tests/database.sql` 使用自己的題庫 fixture，因此在同一個測試容器另建空白的 `ipas_checks` 資料庫執行，避免與已匯入的 700 題混用。在另一個終端機的 `website/` 執行：
+
+```sh
+docker exec ipas-practice-test createdb -U postgres ipas_checks
+docker exec -i ipas-practice-test psql -U postgres -d ipas_checks -v ON_ERROR_STOP=1 \
+  < supabase/migrations/20261011165044_ipas_practice.sql
+docker exec -i ipas-practice-test psql -U postgres -d ipas_checks -v ON_ERROR_STOP=1 < tests/database.sql
+docker exec ipas-practice-test dropdb -U postgres ipas_checks
+python3 tests/concurrency.py
+```
+
+預覽完成後，先以 Ctrl+C 停止兩個終端機的 Node 程序。以下命令只清除本節新建的測試容器與網路，會移除其中的測試作答紀錄：
+
+```sh
+docker rm -f ipas-practice-rest ipas-practice-test
+docker network rm ipas-practice-qa
+```
 
 ## Sites 發布
 
