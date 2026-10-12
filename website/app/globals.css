@@ -179,8 +179,6 @@ button:disabled { cursor: not-allowed; }
 .question-meta > span:last-child { margin-left: auto; }
 .question-stem { font-size: 21px; font-weight: 600; line-height: 1.85; white-space: pre-wrap; overflow-wrap: anywhere; outline: none; letter-spacing: .1px;  max-width: 36em;}
 .question-stem:focus-visible { outline: 2px solid var(--ring); outline-offset: 8px; border-radius: 3px; }
-.question-images { margin-bottom: 26px; }
-.image-caption { display: flex; gap: 6px; align-items: center; font-size: 10px; color: var(--muted-foreground); margin-bottom: 9px; }
 .source-image { width: 100%; height: auto; background: white; border: 1px solid #e3e7df; border-radius: 8px; margin-bottom: 12px; }
 .answer-legend { font-size: 11px; letter-spacing: .5px; color: var(--muted-foreground); margin-bottom: 13px; }
 .answer-options { gap: 12px; }
