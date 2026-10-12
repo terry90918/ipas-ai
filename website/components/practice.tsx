@@ -16,6 +16,7 @@ import { displayOptionText, filterExams, filterOptions, paperUrl, resumeIndex, r
 
 const filterLabels = { level: '考試級別', subject: '考試科目', year: '年度', session: '梯次' };
 const loginUrl = '/signin-with-chatgpt?return_to=%2F';
+const visualReferencePattern = /附圖|附表|下圖|上圖(?!現)|如下圖|如圖|圖中|依圖|由圖|參考圖|見圖|下表|上表(?!現)|如表|(^|[^代])表中/;
 
 async function responseMessage(response: Response) {
   const body = await response.json().catch(() => null) as { error?: unknown } | null;
@@ -132,11 +133,10 @@ export function Practice() {
   const item = active?.items[index];
   const exam = state?.exams.find(exam => exam.id === item?.question.examId);
   const contextImages = item?.question.images.filter(image => image.includes('-context')) ?? [];
-  const questionReferenceImages = contextImages.length
-    ? contextImages
-    : item && /附圖|附表|下圖|上圖|如下圖|如圖|圖中|依圖|由圖|參考圖|見圖|下表|上表|如表|表中/.test(`${item.question.stem} ${Object.values(item.question.options).join(' ')}`)
-      ? item.question.images
-      : [];
+  const questionReferenceImages = item && (
+    contextImages.length > 0 ||
+    visualReferencePattern.test(`${item.question.stem} ${Object.values(item.question.options).join(' ')}`)
+  ) ? item.question.images : [];
   const answered = active?.items.filter(item => item.grade !== null).length ?? 0;
   const roundCorrect = active?.items.filter(item => item.grade?.correct).length ?? 0;
   const matching = state ? filterExams(state.exams, filters) : [];
