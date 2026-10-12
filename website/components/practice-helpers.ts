@@ -1,5 +1,23 @@
 import type { Exam, Filters, PracticeState } from '@/lib/types';
 
+export function displayOptionText(value: string) {
+  const lines = value.split(/\r?\n/);
+  if (lines.length === 1) return value;
+  const isCode = lines.some(line =>
+    /^\s{2,}\S/.test(line) ||
+    /^(?:import|from|export|const|let|var|def|class|return|for|if|while)\b/.test(line.trim()) ||
+    /\b(?:train_test_split|LogisticRegression|torch|param)\b/.test(line),
+  );
+  if (isCode) return value;
+  return lines.reduce((result, line, index) => {
+    const current = line.trim();
+    if (index === 0) return current;
+    const previous = result.at(-1) ?? '';
+    const separator = /^[A-Za-z0-9(]/.test(current) && /[A-Za-z0-9),.!?;:]$/.test(previous) ? ' ' : '';
+    return result + separator + current;
+  }, '');
+}
+
 export function filterExams(exams: Exam[], filters: Filters) {
   return exams.filter(exam =>
     (!filters.level || exam.level === filters.level) &&
