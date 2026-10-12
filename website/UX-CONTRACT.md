@@ -39,7 +39,7 @@ Only server-confirmed answers count. Unanswered future questions remain disabled
 
 The application has no top header. Plain text identity lives in the sidebar and remains visible on narrow layouts. There is no app-owned logout control; Site authentication and server ownership checks remain required. Page title remains `iPAS 自習室｜AI 應用規劃師` because views share one route. Button labels remain localized. Every action uses Button or a real link. RadioGroup and Dialog retain their native/Radix keyboard patterns. Preserve skip navigation, visible focus and heading focus on question changes. Sticky UI reserves scroll padding; no body scroll lock.
 
-Narrow layout at 390px must expose the start action on the first 844px screen, keep options readable, and avoid horizontal page overflow. Use one document scroll owner. Original exam page images are omitted from the question card. A question-card link opens the exam PDF before answering when a visual reference is needed; supplementary explanation diagrams remain visible.
+Narrow layout at 390px must expose the start action on the first 844px screen, keep options readable, and avoid horizontal page overflow. Use one document scroll owner. Original exam page images are not rendered in the question card. Questions with chart or shared-context references provide links to answer-free question crops before submission. The full PDF remains in the post-answer references, and supplementary explanation diagrams remain visible.
 
 ## Errors and recovery
 
