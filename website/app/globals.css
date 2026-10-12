@@ -102,10 +102,10 @@ button:disabled { cursor: not-allowed; }
 .sidebar-caption { color: #6f7c70; font-size: 10px; margin: 0 12px 12px; letter-spacing: 2px; }
 .nav-button { justify-content: flex-start; width: 100%; height: 43px; gap: 12px; padding: 0 13px; color: #5b6a5e; font-size: 13px; font-weight: 500; }
 .nav-button[data-variant=secondary] { color: var(--primary); background: #e2ebdf; }
-.sidebar-note { margin: 48px 8px 20px; border-top: 1px solid #d8e0d3; padding-top: 25px; }
-.note-icon { color: #758c6b; display: block; margin-bottom: 12px; }
-.sidebar-note p { font-size: 13px; font-weight: 600; margin-bottom: 9px; }
-.sidebar-note > span:last-child { color: #788371; font-size: 11px; line-height: 1.9; }
+.sidebar-note { margin: 48px 8px 20px; border-top: 1px solid #d8e0d3; padding-top: 25px; display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: center; gap: 9px 8px; }
+.note-icon { color: #758c6b; display: flex; }
+.sidebar-note p { font-size: 13px; font-weight: 600; margin: 0; }
+.sidebar-note > span:last-child { color: #788371; font-size: 11px; line-height: 1.9; grid-column: 1 / -1; }
 .sidebar-bottom { color: #768472; margin: auto 9px 0; padding-top: 40px; font-size: 10px; display: flex; align-items: center; gap: 7px; }
 .main-content { padding: 43px 48px 24px; min-width: 0; width: 100%; max-width: 1200px; margin: 0 auto; }
 .page-heading { margin-bottom: 28px; }
