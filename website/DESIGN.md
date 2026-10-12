@@ -1,0 +1,82 @@
+---
+version: alpha
+name: "iPAS 自習室"
+description: "以五題回合為中心的繁體中文自習工具"
+colors:
+  primary: "#155e4b"
+  background: "#f4f8f7"
+  surface: "#ffffff"
+  foreground: "#193b33"
+  muted: "#536b63"
+  border: "#dce7e2"
+  danger: "#a74436"
+typography:
+  sans:
+    fontFamily: '"Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif'
+  mono:
+    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
+rounded:
+  DEFAULT: "0.75rem"
+  control: "0.5rem"
+spacing:
+  reading-width: "940px"
+  page-max: "1200px"
+components:
+  primary-action:
+    height: "48px"
+  question-step:
+    height: "64px"
+---
+
+# iPAS 自習室
+
+## Overview
+
+服務準備 iPAS AI 應用規劃師的繁體中文讀者。首頁的工作是開始或接續練習；答題頁的工作是讀題、選答、保存及學習解析。手機短時間練習和桌面長題閱讀使用同一套操作。
+
+保留原有深綠識別，使用白色題頁與冷薄荷灰背景。特色是依真實回合題數呈現的五格題號列：未答、答對、答錯；不以色彩單獨表示狀態。不使用行銷大數字、裝飾性步驟編號或背景動畫。
+
+Runtime CSS remains canonical: `app/globals.css` owns values; `@theme inline` maps them to Tailwind and shared primitives. This file mirrors accepted values, not a second generator.
+
+## Colors
+
+主操作、目前題號和連結使用 primary。內容放在 surface，foreground 用於題文。muted 用於次要說明；錯誤仍沿用 danger。對錯保留文字和圖示。Focus uses the existing `--ring: #4f8c78`.
+
+## Typography
+
+Sans for Traditional Chinese headings, questions and controls. Headings use size and weight for hierarchy; question text is 21px desktop / 18px narrow, option and explanation text 16px desktop / 15px narrow. Mono is limited to scores and numbered question steps. Preserve all question line breaks and mixed-script content.
+
+## Layout
+
+Main content max width 1200px; practice and summary 940px. Home places filters and primary practice action before compact statistics. Desktop uses a sidebar; at 760px navigation becomes a horizontal row. At 390px the primary practice action must appear in the initial 844px viewport. Native select options may use the browser popup. Document scrolling owns the page; diagrams remain visible.
+
+## Elevation & Depth
+
+Flat cards use borders. Only sticky action surfaces receive a subtle shadow to separate them from scrolling text. Error feedback remains inline, not transient.
+
+## Shapes
+
+Existing 12px containers and 8px controls remain the baseline. Question navigation is rectangular and contains both number and state.
+
+## Components
+
+| Role | Runtime owner | Consumers |
+| --- | --- | --- |
+| Primary | `--primary` → `--color-primary` | Button, active navigation, progress |
+| Background / surface | `--background`, `--card` | page, cards, action bars |
+| Text | `--foreground`, `--muted-foreground` | title, question, supporting copy |
+| Border / focus | `--border`, `--ring` | cards, select, options, keyboard focus |
+| Typography | `--font-sans`, `--font-mono` | prose and data |
+| Scrollbar | `--scrollbar-*` global baseline | all owned scroll regions |
+
+Reuse shared Button, NativeSelect, RadioGroup, Progress and Dialog. The browser owns select popups; Radix owns radio keyboard semantics and modal focus. Selected answers retain distinct outlines. Busy and saved controls cannot activate; labels and icons expose state. Primary answer buttons reserve at least 148px × 48px while saving. The next-question action precedes detailed explanations and remains sticky while reading. Scroll padding and margins reserve 100px above focus targets.
+
+Lucide line icons accompany text. Motion is limited to short state transitions; reduced-motion disables smooth motion. Global visible scrollbars include standard and WebKit styling and forced-colors fallback.
+
+## Do's and Don'ts
+
+- Start with the user's next practice action.
+- Preserve source diagrams, answer confidentiality and server-confirmed saving.
+- Keep action labels consistent across home, practice, summary and review.
+- Do not replace native/Radix behavior with screen-local widgets.
+- Do not change selection, grading, owner isolation or retry semantics for visual effect.
