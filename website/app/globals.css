@@ -219,10 +219,10 @@ button:disabled { cursor: not-allowed; }
 .source-links { display: flex; flex-wrap: wrap; gap: 10px 17px; align-items: center; }
 .source-links > a:not([data-slot=button]) { min-height: 48px; color: var(--primary); display: inline-flex; align-items: center; gap: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .source-links [data-slot=button] { max-width: 100%; height: auto; min-height: 48px; white-space: normal; text-align: left; line-height: 1.7; }
-.reference-dialog { width: calc(100vw - 32px); max-width: 960px; height: min(840px, calc(100dvh - 32px)); grid-template-rows: auto minmax(0, 1fr); padding: 20px; }
+.reference-dialog { width: calc(100vw - 32px); max-width: 960px; max-height: calc(100dvh - 32px); grid-template-rows: auto minmax(0, 1fr); padding: 20px; }
 .reference-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .reference-dialog-heading [data-slot=button] { flex-shrink: 0; width: 48px; height: 48px; }
-.reference-image-scroll { min-height: 0; overflow: auto; overscroll-behavior: contain; border-radius: 8px; }
+.reference-image-scroll { min-height: 160px; max-height: calc(100dvh - 160px); overflow: auto; overscroll-behavior: contain; border-radius: 8px; }
 .reference-image-scroll:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
 .reference-dialog-image { width: 100%; height: auto; }
 .reference-image-status { min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: var(--muted-foreground); text-align: center; }
