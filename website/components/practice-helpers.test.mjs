@@ -29,6 +29,8 @@ test('joins PDF line wraps in prose options but preserves code formatting', () =
   assert.equal(displayOptionText('推播行\n銷策略；'), '推播行銷策略；');
   const code = 'import torch\nfor param in model.parameters():\n    param.requires_grad = False';
   assert.equal(displayOptionText(code), code);
+  assert.equal(displayOptionText('This model\nuses training data.'), 'This model uses training data.');
+  assert.equal(displayOptionText('Select one,\nthen continue.'), 'Select one, then continue.');
 });
 
 const round = (id, grades = [null, null, null], completed = false) => ({ id, mode: 'practice', completed, items: grades.map((grade, index) => ({ question: { id: `q${index}` }, grade })) });
