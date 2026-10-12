@@ -83,14 +83,15 @@ export function Practice() {
           incoming = body.state;
           setConflict(true);
         }
-        throw new Error(body?.error ?? `儲存失敗（${response.status}），請重試。`);
+        setError(typeof body?.error === 'string' ? body.error : `操作未完成（${response.status}），請重試。`);
+        return null;
       }
       const data: PracticeState = await response.json();
       incoming = data;
       setAuthRequired(false);
       return data;
     } catch {
-      setError('尚未確認作答已儲存，請檢查連線後重新送出。');
+      setError('尚未確認操作已完成，請檢查連線後重試。');
       return null;
     } finally {
       if (action.action === 'answer') {
