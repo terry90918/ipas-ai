@@ -218,7 +218,7 @@ button:disabled { cursor: not-allowed; }
 .sources-block { border-top: 1px solid #e5e9df; margin-top: 25px; padding-top: 2px; }
 .source-links { display: flex; flex-wrap: wrap; gap: 10px 17px; align-items: center; }
 .source-links > a:not([data-slot=button]) { min-height: 48px; color: var(--primary); display: inline-flex; align-items: center; gap: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
-.source-links [data-slot=button] { max-width: 100%; height: auto; min-height: 34px; white-space: normal; text-align: left; line-height: 1.7; }
+.source-links [data-slot=button] { max-width: 100%; height: auto; min-height: 48px; white-space: normal; text-align: left; line-height: 1.7; }
 .explanation-card .source-caveat { font-size: 10px; color: var(--muted-foreground); line-height: 1.8; margin-top: 17px; }
 
 
