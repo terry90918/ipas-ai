@@ -2,6 +2,8 @@
 
 Next.js App Router + shadcn/ui。私人 Sites 網站，ChatGPT 登入，Supabase 保存練習紀錄。
 
+產品介紹、題庫範圍與快速開始見 [根目錄 README](../README.md)。此頁補充開發、資料庫與發布方式；貢獻與安全回報分別見 [CONTRIBUTING](../CONTRIBUTING.md) 與 [SECURITY](../.github/SECURITY.md)。
+
 ## 功能
 
 - 14 份試卷、700 題，完整原題圖與逐題解析。
