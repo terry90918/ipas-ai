@@ -1,3 +1,28 @@
+create table public.ipas_source_guard (id integer primary key check(id=1),paused boolean not null default false);
+insert into public.ipas_source_guard(id) values(1);
+alter table public.ipas_source_guard enable row level security;
+revoke all on public.ipas_source_guard from public,anon,authenticated;
+grant select,update on public.ipas_source_guard to service_role;
+create function public.ipas_guard_source_write() returns trigger language plpgsql security invoker set search_path='' as $$
+begin
+ if (select paused from public.ipas_source_guard where id=1) and current_setting('ipas.restore',true) is distinct from 'true' then raise exception 'MIGRATING'; end if;
+ if tg_op='DELETE' then return old; end if;
+ return new;
+end;
+$$;
+do $$ declare name text; begin
+ foreach name in array array['ipas_exams','ipas_questions','ipas_sessions','ipas_attempts','ipas_imports'] loop
+  execute format('create trigger ipas_source_write_guard before insert or update or delete on public.%I for each row execute function public.ipas_guard_source_write()',name);
+ end loop;
+end $$;
+create function public.ipas_source_pause(p_paused boolean) returns void language plpgsql security invoker set search_path='' as $$
+begin
+ lock table public.ipas_exams,public.ipas_questions,public.ipas_sessions,public.ipas_attempts,public.ipas_imports in exclusive mode;
+ update public.ipas_source_guard set paused=p_paused where id=1;
+end;
+$$;
+revoke all on function public.ipas_source_pause(boolean),public.ipas_guard_source_write() from public,anon,authenticated;
+grant execute on function public.ipas_source_pause(boolean),public.ipas_guard_source_write() to service_role;
 create function public.ipas_export_snapshot() returns jsonb language sql stable security invoker set search_path='' as $$
 select jsonb_build_object(
  'ipas_exams',(select coalesce(jsonb_agg(to_jsonb(t) order by id),'[]'::jsonb) from public.ipas_exams t),
@@ -12,6 +37,7 @@ declare name text;
 begin
  lock table public.ipas_exams,public.ipas_questions,public.ipas_sessions,public.ipas_attempts,public.ipas_imports in exclusive mode;
  if public.ipas_export_snapshot() is distinct from p_before then raise exception 'SOURCE_CHANGED'; end if;
+ perform set_config('ipas.restore','true',true);
  if jsonb_typeof(p_snapshot)<>'object' then raise exception 'INVALID_SNAPSHOT'; end if;
  foreach name in array array['ipas_exams','ipas_questions','ipas_sessions','ipas_attempts','ipas_imports'] loop
   if jsonb_typeof(p_snapshot->name) is distinct from 'array' then raise exception 'INVALID_SNAPSHOT'; end if;

@@ -29,6 +29,10 @@ after['ipas_attempts'].append({'ordinal': 2, 'session_id': '00000000-0000-0000-0
 normalizer = subprocess.run(['node', '--experimental-strip-types', '--input-type=module', '-e', "import {supabaseSnapshot} from './website/lib/migration.ts';let s='';for await(const c of process.stdin)s+=c;process.stdout.write(JSON.stringify(supabaseSnapshot(JSON.parse(s))));"], input=json.dumps(after), text=True, capture_output=True, cwd=Path(__file__).resolve().parents[2])
 assert normalizer.returncode == 0, normalizer.stderr
 after = json.loads(normalizer.stdout)
+sql('set role service_role; select ipas_source_pause(true);')
+blocked = sql("select ipas_answer('alice','00000000-0000-0000-0000-000000000001','q2','A');", False)
+assert blocked.returncode != 0 and 'MIGRATING' in blocked.stderr
+assert json.loads(sql('select ipas_export_snapshot();').stdout) == before
 conflict = sql(f'select ipas_restore_snapshot({literal(after)}, {literal({})});', False)
 assert conflict.returncode != 0
 assert json.loads(sql('select ipas_export_snapshot();').stdout) == before

@@ -60,3 +60,10 @@ test('D1 import is idempotent and an invalid batch leaves no partial history',as
  ]));
  assert.equal((await call('ipas_state',{p_owner:'bob'}) as import('../lib/domain.ts').DatabaseState).stats.attempts,0);
 });
+
+test('D1 accepts date-only legacy records using UTC midnight',async t=>{
+ const {call,db}=await setup(t);
+ await call('ipas_import',{p_owner:'alice',p_records:[{sourceKey:'date-only',date:'2026-10-08',questions:[{id:'q1',choice:'A'}]}]});
+ const saved=await db.prepare('SELECT created_at FROM ipas_attempts WHERE owner_id=?').bind('alice').first();
+ assert.equal(saved!.created_at,'2026-10-08T00:00:00.000000Z');
+});

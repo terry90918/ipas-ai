@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, readdirSync, renameSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, readFileSync, mkdirSync, readdirSync, renameSync, rmSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 rmSync('dist', {recursive:true,force:true});
 mkdirSync('dist/server',{recursive:true});
@@ -8,3 +8,8 @@ if(readdirSync('dist/server').includes('worker.js')) renameSync('dist/server/wor
 cpSync('.open-next/assets','dist/client',{recursive:true});
 mkdirSync('dist/.openai',{recursive:true});
 cpSync('.openai/hosting.json','dist/.openai/hosting.json');
+const hosting=JSON.parse(readFileSync('.openai/hosting.json','utf8'));
+if(hosting.d1) {
+ if(!existsSync('drizzle/meta/_journal.json')) throw new Error('D1 migration journal is required.');
+ cpSync('drizzle','dist/.openai/drizzle',{recursive:true});
+}

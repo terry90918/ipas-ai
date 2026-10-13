@@ -9,3 +9,7 @@
 Chrome完成五題：2/5題答對、3題錯題；重新整理後成果持續存在，錯題複習回合含3題。沒有使用正式資料；[隔離回合畫面](../images/d1-local-round.png)。
 
 Sites原生D1建立、schema部署、正式freeze／copy／verify／activate及資料頁面readback仍須完成。GitHub來源與Sites正式來源的相容修補已對齊；私人資料與憑證不在Git中。
+
+PR自動Codex與CodeRabbit完成：部署dist也明確含D1 journal／SQL，缺journal禁止打包；日期型歷史紀錄以UTC午夜匯入；維護秘密使用SHA256 digest與timingSafeEqual。前兩項新增三個實際RED失敗測試；不重新要求完整審查。
+
+補強來源DB fence：source guard在Supabase拒絕insert／update／delete；pause使用exclusive table lock等待前一筆寫入交易完成。真實PG回復測試在source paused下執行：一般作答被拒絕，核對後restore可保留所有微秒／ordinal，匿名依舊拒絕。Node suite目前53項。

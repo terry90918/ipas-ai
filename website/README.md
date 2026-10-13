@@ -141,3 +141,5 @@ Supabase rollback support migration只新增service-role可執行的匯出／還
 本地D1測試使用已固定版本的Miniflare，包含真實SQLite交易、重送、帳號隔離、搬移與freeze。`python3 tests/rollback.py` 僅使用名為 `ipas-d1-rollback-test` 的隔離PostgreSQL容器，不指向正式資料庫。
 
 時間戳以六位小數的UTC文字保留PostgreSQL微秒精度；所有mutating maintenance action以資料庫mutex互斥。正常失敗會釋放mutex；若Worker被終止而留下mutex，保持fail-closed，需先確認該操作已停止再由operator恢復，不能直接開放重疊搬移。正式回復測試也會經過同一時間戳正規化流程。
+
+Supabase過渡支持另外加入source guard：freeze先阻擋應用新寫入，再鎖定來源表並等待既有交易結束，於DB層拒絕後續寫入。D1切換後來源維持鎖定；rollback RPC在已核對的獨立交易內還原，Supabase resume才解除來源guard。

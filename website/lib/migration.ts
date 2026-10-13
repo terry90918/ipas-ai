@@ -120,7 +120,7 @@ export async function migrationStatus(db:D1Database) {
 }
 async function performMigration(db:D1Database,action:string,catalog?:{exams:Exam[];questions:Question[]}) {
  if(action==='status') return migrationStatus(db);
- if(action==='freeze') {await freeze(db);return migrationStatus(db);}
+ if(action==='freeze') {const state=await freeze(db);if(state.backend==='supabase') await rpc('ipas_source_pause',{p_paused:true});return migrationStatus(db);}
  await requireQuiet(db);const current=await control(db);
  if(action==='copy') {
   const source=await supabaseTableSnapshot();
@@ -139,6 +139,7 @@ async function performMigration(db:D1Database,action:string,catalog?:{exams:Exam
  } else if(action==='resume') {
   if(current.backend==='d1'&&current.phase!=='live') migrationError('MIGRATION_STATE');
   if(current.backend==='supabase'&&!['prepared','restored'].includes(current.phase)) migrationError('MIGRATION_STATE');
+  if(current.backend==='supabase') await rpc('ipas_source_pause',{p_paused:false});
   await db.prepare('UPDATE ipas_storage_control SET paused=0,frozen_at=NULL WHERE id=1').run();
  } else if(action==='abort') {
   if(current.backend!=='supabase') migrationError('MIGRATION_STATE');
