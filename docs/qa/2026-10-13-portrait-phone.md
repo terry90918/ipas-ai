@@ -46,3 +46,7 @@
 PR自動Codex審查P2：圖片Dialog須避開安全區。390×400、top47/bottom34時dialog.top13／bottom387，RED；844×390、左右44/bottom21時bottom377>369，RED。延伸共用Dialog CSS定位與最大尺寸，保留reference dialog內部圖片捲動；不重新請求完整審查。
 
 Dialog修正GREEN：390×400／top47/bottom34，稳定後top47、bottom366；844×390／左右44/bottom21，左右均在安全區，bottom368.7≤369。匯入Dialog top94.5/bottom290.5亦在安全區；只開啟／關閉，未匯入資料。修正後重新跑33 tests、lint、TypeScript、Next build，均PASS。
+
+既有GitHub設定自動啟動新commit審查（未另外請求），指出橫向844px超過760px時頁面左右safe-area未套用。實測nav.left10、main.right833>844−44，RED。將左右安全區交由study-app共用shell處理，移除手機main／sidebar重複inset；fixed底部導覽及Dialog仍獨立保留safe-area。
+
+橫向shell修正GREEN：844×390／left44 right44 bottom21，nav.left54、reading.right765、actions.right765≤800，無水平溢出。回到360／390／430px三組原斷言均PASS；33 tests、全專案lint、TypeScript及正式build重跑PASS。

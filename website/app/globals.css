@@ -357,10 +357,11 @@ html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: v
  .practice-actions { margin-top: 12px; }
 }
 
+.study-app { padding-inline: env(safe-area-inset-left) env(safe-area-inset-right); }
 .study-navigation { display: flex; flex-direction: column; gap: 8px; }
 .nav-label-mobile { display: none; }
 @media (max-width: 760px) {
- .sidebar { padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); border: 0; background: transparent; }
+ .sidebar { padding: max(12px, env(safe-area-inset-top)) 16px 0; border: 0; background: transparent; }
  .sidebar-brand { margin: 0; padding: 4px 0; flex-basis: 100%; }
  .sidebar-title { font-size: 18px; }
  .sidebar-subtitle { display: none; }
@@ -369,7 +370,7 @@ html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: v
  .study-navigation .nav-button svg { width: 20px; height: 20px; }
  .nav-label-desktop { display: none; }
  .nav-label-mobile { display: inline; }
- .main-content { padding: 16px max(12px, env(safe-area-inset-right)) calc(92px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+ .main-content { padding: 16px 12px calc(92px + env(safe-area-inset-bottom)); }
  .page-heading h1 { font-size: 26px; margin-block: 4px 8px; }
  .page-heading > div > p:last-child { font-size: 14px; }
  .filter-card [data-slot=card-header], .filter-card [data-slot=card-content] { padding-inline: 16px; }
@@ -377,7 +378,7 @@ html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: v
  .filter-field select { font-size: 16px; }
  .is-practicing .sidebar { display: none; }
  .is-practicing .app-grid { grid-template-rows: minmax(0, 1fr); }
- .screen-practice { padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+ .screen-practice { padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)); }
  .practice-reading { padding: 0 2px; scrollbar-gutter: auto; }
  .practice-topline { margin-bottom: 8px; }
  .round-progress { margin-bottom: 12px; }
