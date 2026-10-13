@@ -1,1 +1,1 @@
-CREATE TRIGGER ipas_complete_answer AFTER INSERT ON ipas_attempts WHEN (SELECT phase FROM ipas_storage_control WHERE id=1) NOT IN ('copying','restoring') BEGIN UPDATE ipas_sessions SET completed=1 WHERE id=NEW.session_id AND (SELECT count(*) FROM ipas_attempts WHERE session_id=NEW.session_id)=json_array_length(question_ids); END;
+CREATE INDEX ipas_questions_exam ON ipas_questions(exam_id);

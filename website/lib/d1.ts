@@ -35,7 +35,22 @@ async function start(db:D1Database,owner:string,mode:unknown,filters:unknown) {
 
 async function answer(db:D1Database,owner:string,args:Record<string,unknown>) {
  if(!['A','B','C','D'].includes(String(args.p_choice))) failure('INVALID_CHOICE');
- await db.prepare("INSERT INTO ipas_attempts(session_id,question_id,owner_id,choice,correct,created_at) VALUES(?,?,?,?,coalesce((SELECT json_extract(body,'$.answer')=? FROM ipas_questions WHERE id=?),0),?)").bind(args.p_session,args.p_question,owner,args.p_choice,args.p_choice,args.p_question,utcTimestamp(new Date().toISOString())).run();
+ const session=await db.prepare('SELECT question_ids,completed FROM ipas_sessions WHERE id=? AND owner_id=?').bind(args.p_session,owner).first<{question_ids:string;completed:number}>();
+ if(!session) failure('SESSION_NOT_FOUND');
+ if(!(JSON.parse(session.question_ids) as string[]).includes(String(args.p_question))) failure('QUESTION_NOT_IN_SESSION');
+ const saved=await db.prepare('SELECT choice FROM ipas_attempts WHERE session_id=? AND question_id=? AND owner_id=?').bind(args.p_session,args.p_question,owner).first<{choice:string}>();
+ if(saved) {if(saved.choice!==args.p_choice) failure('ANSWER_CONFLICT');return null;}
+ if(session.completed) failure('SESSION_COMPLETED');
+ const bank=await db.prepare("SELECT json_extract(body,'$.answer') AS answer FROM ipas_questions WHERE id=?").bind(args.p_question).first<{answer:string}>();
+ if(!bank||!['A','B','C','D'].includes(bank.answer)) failure('CATALOG_NOT_READY');
+ const results=await db.batch<{choice:string}>([
+  db.prepare("INSERT INTO ipas_attempts(session_id,question_id,owner_id,choice,correct,created_at) SELECT ?,?,?,?,json_extract(body,'$.answer')=?,? FROM ipas_questions WHERE id=? AND EXISTS(SELECT 1 FROM ipas_sessions WHERE id=? AND owner_id=? AND completed=0) ON CONFLICT(session_id,question_id) DO NOTHING").bind(args.p_session,args.p_question,owner,args.p_choice,args.p_choice,utcTimestamp(new Date().toISOString()),args.p_question,args.p_session,owner),
+  db.prepare('UPDATE ipas_sessions SET completed=1 WHERE id=? AND owner_id=? AND (SELECT count(*) FROM ipas_attempts WHERE session_id=? AND owner_id=?)=json_array_length(question_ids)').bind(args.p_session,owner,args.p_session,owner),
+  db.prepare('SELECT choice FROM ipas_attempts WHERE session_id=? AND question_id=? AND owner_id=?').bind(args.p_session,args.p_question,owner),
+ ]);
+ const actual=results[2].results[0];
+ if(!actual) failure('SESSION_COMPLETED');
+ if(actual.choice!==args.p_choice) failure('ANSWER_CONFLICT');
  return null;
 }
 
@@ -50,6 +65,9 @@ async function importLegacy(db:D1Database,owner:string,raw:unknown) {
   for(const q of entry.questions) if(typeof q.id!=='string'||!['A','B','C','D'].includes(q.choice)) failure('INVALID_CHOICE');
   return {...entry,id:crypto.randomUUID(),date:utcTimestamp(entry.date)};
  });
+ const ids=[...new Set(entries.flatMap(entry=>entry.questions.map(q=>q.id)))];
+ const ready=await db.prepare("SELECT count(*) AS count FROM ipas_questions WHERE id IN (SELECT value FROM json_each(?)) AND json_extract(body,'$.answer') IN ('A','B','C','D')").bind(JSON.stringify(ids)).first<{count:number}>();
+ if(ready?.count!==ids.length) failure('CATALOG_NOT_READY');
  const data=JSON.stringify(entries);
  await db.batch([
   db.prepare("INSERT INTO ipas_sessions(id,owner_id,mode,question_ids,completed,source_key,created_at) SELECT json_extract(e.value,'$.id'),?,'import',(SELECT json_group_array(json_extract(q.value,'$.id')) FROM json_each(e.value,'$.questions') q),1,json_extract(e.value,'$.sourceKey'),json_extract(e.value,'$.date') FROM json_each(?) e WHERE NOT EXISTS(SELECT 1 FROM ipas_imports WHERE owner_id=?) ON CONFLICT DO NOTHING").bind(owner,data,owner),
