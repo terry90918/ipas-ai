@@ -356,3 +356,40 @@ html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: v
  .screen-practice { padding-top: 16px; }
  .practice-actions { margin-top: 12px; }
 }
+
+.study-navigation { display: flex; flex-direction: column; gap: 8px; }
+.nav-label-mobile { display: none; }
+@media (max-width: 760px) {
+ .sidebar { padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); border: 0; background: transparent; }
+ .sidebar-brand { margin: 0; padding: 4px 0; flex-basis: 100%; }
+ .sidebar-title { font-size: 18px; }
+ .sidebar-subtitle { display: none; }
+ .study-navigation { position: fixed; inset-inline: 0; bottom: 0; z-index: 20; flex-direction: row; gap: 4px; padding: 8px max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); background: var(--card); border-top: 1px solid var(--border); }
+ .study-navigation .nav-button { flex: 1; min-width: 0; min-height: 56px; padding: 4px; flex-direction: column; gap: 4px; font-size: 12px; line-height: 1.4; }
+ .study-navigation .nav-button svg { width: 20px; height: 20px; }
+ .nav-label-desktop { display: none; }
+ .nav-label-mobile { display: inline; }
+ .main-content { padding: 16px max(12px, env(safe-area-inset-right)) calc(92px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+ .page-heading h1 { font-size: 26px; margin-block: 4px 8px; }
+ .page-heading > div > p:last-child { font-size: 14px; }
+ .filter-card [data-slot=card-header], .filter-card [data-slot=card-content] { padding-inline: 16px; }
+ .filter-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+ .filter-field select { font-size: 16px; }
+ .is-practicing .sidebar { display: none; }
+ .is-practicing .app-grid { grid-template-rows: minmax(0, 1fr); }
+ .screen-practice { padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); }
+ .practice-reading { padding: 0 2px; scrollbar-gutter: auto; }
+ .practice-topline { margin-bottom: 8px; }
+ .round-progress { margin-bottom: 12px; }
+ .question-steps { gap: 6px; margin-top: 8px; }
+ .question-steps button { height: 48px; padding-inline: 4px; }
+ .question-card { padding-block: 16px; gap: 16px; }
+ .question-card [data-slot=card-header], .question-card [data-slot=card-content], .explanation-card [data-slot=card-header], .explanation-card [data-slot=card-content] { padding-inline: 14px; }
+ .answer-option { padding: 14px; gap: 8px; }
+ .option-text, .explanation-card p, .review-stem { font-size: 16px; }
+ .practice-actions { flex-direction: column; align-items: stretch; gap: 8px; min-height: 0; margin-top: 8px; padding: 10px 12px; }
+ .practice-actions > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+ .practice-actions strong { font-size: 13px; }
+ .practice-actions p { margin: 0; font-size: 12px; }
+ .practice-actions button { width: 100%; min-height: 48px; }
+}
