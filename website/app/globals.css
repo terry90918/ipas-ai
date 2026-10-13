@@ -219,7 +219,7 @@ button:disabled { cursor: not-allowed; }
 .source-links { display: flex; flex-wrap: wrap; gap: 10px 17px; align-items: center; }
 .source-links > a:not([data-slot=button]) { min-height: 48px; color: var(--primary); display: inline-flex; align-items: center; gap: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .source-links [data-slot=button] { max-width: 100%; height: auto; min-height: 48px; white-space: normal; text-align: left; line-height: 1.7; }
-.reference-dialog { width: calc(100vw - 32px); max-width: 960px; max-height: calc(100dvh - 32px); grid-template-rows: auto minmax(0, 1fr); padding: 20px; }
+.reference-dialog { --dialog-max-width: 960px; width: calc(100vw - var(--dialog-left) - var(--dialog-right)); grid-template-rows: auto minmax(0, 1fr); padding: 20px; }
 .reference-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .reference-dialog-heading [data-slot=button] { flex-shrink: 0; width: 48px; height: 48px; }
 .reference-image-scroll { min-height: 160px; max-height: calc(100dvh - 160px); overflow: auto; overscroll-behavior: contain; border-radius: 8px; }
@@ -392,4 +392,16 @@ html { scrollbar-gutter: stable; scroll-padding-block: 100px; scrollbar-color: v
  .practice-actions strong { font-size: 13px; }
  .practice-actions p { margin: 0; font-size: 12px; }
  .practice-actions button { width: 100%; min-height: 48px; }
+}
+
+[data-slot=dialog-content] {
+ --dialog-top: max(16px, env(safe-area-inset-top));
+ --dialog-bottom: max(16px, env(safe-area-inset-bottom));
+ --dialog-left: max(16px, env(safe-area-inset-left));
+ --dialog-right: max(16px, env(safe-area-inset-right));
+ top: calc((100dvh + var(--dialog-top) - var(--dialog-bottom)) / 2);
+ left: calc((100vw + var(--dialog-left) - var(--dialog-right)) / 2);
+ max-width: min(var(--dialog-max-width, 32rem), calc(100vw - var(--dialog-left) - var(--dialog-right)));
+ max-height: calc(100dvh - var(--dialog-top) - var(--dialog-bottom));
+ overflow-y: auto;
 }

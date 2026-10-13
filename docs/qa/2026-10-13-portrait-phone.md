@@ -42,3 +42,7 @@
 檢查：33/33 Node tests；全專案lint、TypeScript、Next正式建置均PASS。
 
 畫面：[手機答題](../images/portrait-practice.png)、[手機總覽](../images/portrait-overview.png)。
+
+PR自動Codex審查P2：圖片Dialog須避開安全區。390×400、top47/bottom34時dialog.top13／bottom387，RED；844×390、左右44/bottom21時bottom377>369，RED。延伸共用Dialog CSS定位與最大尺寸，保留reference dialog內部圖片捲動；不重新請求完整審查。
+
+Dialog修正GREEN：390×400／top47/bottom34，稳定後top47、bottom366；844×390／左右44/bottom21，左右均在安全區，bottom368.7≤369。匯入Dialog top94.5/bottom290.5亦在安全區；只開啟／關閉，未匯入資料。修正後重新跑33 tests、lint、TypeScript、Next build，均PASS。

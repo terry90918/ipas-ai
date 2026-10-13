@@ -46,3 +46,5 @@ Narrow layouts at 360px, 390px and 430px must expose the start action on the ini
 401 offers Site sign-in; invalid requests remain server rejected. Config/network/5xx errors show inline recovery without claiming saving. A 409 presents the refreshed server round. UI never creates an optimistic score or a local-only saved claim. Existing domain and concurrency tests own these invariants.
 
 Image previews preserve the current answer draft, contain image scrolling within the viewport, return focus to the trigger on close, and provide loading and retry states. Preview and close controls are at least 48px. Supplementary diagrams use the same preview; external sources and PDFs remain links.
+
+All Dialog surfaces use safe-area-bounded centering and dimensions under viewport-fit=cover. Standard and image-preview variants preserve the same focus/close semantics; short viewports retain access to dialog controls through scrolling.

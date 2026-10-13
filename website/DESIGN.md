@@ -81,4 +81,4 @@ Lucide line icons accompany text. Motion is limited to short state transitions; 
 - Do not replace native/Radix behavior with screen-local widgets.
 - Do not change selection, grading, owner isolation or retry semantics for visual effect.
 
-Image previews preserve the current answer draft, contain image scrolling within the viewport, return focus to the trigger on close, and provide loading and retry states. Preview and close controls are at least 48px. Supplementary diagrams use the same preview; external sources and PDFs remain links.
+Shared Dialog surfaces center within safe-area bounds, clamp width/height and retain scrolling for short viewports; image previews use a 960px maximum width while standard dialogs remain 32rem. Image previews preserve the current answer draft, contain image scrolling within the viewport, return focus to the trigger on close, and provide loading and retry states. Preview and close controls are at least 48px. Supplementary diagrams use the same preview; external sources and PDFs remain links.
