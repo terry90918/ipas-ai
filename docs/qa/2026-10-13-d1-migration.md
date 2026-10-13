@@ -15,3 +15,5 @@ PR自動Codex與CodeRabbit完成：部署dist也明確含D1 journal／SQL，缺j
 補強來源DB fence：source guard在Supabase拒絕insert／update／delete；pause使用exclusive table lock等待前一筆寫入交易完成。真實PG回復測試在source paused下執行：一般作答被拒絕，核對後restore可保留所有微秒／ordinal，匿名依舊拒絕。Node suite目前53項。
 
 過渡發布version17未成功，SQLITE incomplete input；正式站仍version16、Supabase source paused=false、6作答不變。新增真實D1.exec測試重現0011多行trigger第一行不完整；僅修復失敗／未套用的0011及0012，前面成功SQL與journal timestamp保持不變。
+
+重新發布v18仍在複合trigger SQL解析失敗，正式站仍v16，沒有freeze或搬移。改為唯一限制／外鍵及原子answer batch；0011／0012這兩個未套用migration改為一般索引SQL，所有已套用前項與journal timestamps保持不變。Adapter執行membership／owner／official-key驗證；並行insert使用conditional INSERT ON CONFLICT，batch內完成session與讀回實際choice，維持重送／衝突語意。
