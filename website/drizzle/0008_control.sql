@@ -1,0 +1,1 @@
+CREATE TABLE ipas_storage_control (id INTEGER PRIMARY KEY CHECK(id=1), backend TEXT NOT NULL DEFAULT 'supabase' CHECK(backend IN ('supabase','d1')), paused INTEGER NOT NULL DEFAULT 0 CHECK(paused IN (0,1)), phase TEXT NOT NULL DEFAULT 'prepared', frozen_at TEXT, verified_hash TEXT, verified_at TEXT);

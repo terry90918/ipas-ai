@@ -1,0 +1,1 @@
+CREATE TABLE ipas_questions (id TEXT PRIMARY KEY, exam_id TEXT NOT NULL REFERENCES ipas_exams(id), number INTEGER NOT NULL CHECK(number>0), body TEXT NOT NULL CHECK(json_valid(body) AND json_extract(body,'$.answer') IN ('A','B','C','D')), UNIQUE(exam_id,number));
