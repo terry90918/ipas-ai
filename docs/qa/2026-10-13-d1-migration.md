@@ -13,3 +13,5 @@ Sites原生D1建立、schema部署、正式freeze／copy／verify／activate及�
 PR自動Codex與CodeRabbit完成：部署dist也明確含D1 journal／SQL，缺journal禁止打包；日期型歷史紀錄以UTC午夜匯入；維護秘密使用SHA256 digest與timingSafeEqual。前兩項新增三個實際RED失敗測試；不重新要求完整審查。
 
 補強來源DB fence：source guard在Supabase拒絕insert／update／delete；pause使用exclusive table lock等待前一筆寫入交易完成。真實PG回復測試在source paused下執行：一般作答被拒絕，核對後restore可保留所有微秒／ordinal，匿名依舊拒絕。Node suite目前53項。
+
+過渡發布version17未成功，SQLITE incomplete input；正式站仍version16、Supabase source paused=false、6作答不變。新增真實D1.exec測試重現0011多行trigger第一行不完整；僅修復失敗／未套用的0011及0012，前面成功SQL與journal timestamp保持不變。
