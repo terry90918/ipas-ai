@@ -125,3 +125,21 @@ docker network rm ipas-practice-qa
 ## Sites 發布
 
 `build:sites` 透過 OpenNext 將真正的 Next.js 建置為 Worker，輸出 `dist/server/index.js` 與 `dist/client/`。Sites 身分保存在 `.openai/hosting.json`。沿用同一 Site ID，透過 Sites source helper 推送、封裝及私人發布。部署成功與實際登入／跨裝置同步驗證分別記錄。
+
+## Sites D1 遷移
+
+Sites manifest 的 `d1: "DB"` 由平台建立原生資料庫；`drizzle/meta/_journal.json` 與單一陳述式SQL檔由發布套件帶入。維持Next.js／OpenNext，不使用額外ORM。正式Site的身份相容與OpenNext preview-props修補也納入GitHub來源。
+
+控制表 `ipas_storage_control` 決定目前讀寫來源，`ipas_write_leases` 追蹤在途寫入。預設仍使用Supabase；D1錯誤不會自動fallback。讀取持續可用，暫停寫入回傳503並保留答案草稿。
+
+維護API `/api/migration` 必須先設定秘密 `IPAS_MIGRATION_KEY`、`IPAS_MIGRATION_ENABLED=true` 與既有 `PRIVATE_OWNER_ID`。私人Site服務存取和這個維護秘密是兩道獨立界線。簽入者只能是配置的owner；服務存取可使用維護秘密，但不能作為一般practice身份。只接受固定action，無任意SQL或任意來源URL。
+
+操作順序：status → freeze → 等待inFlight=0 → copy → verify → activate → 正式讀回 → resume。activate另要求暫停至少30秒；每次verify重新讀取來源，核對五表hash與每位owner的domain state。公開題庫必須與已版本控制catalog一致。freeze之後若需要取消：abort → resume。D1啟用之後需要回復：freeze → rollback → resume；rollback保留D1新增資料的ID／時間／ordinal並先同步回Supabase，再核對狀態。完成後關閉維護模式。
+
+Supabase rollback support migration只新增service-role可執行的匯出／還原RPC及sequence修復權限；匿名與authenticated均不可執行。Supabase資料不刪除，私人歷史不加入Git。只有有限count／hash摘要可以進交付記錄。
+
+本地D1測試使用已固定版本的Miniflare，包含真實SQLite交易、重送、帳號隔離、搬移與freeze。`python3 tests/rollback.py` 僅使用名為 `ipas-d1-rollback-test` 的隔離PostgreSQL容器，不指向正式資料庫。
+
+時間戳以六位小數的UTC文字保留PostgreSQL微秒精度；所有mutating maintenance action以資料庫mutex互斥。正常失敗會釋放mutex；若Worker被終止而留下mutex，保持fail-closed，需先確認該操作已停止再由operator恢復，不能直接開放重疊搬移。正式回復測試也會經過同一時間戳正規化流程。
+
+Supabase過渡支持另外加入source guard：freeze先阻擋應用新寫入，再鎖定來源表並等待既有交易結束，於DB層拒絕後續寫入。D1切換後來源維持鎖定；rollback RPC在已核對的獨立交易內還原，Supabase resume才解除來源guard。
