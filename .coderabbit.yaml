@@ -1,5 +1,7 @@
 inheritance: true
 reviews:
+  path_filters:
+    - "**/package-lock.json"
   auto_review:
     enabled: true
     auto_incremental_review: false
